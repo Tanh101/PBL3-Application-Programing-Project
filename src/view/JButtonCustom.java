@@ -5,6 +5,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
  */
 public class JButtonCustom extends JButton {
     public JButtonCustom(){
+        this.setCursor(new Cursor(12));
         setColor(Color.WHITE);
         colorOver = new Color(197, 250, 160);
         colorClick = new Color(152, 184, 144);
@@ -111,6 +113,7 @@ public class JButtonCustom extends JButton {
     private Color colorClick;
     private Color borderColor;
     private int radius = 0;
+//    private Cursor = new Cursor(HARD CURSOR);
 
     @Override
     public void paint(Graphics g) {

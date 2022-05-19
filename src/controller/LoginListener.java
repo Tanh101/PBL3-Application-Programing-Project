@@ -4,50 +4,91 @@
  */
 package controller;
 
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import com.sun.jdi.connect.spi.Connection;
-import java.sql.SQLException;
 import java.sql.DriverManager;
-
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import com.microsoft.sqlserver.jdbc.SQLServerStatementColumnEncryptionSetting;
-//import java.beans.Statement;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import model.Account.Account;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+public class LoginListener extends ConnectDatabase {
 
-
-/**
- *
- * @author ADMIN
- */
-public class ConnectLogin {
-//    String url = "jdbc"
-
-    public static void main(String[] args) {
-                String server = "DESKTOP-B0D0J2Q\\SQLEXPRESS";
-		String user = "sa";
-		String password = "606902";
-		String db = "QUANLY";
-		int port = 1433;
-		SQLServerDataSource ds = new SQLServerDataSource();
-		ds.setUser(user);
-		ds.setServerName(server);
-		ds.setPassword(password);
-		ds.setDatabaseName(db);
-		ds.setPortNumber(port);
-		try {
-			java.sql.Connection conn = ds.getConnection();
-                        java.sql.Statement sttm = conn.createStatement();
-                        String sql = "SELECT * FROM TAIKHOAN ";
-                        var rs = sttm.executeQuery(sql);
-                        while (rs.next()){
-                            System.out.println(rs.getString("ID_NVQL") + rs.getString("PASSWORD") );
-                        }
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    }
+    private static ArrayList<Account> list = new ArrayList<Account>();
     
 
-   
+    public LoginListener() {
+//        this.list = new ArrayList<Account>();
+    }
 
+    public boolean checkAccount(String acc, String pass) throws SQLException {
+        if (conn != null) {
+            Account ac = null;
+            String sql = "SELECT * FROM TAIKHOAN WHERE ID_NVQL=? AND PASSWORD=?";
+            PreparedStatement pre = conn.prepareStatement(sql);
+            int account;
+            try {
+                account = Integer.parseInt(acc);
+                pre.setInt(1, Integer.parseInt(acc));
+                pre.setString(2, pass);
+                ResultSet rs = pre.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean checkAccountUser(String acc, String pass) throws SQLException {
+        Account ac = null;
+        String sql = "SELECT * FROM TAIKHOANUSER WHERE UserName=? AND PASSWORD=?";
+        PreparedStatement pre = conn.prepareStatement(sql);
+        try {
+            pre.setString(1, acc);
+            pre.setString(2, pass);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return false;
+    }
+
+    public String getName(String UserName) throws SQLException {
+        String sql = "SELECT HoTen From CANHAN\n"
+                + "INNER JOIN TAIKHOANUSER\n"
+                + "ON CANHAN.UserName = TAIKHOANUSER.UserName\n"
+                + "WHERE TAIKHOANUSER.UserName = ?";
+        PreparedStatement pre = conn.prepareStatement(sql);
+        try {
+            pre.setString(1, UserName);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+    }
+    public String getNameStaff(String UserName) throws SQLException {
+        String sql = "SELECT HoTen From CANBONHANVIEN WHERE ID_CBNV=?";
+        PreparedStatement pre = conn.prepareStatement(sql);
+        try {
+            pre.setString(1, UserName);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+    }
 }

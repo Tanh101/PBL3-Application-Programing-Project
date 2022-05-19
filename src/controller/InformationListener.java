@@ -4,30 +4,46 @@
  */
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import view.Information;
-import view.Login;
-import view.Main;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import model.Notification;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Vector;
 
 /**
  *
  * @author ADMIN
  */
-public class InforListener implements ActionListener {
-    private Main main;
-    private Information infor;
+public class InformationListener extends ConnectDatabase {
+    
+    public Vector<Notification> getListNotification() {
+        Vector<Notification> demo = new Vector<Notification>();
 
-    public InforListener(Main aThis) {
-        this.main = aThis;
-    }
-    
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("Giới Thiệu")){
-            main.setVisible(false);
-            new Information().setVisible(true);
+        String sql = "SELECT MaThongBao, TenThongBao,NoiDungThongBao FROM THONGBAO";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet res = ps.executeQuery();
+            while (res.next()) {
+                demo.add(new Notification(res.getString("MaThongBao"), res.getString("TenThongBao"), res.getString("NoiDungThongBao")));
+            }
+        } catch (Exception e) {
+            
         }
+        return demo;
     }
     
+    public Vector<String> getListContent() {
+        Vector<String> demo = new Vector<String>();
+        Vector<Notification> list = getListNotification();
+        for(Notification notifi : list){
+            demo.add(notifi.getNameNotification());
+        }
+        
+        return demo;
+    }
+    
+
 }
