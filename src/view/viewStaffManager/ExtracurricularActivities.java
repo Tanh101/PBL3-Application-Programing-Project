@@ -101,21 +101,21 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         jtbEquipment.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbEquipment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Hoạt Động", "Tên Hoạt Động", "Địa Điểm", "Thời Gian Bắt Đầu", "Thời Gian Kết Thúc"
+                "Mã Hoạt Động", "Tên Hoạt Động", "Địa Điểm", "Số cán bộ tham gia", "Số trẻ tham gia", "Thời Gian Bắt Đầu", "Thời Gian Kết Thúc"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -136,7 +136,7 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbEquipment);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 1100, 270));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1100, 300));
 
         jtxtName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -316,7 +316,7 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 650));
 
-        setSize(new java.awt.Dimension(1105, 650));
+        setSize(new java.awt.Dimension(1101, 650));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCustom1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCustom1MouseClicked
