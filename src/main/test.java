@@ -34,7 +34,9 @@ public class test {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainPage().setVisible(true);
+                System.out.println("dddfdfdf");
             }
         });
     }
+//    êrerere
 }
