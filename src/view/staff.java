@@ -1,14 +1,22 @@
 package view;
 
+import controller.AdminListener;
 import controller.SendID_NVQL;
 import controller.StaffManagerListener;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Image;
+import java.util.Vector;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import model.managementStaff;
+import view.viewStaffManager.ExtracurricularActivities;
+import view.viewStaffManager.CharityActivityManager;
 import view.viewStaffManager.ChildrenManager;
 import view.viewStaffManager.EquipmentManager;
 import view.viewStaffManager.StaffManager;
@@ -26,7 +34,10 @@ public class staff extends javax.swing.JFrame {
     StaffManager staffManager = new StaffManager();
     EquipmentManager equipmentManager = new EquipmentManager();
     ChildrenManager childManager = new ChildrenManager();
+    ExtracurricularActivities extracManager = new ExtracurricularActivities();
+    CharityActivityManager charityManager = new CharityActivityManager();
     Login log = new Login();
+    AdminListener admin = new AdminListener();
 
     //get id to jlabel StaffName
     String ID_NVQL;
@@ -47,6 +58,8 @@ public class staff extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
         setMenuColor(jlb1);
+        jbtExtracurricular.setVisible(false);
+        jbtCharity.setVisible(false);
     }
 
     public void setMenuColor(JLabel choose) {
@@ -64,12 +77,23 @@ public class staff extends javax.swing.JFrame {
     }
 
     public void setShowMenu(JFrame jf) {
+        jbtExtracurricular.setVisible(false);
+        jbtCharity.setVisible(false);
         staffManager.setVisible(false);
         childManager.setVisible(false);
         equipmentManager.setVisible(false);
+        extracManager.setVisible(false);
+        charityManager.setVisible(false);
         jf.setVisible(true);
     }
-
+    
+    public ImageIcon ResizeImage(String ImagePath) {
+        ImageIcon myImage = new ImageIcon(ImagePath);
+        Image img = myImage.getImage();
+        Image newImage = img.getScaledInstance(jlbIcon.getWidth(), jlbIcon.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImage);
+        return image;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -95,16 +119,18 @@ public class staff extends javax.swing.JFrame {
         jlbNameStaff = new javax.swing.JLabel();
         jlbIcon = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jlb9 = new javax.swing.JLabel();
-        jlb1 = new javax.swing.JLabel();
-        jlb2 = new javax.swing.JLabel();
-        jlb3 = new javax.swing.JLabel();
-        jlb4 = new javax.swing.JLabel();
-        jlb5 = new javax.swing.JLabel();
-        jlb6 = new javax.swing.JLabel();
-        jlb7 = new javax.swing.JLabel();
         jlb8 = new javax.swing.JLabel();
+        jlb9 = new javax.swing.JLabel();
+        jlb7 = new javax.swing.JLabel();
+        jlb6 = new javax.swing.JLabel();
+        jlb5 = new javax.swing.JLabel();
+        jlb4 = new javax.swing.JLabel();
+        jlb3 = new javax.swing.JLabel();
+        jlb2 = new javax.swing.JLabel();
+        jlb1 = new javax.swing.JLabel();
         jbtLogout = new juttonCustom.JButtonCustom();
+        jbtCharity = new juttonCustom.JButtonCustom();
+        jbtExtracurricular = new juttonCustom.JButtonCustom();
 
         jLabel4.setText("jLabel4");
 
@@ -169,6 +195,9 @@ public class staff extends javax.swing.JFrame {
         jbtIntroductor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jbtIntroductor.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jbtIntroductor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtIntroductorMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jbtIntroductorMouseEntered(evt);
             }
@@ -190,6 +219,9 @@ public class staff extends javax.swing.JFrame {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jbtActivityMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jbtActivityMouseExited(evt);
             }
         });
 
@@ -261,7 +293,7 @@ public class staff extends javax.swing.JFrame {
         });
 
         jbtFeedback.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtFeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ảnh/icons8_feedback_26px.png"))); // NOI18N
+        jbtFeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/feedback_48px.png"))); // NOI18N
         jbtFeedback.setText("     Quản lý phản hồi      ");
         jbtFeedback.setAutoscrolls(true);
         jbtFeedback.setBoderColor(new java.awt.Color(255, 255, 255));
@@ -324,35 +356,34 @@ public class staff extends javax.swing.JFrame {
         jpnName.setLayout(jpnNameLayout);
         jpnNameLayout.setHorizontalGroup(
             jpnNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jbtActivity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jbtEquipment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jbtStaffManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jpnNameLayout.createSequentialGroup()
-                .addComponent(jbtIntroductor, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jpnNameLayout.createSequentialGroup()
                 .addGroup(jpnNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbtFeedback, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtCacular, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtChildManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtSendNotification, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtAdopters, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbtAdopters, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jpnNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addComponent(jbtActivity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbtIntroductor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
         );
         jpnNameLayout.setVerticalGroup(
             jpnNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnNameLayout.createSequentialGroup()
                 .addGroup(jpnNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnNameLayout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(jbtActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpnNameLayout.createSequentialGroup()
                         .addGap(100, 100, 100)
                         .addComponent(jbtEquipment, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jbtStaffManager, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpnNameLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(jbtChildManager, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbtChildManager, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnNameLayout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(jbtActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(1, 1, 1)
                 .addComponent(jbtIntroductor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -374,8 +405,10 @@ public class staff extends javax.swing.JFrame {
         jlbNameStaff.setForeground(new java.awt.Color(255, 255, 255));
         jlbNameStaff.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jlbIcon.setBackground(new java.awt.Color(204, 204, 204));
         jlbIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbIcon.setToolTipText("");
+        jlbIcon.setOpaque(true);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -400,74 +433,75 @@ public class staff extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        jlb8.setBackground(new java.awt.Color(102, 204, 255));
+        jlb8.setOpaque(true);
+
         jlb9.setBackground(new java.awt.Color(102, 204, 255));
         jlb9.setOpaque(true);
-
-        jlb1.setBackground(new java.awt.Color(102, 204, 255));
-        jlb1.setOpaque(true);
-
-        jlb2.setBackground(new java.awt.Color(102, 204, 255));
-        jlb2.setOpaque(true);
-
-        jlb3.setBackground(new java.awt.Color(102, 204, 255));
-        jlb3.setOpaque(true);
-
-        jlb4.setBackground(new java.awt.Color(102, 204, 255));
-        jlb4.setOpaque(true);
-
-        jlb5.setBackground(new java.awt.Color(102, 204, 255));
-        jlb5.setOpaque(true);
-
-        jlb6.setBackground(new java.awt.Color(102, 204, 255));
-        jlb6.setOpaque(true);
 
         jlb7.setBackground(new java.awt.Color(102, 204, 255));
         jlb7.setOpaque(true);
 
-        jlb8.setBackground(new java.awt.Color(102, 204, 255));
-        jlb8.setOpaque(true);
+        jlb6.setBackground(new java.awt.Color(102, 204, 255));
+        jlb6.setOpaque(true);
+
+        jlb5.setBackground(new java.awt.Color(102, 204, 255));
+        jlb5.setOpaque(true);
+
+        jlb4.setBackground(new java.awt.Color(102, 204, 255));
+        jlb4.setOpaque(true);
+
+        jlb3.setBackground(new java.awt.Color(102, 204, 255));
+        jlb3.setOpaque(true);
+
+        jlb2.setBackground(new java.awt.Color(102, 204, 255));
+        jlb2.setOpaque(true);
+
+        jlb1.setBackground(new java.awt.Color(102, 204, 255));
+        jlb1.setOpaque(true);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlb8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jlb1, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
-                    .addComponent(jlb2, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
-                    .addComponent(jlb3, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
-                    .addComponent(jlb4, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
-                    .addComponent(jlb6, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
-                    .addComponent(jlb7, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
-                    .addComponent(jlb9, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
-                    .addComponent(jlb5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jlb7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlb3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlb8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
+                    .addComponent(jlb9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
+                    .addComponent(jlb6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
+                    .addComponent(jlb5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
+                    .addComponent(jlb4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
+                    .addComponent(jlb2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
+                    .addComponent(jlb1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jlb1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jlb2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jlb3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jlb4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jlb5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(jlb1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlb6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jlb7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlb2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlb8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlb3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlb4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jlb9, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlb5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlb6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jlb7, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlb8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlb9, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 10, 540));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 10, 520));
 
         jbtLogout.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jbtLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sign_out_24px.png"))); // NOI18N
@@ -485,11 +519,53 @@ public class staff extends javax.swing.JFrame {
         });
         jPanel1.add(jbtLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 271, 44));
 
+        jbtCharity.setBackground(new java.awt.Color(204, 255, 255));
+        jbtCharity.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jbtCharity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/handshake_heart_48px.png"))); // NOI18N
+        jbtCharity.setText("Hoạt động từ thiện");
+        jbtCharity.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtCharity.setColoOver(new java.awt.Color(255, 255, 0));
+        jbtCharity.setColorClick(new java.awt.Color(102, 255, 51));
+        jbtCharity.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
+        jbtCharity.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jbtCharity.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbtCharity.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jbtCharity.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtCharityMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jbtCharityMouseEntered(evt);
+            }
+        });
+        jPanel1.add(jbtCharity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 230, 50));
+
+        jbtExtracurricular.setBackground(new java.awt.Color(204, 255, 255));
+        jbtExtracurricular.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jbtExtracurricular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pullups_50px.png"))); // NOI18N
+        jbtExtracurricular.setText("Hoạt động ngoại khoá");
+        jbtExtracurricular.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtExtracurricular.setColoOver(new java.awt.Color(255, 255, 0));
+        jbtExtracurricular.setColorClick(new java.awt.Color(102, 255, 51));
+        jbtExtracurricular.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
+        jbtExtracurricular.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jbtExtracurricular.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbtExtracurricular.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jbtExtracurricular.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtExtracurricularMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jbtExtracurricularMouseEntered(evt);
+            }
+        });
+        jPanel1.add(jbtExtracurricular, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 230, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1130, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -552,11 +628,13 @@ public class staff extends javax.swing.JFrame {
         setMenuColor(jlb2);
     }//GEN-LAST:event_jbtChildManagerMouseClicked
 
-    // Open new JFrame when thecorresponding button is clicked
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         setShowMenu(staffManager);
         staffManager.setID_NVQL(ID_NVQL);
-        jlbNameStaff.setText(ID_NVQL + "-" + staffManager.getNameNVQL());
+        Vector<managementStaff> list = new Vector<>();
+        list = admin.FindID(Integer.parseInt(ID_NVQL));
+        jlbIcon.setIcon(ResizeImage("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\StaffManagement\\" + list.get(0).getImage()));
+        jlbNameStaff.setText(staffManager.getNameNVQL());
     }//GEN-LAST:event_formWindowOpened
 
     private void jbtEquipmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtEquipmentMouseClicked
@@ -580,6 +658,7 @@ public class staff extends javax.swing.JFrame {
     private void jbtActivityMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtActivityMouseEntered
         jbtActivity.setCursor(new Cursor(HAND_CURSOR) {
         });
+        
     }//GEN-LAST:event_jbtActivityMouseEntered
 
     private void jbtLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLogoutActionPerformed
@@ -587,15 +666,18 @@ public class staff extends javax.swing.JFrame {
         });
         this.setVisible(false);
         log.setVisible(true);
+        
 
     }//GEN-LAST:event_jbtLogoutActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        staffManager.setVisible(false);
+        setShowMenu(null);
     }//GEN-LAST:event_formWindowClosed
 
     private void jbtActivityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtActivityMouseClicked
-
+        jbtExtracurricular.setVisible(true);
+        jbtCharity.setVisible(true);
+        setMenuColor(jlb4);
     }//GEN-LAST:event_jbtActivityMouseClicked
 
     private void jbtIntroductorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtIntroductorMouseEntered
@@ -630,6 +712,33 @@ public class staff extends javax.swing.JFrame {
         jbtSendNotification.setCursor(new Cursor(HAND_CURSOR) {
         }); 
     }//GEN-LAST:event_jbtSendNotificationMouseEntered
+
+    private void jbtIntroductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtIntroductorMouseClicked
+       setMenuColor(jlb5);
+    }//GEN-LAST:event_jbtIntroductorMouseClicked
+
+    private void jbtCharityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtCharityMouseClicked
+        setShowMenu(charityManager);
+    }//GEN-LAST:event_jbtCharityMouseClicked
+
+    private void jbtCharityMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtCharityMouseEntered
+        jbtSendNotification.setCursor(new Cursor(HAND_CURSOR) {
+        });
+    }//GEN-LAST:event_jbtCharityMouseEntered
+
+    private void jbtExtracurricularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtExtracurricularMouseClicked
+        setShowMenu(extracManager);
+        
+    }//GEN-LAST:event_jbtExtracurricularMouseClicked
+
+    private void jbtExtracurricularMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtExtracurricularMouseEntered
+        jbtSendNotification.setCursor(new Cursor(HAND_CURSOR) {
+        });
+    }//GEN-LAST:event_jbtExtracurricularMouseEntered
+
+    private void jbtActivityMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtActivityMouseExited
+        
+    }//GEN-LAST:event_jbtActivityMouseExited
 
     /**
      * @param args the command line arguments
@@ -675,8 +784,10 @@ public class staff extends javax.swing.JFrame {
     private juttonCustom.JButtonCustom jbtActivity;
     private juttonCustom.JButtonCustom jbtAdopters;
     private juttonCustom.JButtonCustom jbtCacular;
+    private juttonCustom.JButtonCustom jbtCharity;
     private juttonCustom.JButtonCustom jbtChildManager;
     private juttonCustom.JButtonCustom jbtEquipment;
+    private juttonCustom.JButtonCustom jbtExtracurricular;
     private juttonCustom.JButtonCustom jbtFeedback;
     private juttonCustom.JButtonCustom jbtIntroductor;
     private juttonCustom.JButtonCustom jbtLogout;

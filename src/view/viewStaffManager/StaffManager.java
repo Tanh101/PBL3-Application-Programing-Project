@@ -360,11 +360,6 @@ public class StaffManager extends javax.swing.JFrame {
                 jbtUpdateMouseClicked(evt);
             }
         });
-        jbtUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtUpdateActionPerformed(evt);
-            }
-        });
         jPanel2.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 120, 50));
 
         jtxtID.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -406,11 +401,6 @@ public class StaffManager extends javax.swing.JFrame {
         jbtStaffQuit.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jbtStaffQuit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbtStaffQuit.setRadius(40);
-        jbtStaffQuit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtStaffQuitMouseClicked(evt);
-            }
-        });
         jbtStaffQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtStaffQuitActionPerformed(evt);
@@ -449,11 +439,6 @@ public class StaffManager extends javax.swing.JFrame {
         jbtResest.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtResestMouseClicked(evt);
-            }
-        });
-        jbtResest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtResestActionPerformed(evt);
             }
         });
         jPanel2.add(jbtResest, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 120, 50));
@@ -540,11 +525,6 @@ public class StaffManager extends javax.swing.JFrame {
                 jbtAddMouseClicked(evt);
             }
         });
-        jbtAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtAddActionPerformed(evt);
-            }
-        });
         jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 70, 120, 50));
 
         jbtStaffCurrent.setBorder(null);
@@ -555,11 +535,6 @@ public class StaffManager extends javax.swing.JFrame {
         jbtStaffCurrent.setColorClick(new java.awt.Color(0, 204, 255));
         jbtStaffCurrent.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jbtStaffCurrent.setRadius(40);
-        jbtStaffCurrent.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtStaffCurrentMouseClicked(evt);
-            }
-        });
         jbtStaffCurrent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtStaffCurrentActionPerformed(evt);
@@ -592,11 +567,6 @@ public class StaffManager extends javax.swing.JFrame {
         jbtDelel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtDelel1MouseClicked(evt);
-            }
-        });
-        jbtDelel1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtDelel1ActionPerformed(evt);
             }
         });
         jPanel2.add(jbtDelel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 120, 50));
@@ -648,10 +618,6 @@ public class StaffManager extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formComponentShown
 
-    private void jbtResestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResestActionPerformed
-
-    }//GEN-LAST:event_jbtResestActionPerformed
-
     private void jbtResestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResestMouseClicked
         Resest();
     }//GEN-LAST:event_jbtResestMouseClicked
@@ -677,14 +643,6 @@ public class StaffManager extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jbtStaffQuitActionPerformed
 
-    private void jbtStaffQuitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtStaffQuitMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtStaffQuitMouseClicked
-
-    private void jbtUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtUpdateActionPerformed
-
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
         Update();
         showListStaff();
@@ -695,14 +653,6 @@ public class StaffManager extends javax.swing.JFrame {
         showListStaff();
 
     }//GEN-LAST:event_jbtAddMouseClicked
-
-    private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtAddActionPerformed
-
-    private void jbtStaffCurrentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtStaffCurrentMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtStaffCurrentMouseClicked
 
     private void jbtStaffCurrentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtStaffCurrentActionPerformed
         showListCurrentStaff();
@@ -721,10 +671,6 @@ public class StaffManager extends javax.swing.JFrame {
     private void jbtDelel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDelel1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtDelel1MouseClicked
-
-    private void jbtDelel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDelel1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtDelel1ActionPerformed
 
     private void jButtonCustom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustom2ActionPerformed
         JFileChooser f = new JFileChooser("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\StaffImage");
