@@ -9,18 +9,49 @@ package model;
  * @author ADMIN
  */
 public class Extracurriclar {
-    private String ID, Name, Place, DateStart, DateEnd;
+
+    private String ID, Name, Place,IDNVQL, NumberOfStaff, NumberOfChild, DateStart, DateEnd;
+    
+    public String getIDNVQL() {
+        return IDNVQL;
+    }
+
+    public void setIDNVQL(String IDCBNV) {
+        this.IDNVQL = IDCBNV;
+    }
+
+    public String getNumberOfStaff() {
+        return NumberOfStaff;
+    }
+
+    public void setNumberOfStaff(String NumberOfStaff) {
+        this.NumberOfStaff = NumberOfStaff;
+    }
+
+    public String getNumberOfChild() {
+        return NumberOfChild;
+    }
+
+    public void setNumberOfChild(String NumberOfChild) {
+        this.NumberOfChild = NumberOfChild;
+    }
+
+    public Extracurriclar(String ID, String Name, String Place, String IDNVQL, String NumberOfStaff, String NumberOfChild, String DateStart, String DateEnd) {
+        this.ID = ID;
+        this.Name = Name;
+        this.Place = Place;
+        this.IDNVQL = IDNVQL;
+        this.NumberOfStaff = NumberOfStaff;
+        this.NumberOfChild = NumberOfChild;
+        this.DateStart = DateStart;
+        this.DateEnd = DateEnd;
+    }
+    
 
     public Extracurriclar() {
     }
 
-    public Extracurriclar(String ID, String Name, String Place, String DateStart, String DateEnd) {
-        this.ID = ID;
-        this.Name = Name;
-        this.Place = Place;
-        this.DateStart = DateStart;
-        this.DateEnd = DateEnd;
-    }
+   
 
     public String getID() {
         return ID;

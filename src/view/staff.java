@@ -60,6 +60,33 @@ public class staff extends javax.swing.JFrame {
         setMenuColor(jlb1);
         jbtExtracurricular.setVisible(false);
         jbtCharity.setVisible(false);
+        setCursor();
+    }
+    public void setCursor(){
+        jbtStaffManager.setCursor(new Cursor(HAND_CURSOR) {
+        });
+        jbtChildManager.setCursor(new Cursor(HAND_CURSOR) {
+        });
+        jbtActivity.setCursor(new Cursor(HAND_CURSOR) {
+        });
+        jbtAdopters.setCursor(new Cursor(HAND_CURSOR) {
+        });
+        jbtEquipment.setCursor(new Cursor(HAND_CURSOR) {
+        });
+        jbtFeedback.setCursor(new Cursor(HAND_CURSOR) {
+        });
+        jbtIntroductor.setCursor(new Cursor(HAND_CURSOR) {
+        });
+        jbtSendNotification.setCursor(new Cursor(HAND_CURSOR) {
+        });
+        jbtExtracurricular.setCursor(new Cursor(HAND_CURSOR) {
+        });
+        jbtCharity.setCursor(new Cursor(HAND_CURSOR) {
+        });
+        jbtLogout.setCursor(new Cursor(HAND_CURSOR) {
+        });
+        jbtCacular.setCursor(new Cursor(HAND_CURSOR) {
+        });
     }
 
     public void setMenuColor(JLabel choose) {
@@ -135,15 +162,7 @@ public class staff extends javax.swing.JFrame {
         jLabel4.setText("jLabel4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                formComponentShown(evt);
-            }
-        });
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
@@ -174,14 +193,6 @@ public class staff extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtChildManagerMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbtChildManagerMouseEntered(evt);
-            }
-        });
-        jbtChildManager.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtChildManagerActionPerformed(evt);
-            }
         });
 
         jbtIntroductor.setBorder(javax.swing.BorderFactory.createCompoundBorder());
@@ -197,9 +208,6 @@ public class staff extends javax.swing.JFrame {
         jbtIntroductor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtIntroductorMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbtIntroductorMouseEntered(evt);
             }
         });
 
@@ -217,12 +225,6 @@ public class staff extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtActivityMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbtActivityMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jbtActivityMouseExited(evt);
-            }
         });
 
         jbtEquipment.setBorder(javax.swing.BorderFactory.createCompoundBorder());
@@ -238,14 +240,6 @@ public class staff extends javax.swing.JFrame {
         jbtEquipment.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtEquipmentMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbtEquipmentMouseEntered(evt);
-            }
-        });
-        jbtEquipment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtEquipmentActionPerformed(evt);
             }
         });
 
@@ -263,12 +257,6 @@ public class staff extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtStaffManagerMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbtStaffManagerMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jbtStaffManagerMouseExited(evt);
-            }
         });
 
         jbtAdopters.setBorder(javax.swing.BorderFactory.createCompoundBorder());
@@ -281,16 +269,6 @@ public class staff extends javax.swing.JFrame {
         jbtAdopters.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jbtAdopters.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jbtAdopters.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtAdopters.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbtAdoptersMouseEntered(evt);
-            }
-        });
-        jbtAdopters.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtAdoptersActionPerformed(evt);
-            }
-        });
 
         jbtFeedback.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jbtFeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/feedback_48px.png"))); // NOI18N
@@ -303,16 +281,6 @@ public class staff extends javax.swing.JFrame {
         jbtFeedback.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jbtFeedback.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jbtFeedback.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtFeedback.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbtFeedbackMouseEntered(evt);
-            }
-        });
-        jbtFeedback.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtFeedbackActionPerformed(evt);
-            }
-        });
 
         jbtCacular.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jbtCacular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ảnh/icons8_search_property_38px_1.png"))); // NOI18N
@@ -324,11 +292,6 @@ public class staff extends javax.swing.JFrame {
         jbtCacular.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jbtCacular.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jbtCacular.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtCacular.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbtCacularMouseEntered(evt);
-            }
-        });
 
         jbtSendNotification.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jbtSendNotification.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ảnh/icons8_notification_48px.png"))); // NOI18N
@@ -343,12 +306,6 @@ public class staff extends javax.swing.JFrame {
         jbtSendNotification.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtSendNotificationMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbtSendNotificationMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jbtSendNotificationMouseExited(evt);
             }
         });
 
@@ -534,9 +491,6 @@ public class staff extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtCharityMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbtCharityMouseEntered(evt);
-            }
         });
         jPanel1.add(jbtCharity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 230, 50));
 
@@ -554,9 +508,6 @@ public class staff extends javax.swing.JFrame {
         jbtExtracurricular.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtExtracurricularMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jbtExtracurricularMouseEntered(evt);
             }
         });
         jPanel1.add(jbtExtracurricular, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 230, -1));
@@ -576,28 +527,6 @@ public class staff extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFeedbackActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtFeedbackActionPerformed
-
-    private void jbtEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEquipmentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtEquipmentActionPerformed
-
-    private void jbtChildManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtChildManagerActionPerformed
-
-    }//GEN-LAST:event_jbtChildManagerActionPerformed
-
-    private void jbtAdoptersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAdoptersActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtAdoptersActionPerformed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
-
-
-    }//GEN-LAST:event_formWindowActivated
-
     private void jbtStaffManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtStaffManagerMouseClicked
         setShowMenu(staffManager);
         staffManager.showListStaff();
@@ -605,21 +534,6 @@ public class staff extends javax.swing.JFrame {
         setMenuColor(jlb1);
 
     }//GEN-LAST:event_jbtStaffManagerMouseClicked
-
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-
-    }//GEN-LAST:event_formComponentShown
-
-    private void jbtStaffManagerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtStaffManagerMouseEntered
-        jbtStaffManager.setCursor(new Cursor(HAND_CURSOR) {
-        });
-//       jbtStaffManager.setBackground(new Color(255,255,0));
-    }//GEN-LAST:event_jbtStaffManagerMouseEntered
-
-    private void jbtStaffManagerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtStaffManagerMouseExited
-        // TODO add your handling code here:
-//        jbtStaffManager.setBackground(new Color(255,255,0));
-    }//GEN-LAST:event_jbtStaffManagerMouseExited
 
     private void jbtChildManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtChildManagerMouseClicked
         setShowMenu(childManager);
@@ -644,23 +558,6 @@ public class staff extends javax.swing.JFrame {
         setMenuColor(jlb3);
     }//GEN-LAST:event_jbtEquipmentMouseClicked
 
-    private void jbtChildManagerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtChildManagerMouseEntered
-        jbtChildManager.setCursor(new Cursor(HAND_CURSOR) {
-        });
-    }//GEN-LAST:event_jbtChildManagerMouseEntered
-
-    //Change cursor when mouseEnter button
-    private void jbtEquipmentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtEquipmentMouseEntered
-        jbtEquipment.setCursor(new Cursor(HAND_CURSOR) {
-        });
-    }//GEN-LAST:event_jbtEquipmentMouseEntered
-
-    private void jbtActivityMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtActivityMouseEntered
-        jbtActivity.setCursor(new Cursor(HAND_CURSOR) {
-        });
-        
-    }//GEN-LAST:event_jbtActivityMouseEntered
-
     private void jbtLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLogoutActionPerformed
         jbtLogout.setCursor(new Cursor(HAND_CURSOR) {
         });
@@ -680,38 +577,9 @@ public class staff extends javax.swing.JFrame {
         setMenuColor(jlb4);
     }//GEN-LAST:event_jbtActivityMouseClicked
 
-    private void jbtIntroductorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtIntroductorMouseEntered
-        jbtIntroductor.setCursor(new Cursor(HAND_CURSOR) {
-        });
-    }//GEN-LAST:event_jbtIntroductorMouseEntered
-
-    private void jbtAdoptersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAdoptersMouseEntered
-        jbtAdopters.setCursor(new Cursor(HAND_CURSOR) {
-        });
-    }//GEN-LAST:event_jbtAdoptersMouseEntered
-
-    private void jbtFeedbackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFeedbackMouseEntered
-        jbtFeedback.setCursor(new Cursor(HAND_CURSOR) {
-        });        
-    }//GEN-LAST:event_jbtFeedbackMouseEntered
-
-    private void jbtCacularMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtCacularMouseEntered
-        jbtCacular.setCursor(new Cursor(HAND_CURSOR) {
-        }); 
-    }//GEN-LAST:event_jbtCacularMouseEntered
-
     private void jbtSendNotificationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtSendNotificationMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtSendNotificationMouseClicked
-
-    private void jbtSendNotificationMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtSendNotificationMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtSendNotificationMouseExited
-
-    private void jbtSendNotificationMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtSendNotificationMouseEntered
-        jbtSendNotification.setCursor(new Cursor(HAND_CURSOR) {
-        }); 
-    }//GEN-LAST:event_jbtSendNotificationMouseEntered
 
     private void jbtIntroductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtIntroductorMouseClicked
        setMenuColor(jlb5);
@@ -719,26 +587,14 @@ public class staff extends javax.swing.JFrame {
 
     private void jbtCharityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtCharityMouseClicked
         setShowMenu(charityManager);
+        charityManager.setIDNVQL(ID_NVQL);
     }//GEN-LAST:event_jbtCharityMouseClicked
-
-    private void jbtCharityMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtCharityMouseEntered
-        jbtSendNotification.setCursor(new Cursor(HAND_CURSOR) {
-        });
-    }//GEN-LAST:event_jbtCharityMouseEntered
 
     private void jbtExtracurricularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtExtracurricularMouseClicked
         setShowMenu(extracManager);
+        extracManager.setIDNVQL(ID_NVQL);
         
     }//GEN-LAST:event_jbtExtracurricularMouseClicked
-
-    private void jbtExtracurricularMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtExtracurricularMouseEntered
-        jbtSendNotification.setCursor(new Cursor(HAND_CURSOR) {
-        });
-    }//GEN-LAST:event_jbtExtracurricularMouseEntered
-
-    private void jbtActivityMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtActivityMouseExited
-        
-    }//GEN-LAST:event_jbtActivityMouseExited
 
     /**
      * @param args the command line arguments

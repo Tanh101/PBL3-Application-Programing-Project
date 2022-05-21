@@ -200,11 +200,6 @@ public class EquipmentManager extends javax.swing.JFrame {
                 jbtUpdateMouseClicked(evt);
             }
         });
-        jbtUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtUpdateActionPerformed(evt);
-            }
-        });
         jPanel2.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 120, 50));
 
         jtxtFind.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -225,11 +220,6 @@ public class EquipmentManager extends javax.swing.JFrame {
                 jbtBadStateMouseClicked(evt);
             }
         });
-        jbtBadState.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtBadStateActionPerformed(evt);
-            }
-        });
         jPanel2.add(jbtBadState, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 130, 60));
 
         jbtFind.setBorder(null);
@@ -241,11 +231,6 @@ public class EquipmentManager extends javax.swing.JFrame {
         jbtFind.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtFindMouseClicked(evt);
-            }
-        });
-        jbtFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtFindActionPerformed(evt);
             }
         });
         jPanel2.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 0, 50, 40));
@@ -261,11 +246,6 @@ public class EquipmentManager extends javax.swing.JFrame {
         jbtResest.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtResestMouseClicked(evt);
-            }
-        });
-        jbtResest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtResestActionPerformed(evt);
             }
         });
         jPanel2.add(jbtResest, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, 120, 50));
@@ -323,11 +303,6 @@ public class EquipmentManager extends javax.swing.JFrame {
                 jbtAddMouseClicked(evt);
             }
         });
-        jbtAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtAddActionPerformed(evt);
-            }
-        });
         jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 120, 50));
 
         jbtGoodState.setBorder(null);
@@ -343,11 +318,6 @@ public class EquipmentManager extends javax.swing.JFrame {
                 jbtGoodStateMouseClicked(evt);
             }
         });
-        jbtGoodState.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtGoodStateActionPerformed(evt);
-            }
-        });
         jPanel2.add(jbtGoodState, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 160, 130, 60));
 
         jbtDelel.setBorder(null);
@@ -361,11 +331,6 @@ public class EquipmentManager extends javax.swing.JFrame {
         jbtDelel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtDelelMouseClicked(evt);
-            }
-        });
-        jbtDelel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtDelelActionPerformed(evt);
             }
         });
         jPanel2.add(jbtDelel, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 60, 120, 50));
@@ -391,26 +356,14 @@ public class EquipmentManager extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonCustom1MouseClicked
 
-    private void jbtDelelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDelelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtDelelActionPerformed
-
     private void jbtDelelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDelelMouseClicked
         Delete();
         ShowListEquip();
     }//GEN-LAST:event_jbtDelelMouseClicked
 
-    private void jbtGoodStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtGoodStateActionPerformed
-
-    }//GEN-LAST:event_jbtGoodStateActionPerformed
-
     private void jbtGoodStateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtGoodStateMouseClicked
         ShowListCurrent();
     }//GEN-LAST:event_jbtGoodStateMouseClicked
-
-    private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtAddActionPerformed
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
         addEquip.getJtxtDateEnter().setEnabled(false);
@@ -425,18 +378,10 @@ public class EquipmentManager extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jtbEquipmentMouseClicked
 
-    private void jbtResestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResestActionPerformed
-
-    }//GEN-LAST:event_jbtResestActionPerformed
-
     private void jbtResestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResestMouseClicked
         jtxtFind.setText("");
 
     }//GEN-LAST:event_jbtResestMouseClicked
-
-    private void jbtFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFindActionPerformed
-
-    }//GEN-LAST:event_jbtFindActionPerformed
 
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked
         Vector<Equipment> equip = new Vector<Equipment>();
@@ -444,17 +389,9 @@ public class EquipmentManager extends javax.swing.JFrame {
         showSupport(equip);
     }//GEN-LAST:event_jbtFindMouseClicked
 
-    private void jbtBadStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBadStateActionPerformed
-
-    }//GEN-LAST:event_jbtBadStateActionPerformed
-
     private void jbtBadStateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtBadStateMouseClicked
         ShowListQuit();
     }//GEN-LAST:event_jbtBadStateMouseClicked
-
-    private void jbtUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtUpdateActionPerformed
 
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
         addEquip.setVisible(true);

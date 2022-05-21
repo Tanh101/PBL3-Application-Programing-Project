@@ -4,17 +4,109 @@
  */
 package view.viewStaffManager;
 
+import controller.ActivityListerner;
+import java.awt.Color;
+import java.awt.Font;
+import java.sql.Date;
+import java.util.Stack;
+import java.util.Vector;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import model.Charity;
+import model.Extracurriclar;
+
 /**
  *
  * @author ADMIN
  */
 public class CharityActivityManager extends javax.swing.JFrame {
 
+    private ActivityListerner ac = new ActivityListerner();
+
+    public void setIDNVQL(String IDNVQL) {
+        this.IDNVQL = IDNVQL;
+    }
+    private String IDNVQL;
+
     /**
      * Creates new form Equipment
      */
     public CharityActivityManager() {
         initComponents();
+        setWidthTable();
+    }
+
+    public void setWidthTable() {
+
+        jtbCharityActi.getTableHeader().setBackground(new Color(0, 204, 255));
+        jtbCharityActi.setBackground(Color.WHITE);
+        jtbCharityActi.getColumnModel().getColumn(0).setPreferredWidth(130);
+        jtbCharityActi.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jtbCharityActi.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jtbCharityActi.getColumnModel().getColumn(3).setPreferredWidth(130);
+        jtbCharityActi.getColumnModel().getColumn(4).setPreferredWidth(130);
+        jtbCharityActi.getColumnModel().getColumn(5).setPreferredWidth(130);
+        jtbCharityActi.getColumnModel().getColumn(6).setPreferredWidth(130);
+        jtbCharityActi.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 17));
+        ((DefaultTableCellRenderer) jtbCharityActi.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
+    }
+
+    public void ClearText() {
+        jtxtFind.setText("");
+        jtxtNameOrgani.setText("");
+        jtxtNameActi.setText("");
+        jtxtDateEnter.setText("");
+        jtxtDateQuit.setText("");
+        jtxtSuport.setText("");
+        jtxtDateEnter.setEditable(false);
+    }
+
+    //----------------------------------------------------function event when you click button ---------------------------------------------------------------
+    public void showSupport(Vector<Charity> vec) {
+        DefaultTableModel model = (DefaultTableModel) jtbCharityActi.getModel();
+        model.setRowCount(0);
+        for (int i = 0; i < vec.size(); i++) {
+            model.addRow(new Object[]{
+                vec.get(i).getID(), vec.get(i).getNameOrganization(), vec.get(i).getNameCharity(),
+                vec.get(i).getArtifacts(), vec.get(i).getIDNVQL(),
+                vec.get(i).getDateStart(), vec.get(i).getDateEnd()
+            });
+        }
+        jtbCharityActi.setModel(model);
+    }
+
+    public void Show(int i) {
+        Vector<Charity> vec = new Vector<>();
+        vec = ac.getListCharity(ac.proShowAllCharity(i));
+        showSupport(vec);
+    }
+
+    public void Add() {
+        Vector<Charity> vec = new Vector<>();
+        vec = ac.getListCharity(ac.proShowAllCharity(1));
+        String tmp = vec.get(vec.size() - 1).getID();
+        String[] arr = tmp.split("HDTT", 2);
+        int tmp2 = Integer.parseInt(arr[1]) + 1;
+        String ID = "HDTT" + String.valueOf(tmp2);
+        long millis = System.currentTimeMillis();
+        Date date = new Date(millis);
+        String DateStart = date.toString();
+        if (ID.isEmpty() || jtxtNameOrgani.getText().isEmpty() || jtxtNameActi.getText().isEmpty() || IDNVQL.isEmpty()
+                || jtxtSuport.getText().isEmpty() || DateStart.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Không được để trống thông tin hoạt động");
+        } else {
+            String NameOrgani = jtxtNameOrgani.getText();
+            String NameActi = jtxtNameActi.getText();
+            String Artifacts = jtxtSuport.getText();
+            int ID_NVQL = Integer.parseInt(IDNVQL);
+            int NumofStaff, NumofChild;
+
+            ac.InsertChartity(ID, NameOrgani, NameActi, Artifacts, ID_NVQL, DateStart, null);
+            JOptionPane.showMessageDialog(null, "Thêm hoạt động từ thiện " + ID + " Thành Công!");
+        }
     }
 
     /**
@@ -43,21 +135,31 @@ public class CharityActivityManager extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jtxtNameOrgani = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jtxtID = new javax.swing.JTextField();
         jbtAdd = new view.JButtonCustom();
-        jbtUpdate = new view.JButtonCustom();
-        jbttNowActi = new view.JButtonCustom();
-        jbtReset = new view.JButtonCustom();
+        jbtUpda = new view.JButtonCustom();
+        jbtNowActi = new view.JButtonCustom();
+        jbtShow = new view.JButtonCustom();
         jtbtDel = new view.JButtonCustom();
         jtbtStopActi = new view.JButtonCustom();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jlbCountCurrent = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jlbCountDone = new javax.swing.JLabel();
         jtxtFind = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jbtFind = new view.JButtonCustom();
+        jbtResest1 = new view.JButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBounds(new java.awt.Rectangle(365, 85, 85, 85));
+        setBackground(new java.awt.Color(204, 204, 204));
+        setBounds(new java.awt.Rectangle(330, 70, 70, 70));
         setUndecorated(true);
         setSize(new java.awt.Dimension(840, 650));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -73,46 +175,46 @@ public class CharityActivityManager extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel3.setText("Tên Hoạt Động");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 110, 40));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 110, 40));
 
         jtxtNameActi.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtNameActi.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtNameActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, 260, 40));
+        jPanel2.add(jtxtNameActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 260, 40));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel4.setText("Thời Gian Kết Thúc");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 140, 40));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, 140, 40));
 
         jtxtDateQuit.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDateQuit.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtDateQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 170, 260, 40));
+        jPanel2.add(jtxtDateQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 210, 260, 40));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel5.setText("Thời Gian Bắt Đầu");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 140, 40));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 140, 40));
 
         jtxtDateEnter.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDateEnter.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtDateEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 260, 40));
+        jPanel2.add(jtxtDateEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 260, 40));
 
         jtbCharityActi.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbCharityActi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Tổ Chức", "Tên Tổ Chức", "Tên Hoạt Động", "Thời Gian Bắt Đầu", "Thời Gian Kết Thúc", "Tiền/Hiện Vật Ủng Hộ"
+                "Mã Tổ Chức", "Tên Tổ Chức", "Tên Hoạt Động", "Tiền/Hiện Vật Ủng Hộ", "ID_NVQL", "Thời Gian Bắt Đầu", "Thời Gian Kết Thúc"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -133,38 +235,31 @@ public class CharityActivityManager extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbCharityActi);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1110, 350));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 1140, 350));
 
         jtxtSuport.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtSuport.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtSuport, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 50, 260, 40));
+        jPanel2.add(jtxtSuport, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 150, 260, 40));
 
         jLabel9.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel9.setText("Tên Tổ Chức");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 100, 40));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 100, 40));
 
         jLabel10.setBackground(new java.awt.Color(153, 255, 255));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel10.setOpaque(true);
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 10, 140));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 120, 10, 140));
 
         jtxtNameOrgani.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtNameOrgani.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtNameOrgani, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 260, 40));
+        jPanel2.add(jtxtNameOrgani, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 260, 40));
 
         jLabel8.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel8.setText("Tiền/Hiện vật ủng hộ");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 50, 150, 40));
-
-        jLabel11.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel11.setText("Mã Tổ Chức");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 100, 40));
-
-        jtxtID.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtID.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 260, 40));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, 150, 40));
 
         jbtAdd.setBorder(null);
+        jbtAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/add_24px.png"))); // NOI18N
         jbtAdd.setText("Thêm");
         jbtAdd.setBoderColor(new java.awt.Color(255, 255, 255));
         jbtAdd.setColoOver(new java.awt.Color(255, 102, 51));
@@ -177,49 +272,57 @@ public class CharityActivityManager extends javax.swing.JFrame {
                 jbtAddMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 120, 50));
+        jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 120, 50));
 
-        jbtUpdate.setBorder(null);
-        jbtUpdate.setText("Cập Nhật");
-        jbtUpdate.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtUpdate.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtUpdate.setColor(new java.awt.Color(51, 255, 153));
-        jbtUpdate.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtUpdate.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtUpdate.setRadius(40);
-        jPanel2.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 120, 50));
-
-        jbttNowActi.setBorder(null);
-        jbttNowActi.setText("Hoạt động hiện tại");
-        jbttNowActi.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbttNowActi.setColoOver(new java.awt.Color(255, 102, 51));
-        jbttNowActi.setColor(new java.awt.Color(51, 255, 153));
-        jbttNowActi.setColorClick(new java.awt.Color(0, 204, 255));
-        jbttNowActi.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbttNowActi.setRadius(40);
-        jbttNowActi.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbtUpda.setBorder(null);
+        jbtUpda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/update_24px.png"))); // NOI18N
+        jbtUpda.setText("Cập Nhật");
+        jbtUpda.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtUpda.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtUpda.setColor(new java.awt.Color(51, 255, 153));
+        jbtUpda.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtUpda.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtUpda.setRadius(40);
+        jbtUpda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbttNowActiMouseClicked(evt);
+                jbtUpdaMouseClicked(evt);
             }
         });
-        jPanel2.add(jbttNowActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 150, 50));
+        jPanel2.add(jbtUpda, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 120, 50));
 
-        jbtReset.setBorder(null);
-        jbtReset.setText("Làm mới");
-        jbtReset.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtReset.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtReset.setColor(new java.awt.Color(51, 255, 153));
-        jbtReset.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtReset.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtReset.setRadius(40);
-        jbtReset.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbtNowActi.setBorder(null);
+        jbtNowActi.setText("Hoạt động hiện tại");
+        jbtNowActi.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtNowActi.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtNowActi.setColor(new java.awt.Color(51, 255, 153));
+        jbtNowActi.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtNowActi.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtNowActi.setRadius(40);
+        jbtNowActi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtResetMouseClicked(evt);
+                jbtNowActiMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, 120, 50));
+        jPanel2.add(jbtNowActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 280, 150, 50));
+
+        jbtShow.setBorder(null);
+        jbtShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/list_view_24px.png"))); // NOI18N
+        jbtShow.setText("Hiển Thị");
+        jbtShow.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtShow.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtShow.setColor(new java.awt.Color(51, 255, 153));
+        jbtShow.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtShow.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtShow.setRadius(40);
+        jbtShow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtShowMouseClicked(evt);
+            }
+        });
+        jPanel2.add(jbtShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 280, 120, 50));
 
         jtbtDel.setBorder(null);
+        jtbtDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Delete_24px.png"))); // NOI18N
         jtbtDel.setText("Xoá");
         jtbtDel.setBoderColor(new java.awt.Color(255, 255, 255));
         jtbtDel.setColoOver(new java.awt.Color(255, 102, 51));
@@ -232,10 +335,10 @@ public class CharityActivityManager extends javax.swing.JFrame {
                 jtbtDelMouseClicked(evt);
             }
         });
-        jPanel2.add(jtbtDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, 120, 50));
+        jPanel2.add(jtbtDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 280, 120, 50));
 
         jtbtStopActi.setBorder(null);
-        jtbtStopActi.setText("Hoạt động đã ngưng");
+        jtbtStopActi.setText("Hoạt động đã kết thúc");
         jtbtStopActi.setBoderColor(new java.awt.Color(255, 255, 255));
         jtbtStopActi.setColoOver(new java.awt.Color(255, 102, 51));
         jtbtStopActi.setColor(new java.awt.Color(51, 255, 153));
@@ -247,25 +350,64 @@ public class CharityActivityManager extends javax.swing.JFrame {
                 jtbtStopActiMouseClicked(evt);
             }
         });
-        jPanel2.add(jtbtStopActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 250, 180, 50));
+        jPanel2.add(jtbtStopActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 280, 180, 50));
+
+        jLabel12.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel12.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sum_24px.png"))); // NOI18N
+        jLabel12.setText("Tổng hoạt động hiện nay: ");
+        jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jLabel12.setOpaque(true);
+        jLabel12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 210, 40));
+
+        jlbCountCurrent.setBackground(new java.awt.Color(255, 255, 255));
+        jlbCountCurrent.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jlbCountCurrent.setOpaque(true);
+        jPanel2.add(jlbCountCurrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 50, 40));
+
+        jLabel11.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sum_24px.png"))); // NOI18N
+        jLabel11.setText("Tổng hoạt động đã triển khai:");
+        jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, 240, 40));
+
+        jlbCountDone.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jlbCountDone.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jlbCountDone.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jPanel2.add(jlbCountDone, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 60, 40, 40));
 
         jTabbedPane1.addTab("tab1", jPanel2);
 
-        jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 1160, 650));
+        jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, -1, 700));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1110, 600));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 660));
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel7.setText("Tìm Theo Tên Tổ Chức");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 170, 40));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1140, 660));
 
         jtxtFind.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtFind.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 400, 40));
+        getContentPane().add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 310, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 660));
+        jLabel7.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel7.setText("Tìm Theo Tên Tổ Chức");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 170, 40));
 
-        setSize(new java.awt.Dimension(1105, 650));
+        jbtFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/search_24px.png"))); // NOI18N
+        jbtFind.setBoderColor(new java.awt.Color(242, 242, 242));
+        jbtFind.setColoOver(new java.awt.Color(153, 255, 204));
+        jbtFind.setColor(new java.awt.Color(242, 242, 242));
+        jbtFind.setColorClick(new java.awt.Color(102, 255, 153));
+        getContentPane().add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 0, 50, 40));
+
+        jbtResest1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/home_24px.png"))); // NOI18N
+        jbtResest1.setBoderColor(new java.awt.Color(242, 242, 242));
+        jbtResest1.setColoOver(new java.awt.Color(153, 255, 204));
+        jbtResest1.setColor(new java.awt.Color(242, 242, 242));
+        jbtResest1.setColorClick(new java.awt.Color(102, 255, 153));
+        getContentPane().add(jbtResest1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 40));
+
+        setSize(new java.awt.Dimension(1140, 701));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCustom1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCustom1MouseClicked
@@ -286,9 +428,11 @@ public class CharityActivityManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbCharityActiMouseClicked
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
-        // TODO add your handling code here:
+        Add();
+        Show(1);
+        ClearText();
     }//GEN-LAST:event_jbtAddMouseClicked
-
+    /*
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtUpdateMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtUpdateMouseClicked
@@ -296,22 +440,31 @@ public class CharityActivityManager extends javax.swing.JFrame {
     private void jbtUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtUpdateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtUpdateActionPerformed
+*/
+    private void jbtNowActiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtNowActiMouseClicked
+        Show(2);
+    }//GEN-LAST:event_jbtNowActiMouseClicked
 
-    private void jbttNowActiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbttNowActiMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbttNowActiMouseClicked
-
-    private void jbtResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResetMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtResetMouseClicked
+    private void jbtShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtShowMouseClicked
+        Show(1);
+    }//GEN-LAST:event_jbtShowMouseClicked
 
     private void jtbtDelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbtDelMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jtbtDelMouseClicked
 
     private void jtbtStopActiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbtStopActiMouseClicked
-        // TODO add your handling code here:
+        Show(3);
     }//GEN-LAST:event_jtbtStopActiMouseClicked
+
+    private void jbtUpdaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdaMouseClicked
+
+    }//GEN-LAST:event_jbtUpdaMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ClearText();
+        Show(1);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -348,13 +501,14 @@ public class CharityActivityManager extends javax.swing.JFrame {
             public void run() {
                 new CharityActivityManager().setVisible(true);
             }
-            
+
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -367,16 +521,19 @@ public class CharityActivityManager extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private view.JButtonCustom jbtAdd;
-    private view.JButtonCustom jbtReset;
-    private view.JButtonCustom jbtUpdate;
-    private view.JButtonCustom jbttNowActi;
+    private view.JButtonCustom jbtFind;
+    private view.JButtonCustom jbtNowActi;
+    private view.JButtonCustom jbtResest1;
+    private view.JButtonCustom jbtShow;
+    private view.JButtonCustom jbtUpda;
+    private javax.swing.JLabel jlbCountCurrent;
+    private javax.swing.JLabel jlbCountDone;
     private javax.swing.JTable jtbCharityActi;
     private view.JButtonCustom jtbtDel;
     private view.JButtonCustom jtbtStopActi;
     private javax.swing.JTextField jtxtDateEnter;
     private javax.swing.JTextField jtxtDateQuit;
     private javax.swing.JTextField jtxtFind;
-    private javax.swing.JTextField jtxtID;
     private javax.swing.JTextField jtxtNameActi;
     private javax.swing.JTextField jtxtNameOrgani;
     private javax.swing.JTextField jtxtSuport;

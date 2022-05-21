@@ -199,7 +199,7 @@ public class ChildrenListener extends ConnectDatabase {
             pre.setString(10, DateQuit);
             pre.setString(11, ID_TRE);
 
-            pre.executeQuery();
+            pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

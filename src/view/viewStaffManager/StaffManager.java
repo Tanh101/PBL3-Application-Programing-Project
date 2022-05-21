@@ -82,7 +82,7 @@ public class StaffManager extends javax.swing.JFrame {
         }
         jtbStaff.setModel(model);
     }
-
+    
     public void showListStaff() {
 
         Vector<Staff> vec = staffListener.getListStaff();
