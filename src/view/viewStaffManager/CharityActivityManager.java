@@ -63,7 +63,10 @@ public class CharityActivityManager extends javax.swing.JFrame {
         jtxtSuport.setText("");
         jtxtDateEnter.setEditable(false);
     }
-
+    
+    public void Statistic(){
+        
+    }
     //----------------------------------------------------function event when you click button ---------------------------------------------------------------
     public void showSupport(Vector<Charity> vec) {
         DefaultTableModel model = (DefaultTableModel) jtbCharityActi.getModel();
@@ -106,6 +109,16 @@ public class CharityActivityManager extends javax.swing.JFrame {
 
             ac.InsertChartity(ID, NameOrgani, NameActi, Artifacts, ID_NVQL, DateStart, null);
             JOptionPane.showMessageDialog(null, "Thêm hoạt động từ thiện " + ID + " Thành Công!");
+        }
+    }
+    
+    public void Delete(){
+        int k = jtbCharityActi.getSelectedRow();
+        if (k < 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn hoạt động muốn xoá");
+        } else {
+            String ID_Choose = (String) jtbCharityActi.getModel().getValueAt(k, 0);
+            ac.DeleteCharity(ID_Choose);
         }
     }
 
@@ -405,6 +418,11 @@ public class CharityActivityManager extends javax.swing.JFrame {
         jbtResest1.setColoOver(new java.awt.Color(153, 255, 204));
         jbtResest1.setColor(new java.awt.Color(242, 242, 242));
         jbtResest1.setColorClick(new java.awt.Color(102, 255, 153));
+        jbtResest1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtResest1MouseClicked(evt);
+            }
+        });
         getContentPane().add(jbtResest1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 40));
 
         setSize(new java.awt.Dimension(1140, 701));
@@ -450,7 +468,8 @@ public class CharityActivityManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtShowMouseClicked
 
     private void jtbtDelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbtDelMouseClicked
-
+        Delete();
+        Show(1);
     }//GEN-LAST:event_jtbtDelMouseClicked
 
     private void jtbtStopActiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbtStopActiMouseClicked
@@ -462,9 +481,15 @@ public class CharityActivityManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtUpdaMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        
         ClearText();
         Show(1);
     }//GEN-LAST:event_formWindowOpened
+
+    private void jbtResest1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResest1MouseClicked
+        ClearText();
+        Show(1);
+    }//GEN-LAST:event_jbtResest1MouseClicked
 
     /**
      * @param args the command line arguments
