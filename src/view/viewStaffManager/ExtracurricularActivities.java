@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import model.Children;
 import model.Extracurriclar;
 import model.managementStaff;
 
@@ -60,11 +61,10 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
 
     void Statictical() {
         Vector<Extracurriclar> vec = new Vector<>();
-        vec = ac.getListExtracurricular(ac.sqlShowNow());
+        vec = ac.getListExtracurricular(ac.sqlShowExtrac(2));
         jlbCountCurrent.setText(String.valueOf(vec.size()));
-        vec = ac.getListExtracurricular(ac.sqlShowEnd());
+        vec = ac.getListExtracurricular(ac.sqlShowExtrac(3));
         jlbCountDone.setText(String.valueOf(vec.size()));
-
     }
 
     public void ClearJtxt() {
@@ -77,6 +77,21 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         jtxtNumOfChild.setText("");
         jtxtNumOfStaff.setText("");
         jtxtPlace.setText("");
+    }
+
+    public void getDataFromTable() {
+        int k = jtbExtracurricular.getSelectedRow();
+        String ID_Choose = (String) jtbExtracurricular.getModel().getValueAt(k, 0);
+        Vector<Extracurriclar> list = new Vector<Extracurriclar>();
+        list = ac.Find(2, ID_Choose);
+        Extracurriclar ex = list.get(0);
+        jtxtName.setText(ex.getName());
+        jtxtNumOfStaff.setText(ex.getNumberOfStaff());
+        jtxtNumOfChild.setText(ex.getNumberOfChild());
+        jtxtPlace.setText(ex.getPlace());
+        jtxtDateStart.setText(ex.getDateStart());
+        jtxtDateEnded.setText(ex.getDateEnd());
+
     }
 
     public void showSupport(Vector<Extracurriclar> vec) {
@@ -92,27 +107,15 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         jtbExtracurricular.setModel(model);
     }
 
-    public void ShowListExtrac() {
+    public void ShowListExtrac(int i) {
         Vector<Extracurriclar> vec = new Vector<>();
-        vec = ac.getListExtracurricular(ac.sqlShowAll());
-        showSupport(vec);
-    }
-
-    public void ShowListExtracNow() {
-        Vector<Extracurriclar> vec = new Vector<>();
-        vec = ac.getListExtracurricular(ac.sqlShowNow());
-        showSupport(vec);
-    }
-
-    public void ShowListExtracEnded() {
-        Vector<Extracurriclar> vec = new Vector<>();
-        vec = ac.getListExtracurricular(ac.sqlShowEnd());
+        vec = ac.getListExtracurricular(ac.sqlShowExtrac(i));
         showSupport(vec);
     }
 
     public void Add() {
         Vector<Extracurriclar> vec = new Vector<>();
-        vec = ac.getListExtracurricular(ac.sqlShowAll());
+        vec = ac.getListExtracurricular(ac.sqlShowExtrac(1));
         String tmp = vec.get(vec.size() - 1).getID();
         String[] arr = tmp.split("HDNK", 2);
 //        System.out.println(tmp);
@@ -175,6 +178,9 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
                 int NumofStaff, NumofChild;
                 String DateStart = jtxtDateStart.getText();
                 String DateEnd = jtxtDateEnded.getText();
+                if(DateEnd.compareTo("") == 0){
+                    DateEnd = null;
+                }
                 try {
                     NumofStaff = Integer.parseInt(jtxtNumOfStaff.getText());
                     NumofChild = Integer.parseInt(jtxtNumOfChild.getText());
@@ -190,6 +196,18 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
                 }
             }
 
+        }
+    }
+
+    public void Find(int i) {
+        String Text = jtxtFind.getText();
+        Vector<Extracurriclar> vec = new Vector<>();
+        vec = ac.Find(i, Text);
+        showSupport(vec);
+        if (vec.size() < 1) {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy hoạt động " + Text);
+        } else {
+            showSupport(vec);
         }
     }
 
@@ -538,11 +556,11 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtAddActionPerformed
 
     private void jbtExtracEndMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtExtracEndMouseClicked
-        ShowListExtracEnded();
+        ShowListExtrac(3);
     }//GEN-LAST:event_jbtExtracEndMouseClicked
 
     private void jtbExtracurricularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbExtracurricularMouseClicked
-
+        getDataFromTable();
     }//GEN-LAST:event_jtbExtracurricularMouseClicked
 
     private void jbtResestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResestActionPerformed
@@ -554,27 +572,27 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtUpdateActionPerformed
 
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked
-
+        Find(1);
     }//GEN-LAST:event_jbtFindMouseClicked
 
     private void jbtDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteMouseClicked
         Delete();
         Statictical();
-        ShowListExtrac();
+        ShowListExtrac(1);
     }//GEN-LAST:event_jbtDeleteMouseClicked
 
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAdd3MouseClicked
 
         Statictical();
-        ShowListExtrac();
+        ShowListExtrac(1);
     }//GEN-LAST:event_jbtAdd3MouseClicked
 
     private void jbtShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtShowMouseClicked
-        ShowListExtrac();
+        ShowListExtrac(1);
     }//GEN-LAST:event_jbtShowMouseClicked
 
     private void jbtExtracNowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtExtracNowMouseClicked
-        ShowListExtracNow();
+        ShowListExtrac(2);
     }//GEN-LAST:event_jbtExtracNowMouseClicked
 
     private void jbtResestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAdd7MouseClicked
@@ -582,7 +600,7 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtAdd7MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ShowListExtrac();
+        ShowListExtrac(1);
         Statictical();
         ClearJtxt();
     }//GEN-LAST:event_formWindowOpened
@@ -590,18 +608,18 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
     private void jbtUpdaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdaMouseClicked
         Update();
         Statictical();
-        ShowListExtrac();
+        ShowListExtrac(1);
     }//GEN-LAST:event_jbtUpdaMouseClicked
 
     private void jbtReMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtReMouseClicked
-        ShowListExtrac();
+        ShowListExtrac(1);
         Statictical();
         ClearJtxt();
     }//GEN-LAST:event_jbtReMouseClicked
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
         Add();
-        ShowListExtrac();
+        ShowListExtrac(1);
         Statictical();
 
     }//GEN-LAST:event_jbtAddMouseClicked

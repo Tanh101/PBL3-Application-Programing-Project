@@ -125,7 +125,7 @@ public class Admin extends javax.swing.JFrame {
         add.getJtxtDateEnter().setText(mstaff.getDateEnter());
         add.getJtxtDateQuit().setText(mstaff.getDateQuit());
         add.getJtxtUrlImage().setText(mstaff.getImage());
-        add.getJlbImage().setIcon(ResizeImage(url + "default.jfif"));
+        add.getJlbImage().setIcon(ResizeImage(url + add.getJtxtUrlImage().getText()));
         add.setID_Choose(ID_Choose);
     }
 
@@ -142,16 +142,18 @@ public class Admin extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbStaffManager = new javax.swing.JTable();
-        jButtonCustom1 = new juttonCustom.JButtonCustom();
+        jbtExit = new juttonCustom.JButtonCustom();
         jLabel9 = new javax.swing.JLabel();
-        jButtonCustom3 = new juttonCustom.JButtonCustom();
-        jButtonCustom4 = new juttonCustom.JButtonCustom();
+        jtbMaxmize = new juttonCustom.JButtonCustom();
+        jbtMinimize = new juttonCustom.JButtonCustom();
         jPanel6 = new javax.swing.JPanel();
         jbtShowCurrent = new view.JButtonCustom();
         jbtUpdate = new view.JButtonCustom();
         jbtAdd = new view.JButtonCustom();
         jbtShowQuit = new view.JButtonCustom();
         jbtDelete = new view.JButtonCustom();
+        jbtShow = new view.JButtonCustom();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -255,13 +257,13 @@ public class Admin extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
         );
 
-        jButtonCustom1.setText("X");
-        jButtonCustom1.setBoderColor(new java.awt.Color(255, 255, 255));
-        jButtonCustom1.setColoOver(new java.awt.Color(255, 102, 102));
-        jButtonCustom1.setColorClick(new java.awt.Color(255, 51, 0));
-        jButtonCustom1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbtExit.setText("X");
+        jbtExit.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtExit.setColoOver(new java.awt.Color(255, 102, 102));
+        jbtExit.setColorClick(new java.awt.Color(255, 51, 0));
+        jbtExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCustom1MouseClicked(evt);
+                jbtExitMouseClicked(evt);
             }
         });
 
@@ -269,23 +271,23 @@ public class Admin extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("QUẢN LÝ NHÂN VIÊN");
 
-        jButtonCustom3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/maximize_window_24px.png"))); // NOI18N
-        jButtonCustom3.setBoderColor(new java.awt.Color(255, 255, 255));
-        jButtonCustom3.setColoOver(new java.awt.Color(255, 102, 102));
-        jButtonCustom3.setColorClick(new java.awt.Color(255, 51, 0));
-        jButtonCustom3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtbMaxmize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/maximize_window_24px.png"))); // NOI18N
+        jtbMaxmize.setBoderColor(new java.awt.Color(255, 255, 255));
+        jtbMaxmize.setColoOver(new java.awt.Color(255, 102, 102));
+        jtbMaxmize.setColorClick(new java.awt.Color(255, 51, 0));
+        jtbMaxmize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCustom3MouseClicked(evt);
+                jtbMaxmizeMouseClicked(evt);
             }
         });
 
-        jButtonCustom4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/subtract_16px.png"))); // NOI18N
-        jButtonCustom4.setBoderColor(new java.awt.Color(255, 255, 255));
-        jButtonCustom4.setColoOver(new java.awt.Color(255, 102, 102));
-        jButtonCustom4.setColorClick(new java.awt.Color(255, 51, 0));
-        jButtonCustom4.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbtMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/subtract_16px.png"))); // NOI18N
+        jbtMinimize.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtMinimize.setColoOver(new java.awt.Color(255, 102, 102));
+        jbtMinimize.setColorClick(new java.awt.Color(255, 51, 0));
+        jbtMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCustom4MouseClicked(evt);
+                jbtMinimizeMouseClicked(evt);
             }
         });
 
@@ -306,6 +308,7 @@ public class Admin extends javax.swing.JFrame {
         });
 
         jbtUpdate.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jbtUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/reset_24px.png"))); // NOI18N
         jbtUpdate.setText("Cập Nhật");
         jbtUpdate.setBoderColor(new java.awt.Color(0, 255, 204));
         jbtUpdate.setColoOver(new java.awt.Color(102, 255, 102));
@@ -313,6 +316,7 @@ public class Admin extends javax.swing.JFrame {
         jbtUpdate.setColorClick(new java.awt.Color(204, 255, 102));
         jbtUpdate.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
         jbtUpdate.setRadius(20);
+        jbtUpdate.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         jbtUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtUpdateMouseClicked(evt);
@@ -367,22 +371,41 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
+        jbtShow.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jbtShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/list_view_24px.png"))); // NOI18N
+        jbtShow.setText("Hiển thị");
+        jbtShow.setBoderColor(new java.awt.Color(0, 255, 204));
+        jbtShow.setColoOver(new java.awt.Color(102, 255, 102));
+        jbtShow.setColor(new java.awt.Color(0, 255, 204));
+        jbtShow.setColorClick(new java.awt.Color(204, 255, 102));
+        jbtShow.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        jbtShow.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jbtShow.setRadius(20);
+        jbtShow.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jbtShow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtShowMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jbtAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(90, 90, 90)
+                .addGap(32, 32, 32)
+                .addComponent(jbtAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .addGap(53, 53, 53)
                 .addComponent(jbtShowQuit, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(97, 97, 97)
-                .addComponent(jbtUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(91, 91, 91)
-                .addComponent(jbtDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74)
+                .addGap(51, 51, 51)
+                .addComponent(jbtUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(jbtShow, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addComponent(jbtShowCurrent, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addGap(57, 57, 57)
+                .addComponent(jbtDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,12 +413,15 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbtAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtShowQuit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbtDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jbtUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jbtShowCurrent, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jbtUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtShowCurrent, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtShow, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7))
         );
+
+        jLabel3.setBackground(new java.awt.Color(102, 0, 204));
+        jLabel3.setOpaque(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -407,18 +433,17 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonCustom4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbtMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCustom3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtbMaxmize, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCustom1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jbtExit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -428,17 +453,17 @@ public class Admin extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButtonCustom3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButtonCustom1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButtonCustom4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jtbMaxmize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jbtExit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jbtMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -463,7 +488,7 @@ public class Admin extends javax.swing.JFrame {
         add.getJbttAdd().setVisible(true);
         add.getJtxtDateEnter().setEnabled(false);
         add.getJtxtDateQuit().setEnabled(false);
-        add.Resest();
+//        add.Resest();
 
     }//GEN-LAST:event_jbtAddMouseClicked
 
@@ -482,11 +507,11 @@ public class Admin extends javax.swing.JFrame {
         log.setVisible(true);
     }//GEN-LAST:event_jbtLogoutMouseClicked
 
-    private void jButtonCustom1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCustom1MouseClicked
+    private void jbtExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtExitMouseClicked
         System.exit(0);
-    }//GEN-LAST:event_jButtonCustom1MouseClicked
+    }//GEN-LAST:event_jbtExitMouseClicked
 
-    private void jButtonCustom3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCustom3MouseClicked
+    private void jtbMaxmizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbMaxmizeMouseClicked
         if (count % 2 == 0) {
             setExtendedState(JFrame.MAXIMIZED_BOTH);
         } else {
@@ -494,12 +519,12 @@ public class Admin extends javax.swing.JFrame {
         }
         count++;
 
-    }//GEN-LAST:event_jButtonCustom3MouseClicked
+    }//GEN-LAST:event_jtbMaxmizeMouseClicked
 
-    private void jButtonCustom4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCustom4MouseClicked
+    private void jbtMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtMinimizeMouseClicked
         setExtendedState(JFrame.HIDE_ON_CLOSE);
 
-    }//GEN-LAST:event_jButtonCustom4MouseClicked
+    }//GEN-LAST:event_jbtMinimizeMouseClicked
 
     private void jbtShowQuitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtShowQuitMouseClicked
         ShowListQuit();
@@ -538,6 +563,10 @@ public class Admin extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jbtLogoutIconMouseClicked
 
+    private void jbtShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtShowMouseClicked
+        ShowListManagerStaff();   
+    }//GEN-LAST:event_jbtShowMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -575,11 +604,9 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private juttonCustom.JButtonCustom jButtonCustom1;
-    private juttonCustom.JButtonCustom jButtonCustom3;
-    private juttonCustom.JButtonCustom jButtonCustom4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -588,11 +615,15 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private view.JButtonCustom jbtAdd;
     private view.JButtonCustom jbtDelete;
+    private juttonCustom.JButtonCustom jbtExit;
     private view.JButtonCustom jbtLogout;
     private juttonCustom.JButtonCustom jbtLogoutIcon;
+    private juttonCustom.JButtonCustom jbtMinimize;
+    private view.JButtonCustom jbtShow;
     private view.JButtonCustom jbtShowCurrent;
     private view.JButtonCustom jbtShowQuit;
     private view.JButtonCustom jbtUpdate;
+    private juttonCustom.JButtonCustom jtbMaxmize;
     private javax.swing.JTable jtbStaffManager;
     // End of variables declaration//GEN-END:variables
 }

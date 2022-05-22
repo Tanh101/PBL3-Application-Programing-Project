@@ -99,7 +99,8 @@ public class AddStaffManager extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Không được bỏ trống thông tin nhân viên!");
         } else {
             adminListener.Insert(Integer.parseInt(IDNVQL), Pass, CCCD, Name, DOB, Gender, Address, Phone, Email, DateEnter, DateQuit, Img);
-
+            Resest();
+            this.setVisible(false);
         }
     }
     
@@ -134,8 +135,9 @@ public class AddStaffManager extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Không được bỏ trống thông tin nhân viên!");
         } else {
             adminListener.Update(Integer.parseInt(ID_Choose), Integer.parseInt(IDNVQL), Pass, CCCD, Name, DOB, Gender,
-                                Address, Phone, Email, DateEnter, DateQuit, Img);
-
+                                Address, Phone, Email, DateEnter, DateQuit,  Img);
+            Resest();
+            this.setVisible(false);
         }
     }
 
@@ -357,8 +359,7 @@ public class AddStaffManager extends javax.swing.JFrame {
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
         Add();
-        Resest();
-        this.setVisible(false);
+//        this.setVisible(false);
     }//GEN-LAST:event_jbtAddMouseClicked
 
     private void jButtonCustom1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCustom1MouseClicked
@@ -367,7 +368,6 @@ public class AddStaffManager extends javax.swing.JFrame {
 
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
         Update();
-        this.setVisible(false);
     }//GEN-LAST:event_jbtUpdateMouseClicked
 
     public static void main(String args[]) {

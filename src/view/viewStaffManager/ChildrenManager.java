@@ -630,8 +630,8 @@ public class ChildrenManager extends javax.swing.JFrame {
         if (!ID.isEmpty()) {
             FindID(ID);
         }
-        if (!jtxtPath.getText().isEmpty()) {
-            FindName("%" + jtxtPath.getText() + "%");
+        if (!jtxtName.getText().isEmpty()) {
+            FindName("%" + jtxtName.getText() + "%");
         }
 
     }//GEN-LAST:event_jbtFindMouseClicked

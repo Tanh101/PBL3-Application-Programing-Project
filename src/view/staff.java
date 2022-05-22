@@ -553,14 +553,13 @@ public class staff extends javax.swing.JFrame {
 
     private void jbtEquipmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtEquipmentMouseClicked
         setShowMenu(equipmentManager);
-        equipmentManager.ShowListEquip();
+        equipmentManager.ShowEquip(1);
         equipmentManager.setID_NVQL(ID_NVQL);
         setMenuColor(jlb3);
     }//GEN-LAST:event_jbtEquipmentMouseClicked
 
     private void jbtLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLogoutActionPerformed
-        jbtLogout.setCursor(new Cursor(HAND_CURSOR) {
-        });
+
         this.setVisible(false);
         log.setVisible(true);
         

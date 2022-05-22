@@ -18,31 +18,27 @@ import model.Equipment;
  * @author ADMIN
  */
 public class EquipmentListener extends ConnectDatabase {
-    
-    public String getSQLShowAll() {
-        String sql = "SELECT T.MaThietBi, T.TenThietBi, T.Gia, T.DonViCungCap, T.SoThietBiTot, T.SoThietBiHong, CT.NgayNhapVao, CT.NgayXuatRa\n"
-                + "FROM TRANGTHIETBI T\n"
-                + "INNER JOIN CHITIETTRANGTHIETBI CT\n"
-                + "ON T.MaThietBi = CT.MaThietBi";
-        return sql;
-    }
 
-    public String getSQLShowCurrent() {
-        String sql = "SELECT T.MaThietBi, T.TenThietBi, T.Gia, T.DonViCungCap, T.SoThietBiTot, T.SoThietBiHong, CT.NgayNhapVao, CT.NgayXuatRa\n"
-                + "FROM TRANGTHIETBI T\n"
-                + "INNER JOIN CHITIETTRANGTHIETBI CT\n"
-                + "ON T.MaThietBi = CT.MaThietBi\n"
-                + "WHERE CT.NgayXuatRa IS NULL";
-        return sql;
-    }
+    public String getSQLShow(int i) {
+        if (i == 1) {
+            return "SELECT T.MaThietBi, T.TenThietBi, T.Gia, T.DonViCungCap, T.SoThietBiTot, T.SoThietBiHong, CT.NgayNhapVao, CT.NgayXuatRa\n"
+                    + "FROM TRANGTHIETBI T\n"
+                    + "INNER JOIN CHITIETTRANGTHIETBI CT\n"
+                    + "ON T.MaThietBi = CT.MaThietBi";
+        } else if (i == 2) {
+            return "SELECT T.MaThietBi, T.TenThietBi, T.Gia, T.DonViCungCap, T.SoThietBiTot, T.SoThietBiHong, CT.NgayNhapVao, CT.NgayXuatRa\n"
+                    + "FROM TRANGTHIETBI T\n"
+                    + "INNER JOIN CHITIETTRANGTHIETBI CT\n"
+                    + "ON T.MaThietBi = CT.MaThietBi\n"
+                    + "WHERE CT.NgayXuatRa IS NULL";
+        } else {
+            return "SELECT T.MaThietBi, T.TenThietBi, T.Gia, T.DonViCungCap, T.SoThietBiTot, T.SoThietBiHong, CT.NgayNhapVao, CT.NgayXuatRa\n"
+                    + "FROM TRANGTHIETBI T\n"
+                    + "INNER JOIN CHITIETTRANGTHIETBI CT\n"
+                    + "ON T.MaThietBi = CT.MaThietBi\n"
+                    + "WHERE CT.NgayXuatRa IS NOT NULL";
+        }
 
-    public String getSQLShowQuit() {
-        String sql = "SELECT T.MaThietBi, T.TenThietBi, T.Gia, T.DonViCungCap, T.SoThietBiTot, T.SoThietBiHong, CT.NgayNhapVao, CT.NgayXuatRa\n"
-                + "FROM TRANGTHIETBI T\n"
-                + "INNER JOIN CHITIETTRANGTHIETBI CT\n"
-                + "ON T.MaThietBi = CT.MaThietBi\n"
-                + "WHERE CT.NgayXuatRa IS NOT NULL";
-        return sql;
     }
 
     private String getSqlFindID() {
@@ -235,7 +231,7 @@ public class EquipmentListener extends ConnectDatabase {
         }
 
     }
-     
+
 //    public static void main(String[] args) {
 //        EquipmentListener eq = new EquipmentListener();
 //        Equipment e = new Equipment();
