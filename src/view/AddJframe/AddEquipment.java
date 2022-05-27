@@ -1,7 +1,6 @@
 package view.AddJframe;
 
 import controller.EquipmentListener;
-import controller.SendID_NVQL;
 import java.sql.Date;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JTextField;

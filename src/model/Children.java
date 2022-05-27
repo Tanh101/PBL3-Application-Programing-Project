@@ -79,16 +79,6 @@ public class Children {
         this.DateQuit = DateQuit;
     }
 
-    public Children(String ID_TRE, String Name, String DateOfBirth, String Address, String Gender, String DateEnter, String DateQuit, String urlPath) {
-        this.ID_TRE = ID_TRE;
-        this.Name = Name;
-        this.DateOfBirth = DateOfBirth;
-        this.Address = Address;
-        this.Gender = Gender;
-        this.DateEnter = DateEnter;
-        this.DateQuit = DateQuit;
-        this.urlPath = urlPath;
-    }
 
     public String getUrlPath() {
         return urlPath;
@@ -98,5 +88,25 @@ public class Children {
         this.urlPath = urlPath;
     }
 
-    private String ID_TRE, Name, DateOfBirth, Address, Gender, DateEnter, DateQuit, urlPath;
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Children(String ID_TRE, String Name, String DateOfBirth, String Address, String Gender, String DateEnter, String DateQuit, String urlPath, String state) {
+        this.ID_TRE = ID_TRE;
+        this.Name = Name;
+        this.DateOfBirth = DateOfBirth;
+        this.Address = Address;
+        this.Gender = Gender;
+        this.DateEnter = DateEnter;
+        this.DateQuit = DateQuit;
+        this.urlPath = urlPath;
+        this.state = state;
+    }
+
+    private String ID_TRE, Name, DateOfBirth, Address, Gender, DateEnter, DateQuit, urlPath, state;
 }

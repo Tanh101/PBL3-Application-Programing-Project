@@ -113,8 +113,14 @@ public class CharityActivityManager extends javax.swing.JFrame {
 
         String tmp = list.get(list.size() - 1).getID();
         String[] arr = tmp.split("HDTT", 2);
+        String ID = "HDTT";
+        if(arr[1].length() == 3 && String.valueOf(Integer.parseInt(arr[1]) + 1).length() == 1){
+            ID += "00";
+        }else{
+            ID += "0";
+        }
         int tmp2 = Integer.parseInt(arr[1]) + 1;
-        String ID = "HDTT" + String.valueOf(tmp2);
+        ID += String.valueOf(tmp2);
 
         long millis = System.currentTimeMillis();
         Date date = new Date(millis);
@@ -291,7 +297,6 @@ public class CharityActivityManager extends javax.swing.JFrame {
         });
         jtbCharityActi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jtbCharityActi.setGridColor(new java.awt.Color(0, 204, 204));
-        jtbCharityActi.setOpaque(false);
         jtbCharityActi.setRowHeight(40);
         jtbCharityActi.setSelectionBackground(new java.awt.Color(102, 204, 255));
         jtbCharityActi.setShowHorizontalLines(true);
@@ -303,7 +308,7 @@ public class CharityActivityManager extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbCharityActi);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 1140, 350));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 1150, 350));
 
         jtxtSuport.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtSuport.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));

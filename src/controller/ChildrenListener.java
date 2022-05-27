@@ -8,11 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
 import model.Children;
+import model.IntroduceChildren;
 import model.Staff;
 
 /**
@@ -21,39 +22,26 @@ import model.Staff;
  */
 public class ChildrenListener extends ConnectDatabase {
 
-    public String getSQLShowAll() {
-        String sql = "SELECT T.ID_Tre, T.HoTen, T.NgaySinh, T.DiaChi, T.GioiTinh,T.TenAnh, Q.NgayVaoTT, Q.NgayRoiTT\n"
-                + "FROM TRE T\n"
-                + "INNER JOIN QUANLYTRE Q\n"
-                + "ON T.ID_Tre = Q.ID_Tre";
-        return sql;
+    public String proShowChild(int i) {
+        if (i == 1) {
+            return "SHOW_CHILDREN";
+        } else if (i == 2) {
+            return "SHOW_CHILDREN_NOW";
+        } else {
+            return "SHOW_CHILDREN_END";
+        }
+
     }
 
-    public String getSQLShowCurrent() {
-        String sql = "SELECT T.ID_Tre, T.HoTen, T.NgaySinh, T.DiaChi, T.GioiTinh,T.TenAnh, Q.NgayVaoTT, Q.NgayRoiTT\n"
-                + "FROM TRE T\n"
-                + "INNER JOIN QUANLYTRE Q\n"
-                + "ON T.ID_Tre = Q.ID_Tre\n"
-                + "WHERE Q.NgayRoiTT IS NULL";
-        return sql;
-    }
+    private String ProcedureFindChild(int i) {
+        if (i == 1) {
+            return "FIND_CHILD @ID_TRE = ?";
+        } else if (i == 2) {
+            return "FIND_CHILD_NAME @NAME = ";
+        } else if (i == 3) {
 
-    public String getSQLShowQuit() {
-        String sql = "SELECT T.ID_Tre, T.HoTen, T.NgaySinh, T.DiaChi, T.GioiTinh,T.TenAnh, Q.NgayVaoTT, Q.NgayRoiTT\n"
-                + "FROM TRE T\n"
-                + "INNER JOIN QUANLYTRE Q\n"
-                + "ON T.ID_Tre = Q.ID_Tre\n"
-                + "WHERE Q.NgayRoiTT IS NOT NULL";
-        return sql;
-    }
-
-    private String getSqlFindID() {
-        String sql = "SELECT T.ID_Tre, T.HoTen, T.NgaySinh, T.DiaChi, T.GioiTinh,T.TenAnh, Q.NgayVaoTT, Q.NgayRoiTT\n"
-                + "FROM TRE T\n"
-                + "INNER JOIN QUANLYTRE Q\n"
-                + "ON T.ID_Tre = Q.ID_Tre\n"
-                + "WHERE T.ID_TRE = ?";
-        return sql;
+        }
+        return "";
     }
 
     private String getSqlFindName() {
@@ -61,13 +49,13 @@ public class ChildrenListener extends ConnectDatabase {
                 + "FROM TRE T\n"
                 + "INNER JOIN QUANLYTRE Q\n"
                 + "ON T.ID_Tre = Q.ID_Tre\n"
-                + "WHERE T.HoTen LIKE ?";
+                + "WHERE T.HoTen LIKE ? AND T.Quyen = '1'";
         return sql;
     }
 
     private String getSqlUpdate() {
         String sql = "UPDATE TRE\n"
-                + "SET ID_Tre = ?, HoTen = ?, NgaySinh = ?,DiaChi = ?, GioiTinh = ?, TenAnh = ?\n"
+                + "SET HoTen = ?, NgaySinh = ?,DiaChi = ?, GioiTinh = ?, TenAnh = ?\n"
                 + "WHERE ID_Tre = ?\n"
                 + "UPDATE QUANLYTRE\n"
                 + "SET ID_NVQL = ?,NgayVaoTT = ?, NgayRoiTT = ?\n"
@@ -77,7 +65,7 @@ public class ChildrenListener extends ConnectDatabase {
 
     private String getSqlInsert() {
         return "INSERT INTO TRE\n"
-                + "VALUES (?, ?, ?, ?, ?, ?);\n"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?);\n"
                 + "INSERT INTO QUANLYTRE\n"
                 + "VALUES (?, ?, ?, ?)";
     }
@@ -87,8 +75,8 @@ public class ChildrenListener extends ConnectDatabase {
                 + "WHERE ID_Tre = ?";
     }
 
-    public Vector<Children> getListChildren(String sql) {
-        Vector<Children> list = new Vector<Children>();
+    public ArrayList<Children> getListChildren(String sql) {
+        ArrayList<Children> list = new ArrayList<Children>();
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -116,10 +104,10 @@ public class ChildrenListener extends ConnectDatabase {
         return list;
     }
 
-    public Vector<Children> FindID(String Choose) {
-        Vector<Children> list = new Vector<Children>();
+    public ArrayList<Children> FindChild(int i, String Choose) {
+        ArrayList<Children> list = new ArrayList<Children>();
         try {
-            String sql = getSqlFindID();
+            String sql = ProcedureFindChild(i);
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, Choose);
             ResultSet rs = pre.executeQuery();
@@ -148,56 +136,23 @@ public class ChildrenListener extends ConnectDatabase {
         return list;
     }
 
-    public Vector<Children> FindName(String Choose) {
-        Vector<Children> list = new Vector<Children>();
-        try {
-            String sql = getSqlFindName();
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, Choose);
-            ResultSet rs = pre.executeQuery();
-            while (rs.next()) {
-                Children chil = new Children();
-                chil.setID_TRE(rs.getString(1));
-                chil.setName(rs.getString(2));
-                chil.setDateOfBirth(rs.getDate(3).toString());
-
-                chil.setAddress(rs.getString(4));
-                chil.setGender(rs.getString(5));
-                chil.setUrlPath(rs.getString(6));
-                chil.setDateEnter(rs.getDate(7).toString());
-                Date date = rs.getDate(8);
-                if (date == null) {
-                    chil.setDateQuit("");
-                } else {
-                    chil.setDateQuit(date.toString());
-                }
-                list.add(chil);
-            }
-            return list;
-        } catch (Exception e) {
-            e.getMessage();
-        }
-        return list;
-    }
-
-    public void Update(String ID_Choose, String ID_TRE, String Name, String DOB, String Address,
-            String Gender,String NamePhoto, String ID_NVQL, String DateEnter, String DateQuit) {
+    public void Update(String ID_Choose, String Name, String DOB, String Address,
+            String Gender, String NamePhoto, String ID_NVQL, String DateEnter, String DateQuit) {
         String sql = getSqlUpdate();
         PreparedStatement pre;
         try {
             pre = conn.prepareStatement(sql);
-            pre.setString(1, ID_TRE);
-            pre.setString(2, Name);
-            pre.setString(3, DOB);
-            pre.setString(4, Address);
-            pre.setString(5, Gender);
-            pre.setString(6, NamePhoto);
-            pre.setString(7, ID_Choose);
+            pre.setString(1, Name);
+            pre.setString(2, DOB);
+            pre.setString(3, Address);
+            pre.setString(4, Gender);
+            pre.setString(5, NamePhoto);
+            pre.setString(6, ID_Choose);
 
-            pre.setString(8, ID_NVQL);
-            pre.setString(9, DateEnter);
-            pre.setString(10, DateQuit);
-            pre.setString(11, ID_TRE);
+            pre.setString(7, ID_NVQL);
+            pre.setString(8, DateEnter);
+            pre.setString(9, DateQuit);
+            pre.setString(10, ID_Choose);
 
             pre.executeUpdate();
         } catch (SQLException ex) {
@@ -207,11 +162,11 @@ public class ChildrenListener extends ConnectDatabase {
     }
 
     public void Insert(String ID_TRE, String Name, String DOB, String Address,
-            String Gender,String NamePhoto, String ID_NVQL, String DateEnter, String DateQuit) {
+            String Gender, String NamePhoto, String Access, String ID_NVQL, String DateEnter, String DateQuit) {
         String sql = getSqlInsert();
 
         try {
-            if (FindID(ID_TRE).size() == 0) {
+            if (FindChild(1, ID_TRE).size() == 0) {
 
                 PreparedStatement pre = conn.prepareStatement(sql);
                 pre.setString(1, ID_TRE);
@@ -220,10 +175,11 @@ public class ChildrenListener extends ConnectDatabase {
                 pre.setString(4, Address);
                 pre.setString(5, Gender);
                 pre.setString(6, NamePhoto);
-                pre.setString(7, ID_TRE);
-                pre.setString(8, ID_NVQL);
-                pre.setString(9, DateEnter);
-                pre.setString(10, DateQuit);
+                pre.setString(7, Access);
+                pre.setString(8, ID_TRE);
+                pre.setString(9, ID_NVQL);
+                pre.setString(10, DateEnter);
+                pre.setString(11, DateQuit);
 
                 pre.executeUpdate();
             } else {
@@ -245,10 +201,126 @@ public class ChildrenListener extends ConnectDatabase {
 
     }
 
+    //------------------------------------------------------INTRODUCTOR MANAGEMENT ----------------------------------------------
+    public String ProShowIntroChild(int i) {
+        if (i == 1) {
+            return "SHOW_CHILDREN_INTRODUCED @ID  = ?";
+        } else if (i == 2) {
+            return "SHOW_CHILDREN_APPROVED  @ID  = ?";
+        } else {
+            return "SHOW_CHILDREN_NOT_APPROVED @ID  = ?";
+        }
+    }
+
+    public ArrayList<IntroduceChildren> listIntroduceChildren(int i, String ID) {
+        ArrayList<IntroduceChildren> list = new ArrayList<IntroduceChildren>();
+        String sql = ProShowIntroChild(i);
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, ID);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                IntroduceChildren chil = new IntroduceChildren();
+                chil.setID_TRE(rs.getString(1));
+                chil.setName(rs.getString(2));
+                chil.setDOB(rs.getDate(3).toString());
+                chil.setAddress(rs.getString(4));
+                chil.setGender(rs.getString(5));
+                chil.setUrlImg(rs.getString(6));
+                chil.setSituation(rs.getString(7));
+                chil.setState(rs.getString(8));
+                Date date = rs.getDate(9);
+                if (date == null) {
+                    chil.setDateIntroduce("");
+                } else {
+                    chil.setDateIntroduce(date.toString());
+                }
+                list.add(chil);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    private String procedureFindItroChild(int i) {
+        if (i == 1) {
+            return "FIND_ID_CHILD @ID =?"
+                    + ", @ID_CHOOSE =?";
+        } else {
+            return "FIND_NAME_CHILD @ID =?"
+                    + ", @NAME = ?";
+        }
+    }
+
+    public ArrayList<IntroduceChildren> FindChildIntro(int i, String IDDTGT, String text) {
+        ArrayList<IntroduceChildren> list = new ArrayList<IntroduceChildren>();
+        String sql = procedureFindItroChild(i);
+        try {
+//            System.out.println(sql);
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, IDDTGT);
+            pre.setString(2, text);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                IntroduceChildren chil = new IntroduceChildren();
+                chil.setID_TRE(rs.getString(1));
+                chil.setName(rs.getString(2));
+                chil.setDOB(rs.getDate(3).toString());
+                chil.setAddress(rs.getString(4));
+                chil.setGender(rs.getString(5));
+                chil.setUrlImg(rs.getString(6));
+                chil.setSituation(rs.getString(7));
+                chil.setState(rs.getString(8));
+                Date date = rs.getDate(9);
+                if (date == null) {
+                    chil.setDateIntroduce("");
+                } else {
+                    chil.setDateIntroduce(date.toString());
+                }
+                list.add(chil);
+            }
+            return list;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return list;
+    }
+
+    public void UpdateState(String ID_Choose, String NewID, String State, int IDNVQL, String DateEnter, String DateQuit, String Access) {
+        String sql = "UPDATE_STATE_CHILDREN\n"
+                + "@ID_CHOOSE = ?, @ID = ?, @STATE = ? ,@IDNVQL = ?, @DATEENTER = ?, @DATEQUIT = ?, @ACCESS = ?";
+        try {
+            if (FindChild(1, ID_Choose).size() <= 0) {
+                PreparedStatement pre = conn.prepareStatement(sql);
+                pre.setString(1, ID_Choose);
+                pre.setString(2, NewID);
+                pre.setString(3, State);
+                pre.setInt(4, IDNVQL);
+                pre.setString(5, DateEnter);
+                pre.setString(6, DateQuit);
+                pre.setString(7, Access);
+                pre.executeUpdate();
+                showMessageDialog(null, "Thêm trẻ " + NewID + " vào trung tâm thành công");
+            }else {
+                showMessageDialog(null, "Trẻ đã tồn tại trong trung tâm");
+            }
+        } catch (Exception e) {
+            showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    
+    
+    
+    
+
 //    public static void main(String[] args) {
-////        ChildrenListener st = new ChildrenListener();
-////        Vector<Children> v = new Vector<>();
-////        v = st.FindName("%Le%");
-//        
+//        ChildrenListener st = new ChildrenListener();
+//        ArrayList<IntroduceChildren> v = new ArrayList<>();
+//        v = st.listIntroduceChildren(1, "DTGT004");
+//        System.out.println(v.get(0).getState());
+////        v.get(0).getState();
+//        System.out.println(v.size());
 //    }
 }

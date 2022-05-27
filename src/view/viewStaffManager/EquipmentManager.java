@@ -125,7 +125,7 @@ public class EquipmentManager extends javax.swing.JFrame {
         jtxtFind = new javax.swing.JTextField();
         jbtBadState = new view.JButtonCustom();
         jbtFind = new view.JButtonCustom();
-        jbtResest = new view.JButtonCustom();
+        jbtShow = new view.JButtonCustom();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbEquipment = new javax.swing.JTable();
         jbtAdd = new view.JButtonCustom();
@@ -139,6 +139,9 @@ public class EquipmentManager extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(840, 650));
         setSize(new java.awt.Dimension(840, 650));
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -218,21 +221,21 @@ public class EquipmentManager extends javax.swing.JFrame {
         });
         jPanel2.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 0, 50, 40));
 
-        jbtResest.setBorder(null);
-        jbtResest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/list_view_24px.png"))); // NOI18N
-        jbtResest.setText("Hiển Thị");
-        jbtResest.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtResest.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtResest.setColor(new java.awt.Color(51, 255, 153));
-        jbtResest.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtResest.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtResest.setRadius(40);
-        jbtResest.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbtShow.setBorder(null);
+        jbtShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/list_view_24px.png"))); // NOI18N
+        jbtShow.setText("Hiển Thị");
+        jbtShow.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtShow.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtShow.setColor(new java.awt.Color(51, 255, 153));
+        jbtShow.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtShow.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtShow.setRadius(40);
+        jbtShow.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtResestMouseClicked(evt);
+                jbtShowMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtResest, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, 120, 50));
+        jPanel2.add(jbtShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, 120, 50));
 
         jtbEquipment.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbEquipment.setModel(new javax.swing.table.DefaultTableModel(
@@ -361,13 +364,14 @@ public class EquipmentManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtAddMouseClicked
 
     private void jtbEquipmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbEquipmentMouseClicked
-
+        
     }//GEN-LAST:event_jtbEquipmentMouseClicked
 
-    private void jbtResestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResestMouseClicked
+    private void jbtShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtShowMouseClicked
         jtxtFind.setText("");
+        ShowEquip(1);
 
-    }//GEN-LAST:event_jbtResestMouseClicked
+    }//GEN-LAST:event_jbtShowMouseClicked
 
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked
         Vector<Equipment> equip = new Vector<Equipment>();
@@ -393,6 +397,10 @@ public class EquipmentManager extends javax.swing.JFrame {
         addEquip.setIDNVQL(ID_NVQL);
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        ShowEquip(1);
+    }//GEN-LAST:event_formWindowActivated
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -440,7 +448,7 @@ public class EquipmentManager extends javax.swing.JFrame {
     private view.JButtonCustom jbtDelel;
     private view.JButtonCustom jbtFind;
     private view.JButtonCustom jbtGoodState;
-    private view.JButtonCustom jbtResest;
+    private view.JButtonCustom jbtShow;
     private view.JButtonCustom jbtUpdate;
     private javax.swing.JTable jtbEquipment;
     private javax.swing.JTextField jtxtFind;

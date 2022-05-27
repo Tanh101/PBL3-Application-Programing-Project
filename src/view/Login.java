@@ -28,7 +28,6 @@ import view.viewStaffManager.StaffManager;
  */
 public class Login extends javax.swing.JFrame {
     private static int  count = 0;
-    
     public Login() {
         initComponents();
 
@@ -131,7 +130,7 @@ public class Login extends javax.swing.JFrame {
         jPanel3.add(jpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 310, 40));
 
         jboxChoose.setForeground(new java.awt.Color(0, 153, 255));
-        jboxChoose.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản Trị Viên", "Nhân Viên Quản Lý" }));
+        jboxChoose.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản Trị Viên", "Nhân Viên Quản Lý", "Cán Bộ" }));
         jboxChoose.setBorder(null);
         jboxChoose.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jboxChoose.setOpaque(true);
@@ -232,8 +231,9 @@ public class Login extends javax.swing.JFrame {
             String passText = new String(this.jpass.getPassword());
             if (this.jtxtAccount.getText().compareTo("lyvantanh1001") == 0
                     && passText.compareTo("lyvantanh2002") == 0) {
-                this.setVisible(false);
                 new Admin().setVisible(true);
+                this.setVisible(false);
+                
             } else {
                 showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
             }
@@ -242,13 +242,13 @@ public class Login extends javax.swing.JFrame {
             String pass = new String(this.jpass.getPassword());
             try {
                 if (log.checkAccount(acc, pass) == true) {
-                    staff st = new staff();
                     this.setVisible(false);
+                    staff st = new staff();
                     st.getjlbNameStaff().setText(log.getNameStaff(acc));
                     System.out.println(log.getNameStaff(acc));
                     st.setVisible(true);
                     st.setID_NVQL(acc);
-//                    new StaffManager().setVisible(true);
+                    st.setVisible(true);
                 } else {
                     showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
                 }
@@ -330,7 +330,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jpnExit;
     private javax.swing.JTextField jtxtAccount;
     // End of variables declaration//GEN-END:variables
-    public static void main(String[] args) {
-        new Login().setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        new Login().setVisible(true);
+//    }
 }

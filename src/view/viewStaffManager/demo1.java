@@ -29,29 +29,27 @@ public class demo1 extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jtxtNameActi = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jtxtDateQuit = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jtxtDateEnter = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtbCharityActi = new javax.swing.JTable();
-        jtxtSuport = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jtxtNameOrgani = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jtxtID = new javax.swing.JTextField();
-        jbtAdd = new view.JButtonCustom();
-        jbtUpdate = new view.JButtonCustom();
-        jbttNowActi = new view.JButtonCustom();
-        jbtReset = new view.JButtonCustom();
-        jtbtDel = new view.JButtonCustom();
-        jtbtStopActi = new view.JButtonCustom();
+        jLabel6 = new javax.swing.JLabel();
+        jtxtNameActi1 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jtxtDateQuit1 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jtxtDateEnter1 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtbCharityActi1 = new javax.swing.JTable();
+        jtxtSuport1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jtxtNameOrgani1 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jtxtID1 = new javax.swing.JTextField();
+        jbtAdd1 = new view.JButtonCustom();
+        jbtUpdate1 = new view.JButtonCustom();
+        jbttNowActi1 = new view.JButtonCustom();
+        jbtReset1 = new view.JButtonCustom();
+        jtbtDel1 = new view.JButtonCustom();
+        jtbtStopActi1 = new view.JButtonCustom();
         jbtResest1 = new view.JButtonCustom();
         jLabel12 = new javax.swing.JLabel();
         jtxtFind1 = new javax.swing.JTextField();
@@ -69,37 +67,32 @@ public class demo1 extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
+        jLabel6.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel6.setText("Tên Hoạt Động");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 110, 40));
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jtxtNameActi1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtNameActi1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel3.add(jtxtNameActi1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, 260, 40));
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel3.setText("Tên Hoạt Động");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 110, 40));
+        jLabel7.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel7.setText("Thời Gian Kết Thúc");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 140, 40));
 
-        jtxtNameActi.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtNameActi.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel4.add(jtxtNameActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, 260, 40));
+        jtxtDateQuit1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtDateQuit1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel3.add(jtxtDateQuit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 170, 260, 40));
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel4.setText("Thời Gian Kết Thúc");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 140, 40));
+        jLabel13.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel13.setText("Thời Gian Bắt Đầu");
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 140, 40));
 
-        jtxtDateQuit.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtDateQuit.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel4.add(jtxtDateQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 170, 260, 40));
+        jtxtDateEnter1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtDateEnter1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel3.add(jtxtDateEnter1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 260, 40));
 
-        jLabel5.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel5.setText("Thời Gian Bắt Đầu");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 140, 40));
-
-        jtxtDateEnter.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtDateEnter.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel4.add(jtxtDateEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 260, 40));
-
-        jtbCharityActi.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jtbCharityActi.setModel(new javax.swing.table.DefaultTableModel(
+        jtbCharityActi1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jtbCharityActi1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -122,113 +115,109 @@ public class demo1 extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jtbCharityActi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jtbCharityActi.setGridColor(new java.awt.Color(0, 204, 204));
-        jtbCharityActi.setOpaque(false);
-        jtbCharityActi.setRowHeight(40);
-        jtbCharityActi.setSelectionBackground(new java.awt.Color(102, 204, 255));
-        jtbCharityActi.setShowHorizontalLines(true);
-        jtbCharityActi.setShowVerticalLines(true);
-        jScrollPane1.setViewportView(jtbCharityActi);
+        jtbCharityActi1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtbCharityActi1.setGridColor(new java.awt.Color(0, 204, 204));
+        jtbCharityActi1.setOpaque(false);
+        jtbCharityActi1.setRowHeight(40);
+        jtbCharityActi1.setSelectionBackground(new java.awt.Color(102, 204, 255));
+        jtbCharityActi1.setShowHorizontalLines(true);
+        jtbCharityActi1.setShowVerticalLines(true);
+        jScrollPane2.setViewportView(jtbCharityActi1);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1110, 340));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1200, 340));
 
-        jtxtSuport.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtSuport.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel4.add(jtxtSuport, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 50, 260, 40));
+        jtxtSuport1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtSuport1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel3.add(jtxtSuport1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 50, 260, 40));
 
-        jLabel9.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel9.setText("Tên Tổ Chức");
-        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 100, 40));
+        jLabel14.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel14.setText("Tên Tổ Chức");
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 100, 40));
 
-        jLabel10.setBackground(new java.awt.Color(153, 255, 255));
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
-        jLabel10.setOpaque(true);
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 10, 140));
+        jLabel15.setBackground(new java.awt.Color(153, 255, 255));
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        jLabel15.setOpaque(true);
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 10, 140));
 
-        jtxtNameOrgani.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtNameOrgani.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel4.add(jtxtNameOrgani, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 260, 40));
+        jtxtNameOrgani1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtNameOrgani1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel3.add(jtxtNameOrgani1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 260, 40));
 
-        jLabel8.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel8.setText("Tiền/Hiện vật ủng hộ");
-        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 50, 150, 40));
+        jLabel16.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel16.setText("Tiền/Hiện vật ủng hộ");
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 50, 150, 40));
 
-        jLabel11.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel11.setText("Mã Tổ Chức");
-        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 100, 40));
+        jLabel17.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel17.setText("Mã Tổ Chức");
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 100, 40));
 
-        jtxtID.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtID.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel4.add(jtxtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 260, 40));
+        jtxtID1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtID1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel3.add(jtxtID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 260, 40));
 
-        jbtAdd.setBorder(null);
-        jbtAdd.setText("Thêm");
-        jbtAdd.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtAdd.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtAdd.setColor(new java.awt.Color(51, 255, 153));
-        jbtAdd.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtAdd.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtAdd.setRadius(40);
-        jPanel4.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 120, 50));
+        jbtAdd1.setBorder(null);
+        jbtAdd1.setText("Thêm");
+        jbtAdd1.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtAdd1.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtAdd1.setColor(new java.awt.Color(51, 255, 153));
+        jbtAdd1.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtAdd1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtAdd1.setRadius(40);
+        jPanel3.add(jbtAdd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 120, 50));
 
-        jbtUpdate.setBorder(null);
-        jbtUpdate.setText("Cập Nhật");
-        jbtUpdate.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtUpdate.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtUpdate.setColor(new java.awt.Color(51, 255, 153));
-        jbtUpdate.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtUpdate.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtUpdate.setRadius(40);
-        jPanel4.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 120, 50));
+        jbtUpdate1.setBorder(null);
+        jbtUpdate1.setText("Cập Nhật");
+        jbtUpdate1.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtUpdate1.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtUpdate1.setColor(new java.awt.Color(51, 255, 153));
+        jbtUpdate1.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtUpdate1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtUpdate1.setRadius(40);
+        jPanel3.add(jbtUpdate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 120, 50));
 
-        jbttNowActi.setBorder(null);
-        jbttNowActi.setText("Hoạt động hiện tại");
-        jbttNowActi.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbttNowActi.setColoOver(new java.awt.Color(255, 102, 51));
-        jbttNowActi.setColor(new java.awt.Color(51, 255, 153));
-        jbttNowActi.setColorClick(new java.awt.Color(0, 204, 255));
-        jbttNowActi.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbttNowActi.setRadius(40);
-        jPanel4.add(jbttNowActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 150, 50));
+        jbttNowActi1.setBorder(null);
+        jbttNowActi1.setText("Hoạt động hiện tại");
+        jbttNowActi1.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbttNowActi1.setColoOver(new java.awt.Color(255, 102, 51));
+        jbttNowActi1.setColor(new java.awt.Color(51, 255, 153));
+        jbttNowActi1.setColorClick(new java.awt.Color(0, 204, 255));
+        jbttNowActi1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbttNowActi1.setRadius(40);
+        jPanel3.add(jbttNowActi1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 150, 50));
 
-        jbtReset.setBorder(null);
-        jbtReset.setText("Làm mới");
-        jbtReset.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtReset.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtReset.setColor(new java.awt.Color(51, 255, 153));
-        jbtReset.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtReset.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtReset.setRadius(40);
-        jPanel4.add(jbtReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, 120, 50));
+        jbtReset1.setBorder(null);
+        jbtReset1.setText("Làm mới");
+        jbtReset1.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtReset1.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtReset1.setColor(new java.awt.Color(51, 255, 153));
+        jbtReset1.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtReset1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtReset1.setRadius(40);
+        jPanel3.add(jbtReset1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, 120, 50));
 
-        jtbtDel.setBorder(null);
-        jtbtDel.setText("Xoá");
-        jtbtDel.setBoderColor(new java.awt.Color(255, 255, 255));
-        jtbtDel.setColoOver(new java.awt.Color(255, 102, 51));
-        jtbtDel.setColor(new java.awt.Color(51, 255, 153));
-        jtbtDel.setColorClick(new java.awt.Color(0, 204, 255));
-        jtbtDel.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jtbtDel.setRadius(40);
-        jPanel4.add(jtbtDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, 120, 50));
+        jtbtDel1.setBorder(null);
+        jtbtDel1.setText("Xoá");
+        jtbtDel1.setBoderColor(new java.awt.Color(255, 255, 255));
+        jtbtDel1.setColoOver(new java.awt.Color(255, 102, 51));
+        jtbtDel1.setColor(new java.awt.Color(51, 255, 153));
+        jtbtDel1.setColorClick(new java.awt.Color(0, 204, 255));
+        jtbtDel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jtbtDel1.setRadius(40);
+        jPanel3.add(jtbtDel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, 120, 50));
 
-        jtbtStopActi.setBorder(null);
-        jtbtStopActi.setText("Hoạt động đã ngưng");
-        jtbtStopActi.setBoderColor(new java.awt.Color(255, 255, 255));
-        jtbtStopActi.setColoOver(new java.awt.Color(255, 102, 51));
-        jtbtStopActi.setColor(new java.awt.Color(51, 255, 153));
-        jtbtStopActi.setColorClick(new java.awt.Color(0, 204, 255));
-        jtbtStopActi.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jtbtStopActi.setRadius(40);
-        jPanel4.add(jtbtStopActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 250, 180, 50));
+        jtbtStopActi1.setBorder(null);
+        jtbtStopActi1.setText("Hoạt động đã ngưng");
+        jtbtStopActi1.setBoderColor(new java.awt.Color(255, 255, 255));
+        jtbtStopActi1.setColoOver(new java.awt.Color(255, 102, 51));
+        jtbtStopActi1.setColor(new java.awt.Color(51, 255, 153));
+        jtbtStopActi1.setColorClick(new java.awt.Color(0, 204, 255));
+        jtbtStopActi1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jtbtStopActi1.setRadius(40);
+        jPanel3.add(jtbtStopActi1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 250, 180, 50));
 
-        jTabbedPane1.addTab("tab1", jPanel4);
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 660));
 
-        jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 1160, 650));
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1110, 600));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1110, 660));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1190, 660));
 
         jbtResest1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/reset_24px.png"))); // NOI18N
         jbtResest1.setBoderColor(new java.awt.Color(242, 242, 242));
@@ -252,9 +241,10 @@ public class demo1 extends javax.swing.JFrame {
         jbtFind.setColorClick(new java.awt.Color(102, 255, 153));
         jPanel1.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 0, 50, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 1120, 700));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 1190, 700));
 
-        setSize(new java.awt.Dimension(1133, 713));
+        setSize(new java.awt.Dimension(1205, 708));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -294,35 +284,33 @@ public class demo1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private view.JButtonCustom jbtAdd;
+    private javax.swing.JScrollPane jScrollPane2;
+    private view.JButtonCustom jbtAdd1;
     private view.JButtonCustom jbtFind;
     private view.JButtonCustom jbtResest1;
-    private view.JButtonCustom jbtReset;
-    private view.JButtonCustom jbtUpdate;
-    private view.JButtonCustom jbttNowActi;
-    private javax.swing.JTable jtbCharityActi;
-    private view.JButtonCustom jtbtDel;
-    private view.JButtonCustom jtbtStopActi;
-    private javax.swing.JTextField jtxtDateEnter;
-    private javax.swing.JTextField jtxtDateQuit;
+    private view.JButtonCustom jbtReset1;
+    private view.JButtonCustom jbtUpdate1;
+    private view.JButtonCustom jbttNowActi1;
+    private javax.swing.JTable jtbCharityActi1;
+    private view.JButtonCustom jtbtDel1;
+    private view.JButtonCustom jtbtStopActi1;
+    private javax.swing.JTextField jtxtDateEnter1;
+    private javax.swing.JTextField jtxtDateQuit1;
     private javax.swing.JTextField jtxtFind1;
-    private javax.swing.JTextField jtxtID;
-    private javax.swing.JTextField jtxtNameActi;
-    private javax.swing.JTextField jtxtNameOrgani;
-    private javax.swing.JTextField jtxtSuport;
+    private javax.swing.JTextField jtxtID1;
+    private javax.swing.JTextField jtxtNameActi1;
+    private javax.swing.JTextField jtxtNameOrgani1;
+    private javax.swing.JTextField jtxtSuport1;
     // End of variables declaration//GEN-END:variables
 }

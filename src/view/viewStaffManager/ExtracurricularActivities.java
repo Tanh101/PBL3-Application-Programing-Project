@@ -8,6 +8,7 @@ import controller.ActivityListerner;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -112,15 +113,22 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         vec = ac.getListExtracurricular(ac.sqlShowExtrac(i));
         showSupport(vec);
     }
-
+   
     public void Add() {
         Vector<Extracurriclar> vec = new Vector<>();
         vec = ac.getListExtracurricular(ac.sqlShowExtrac(1));
+        
         String tmp = vec.get(vec.size() - 1).getID();
         String[] arr = tmp.split("HDNK", 2);
-//        System.out.println(tmp);
+        String ID = "HDNK";
+        if(arr[1].length() == 3 && String.valueOf(Integer.parseInt(arr[1]) + 1).length() == 1){
+            ID += "00";
+        }else{
+            ID += "0";
+        }
         int tmp2 = Integer.parseInt(arr[1]) + 1;
-        String ID = "HDNK" + String.valueOf(tmp2);
+        ID += String.valueOf(tmp2);
+        
         long millis = System.currentTimeMillis();
         Date date = new Date(millis);
         String DateStart = date.toString();
@@ -280,23 +288,23 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
 
         jtxtPlace.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtPlace.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 50, 240, 40));
+        jPanel2.add(jtxtPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 50, 240, 40));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel4.setText("Thời Gian Kết Thúc");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 140, 40));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 160, 140, 40));
 
         jtxtDateEnded.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDateEnded.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtDateEnded, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 160, 240, 40));
+        jPanel2.add(jtxtDateEnded, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 160, 240, 40));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel5.setText("Thời Gian Bắt Đầu");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 140, 40));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 140, 40));
 
         jtxtDateStart.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDateStart.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtDateStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 240, 40));
+        jPanel2.add(jtxtDateStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 240, 40));
 
         jtbExtracurricular.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbExtracurricular.setModel(new javax.swing.table.DefaultTableModel(
@@ -336,26 +344,26 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbExtracurricular);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1140, 350));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1190, 350));
 
         jtxtName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 240, 40));
+        jPanel2.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 240, 40));
 
         jLabel9.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel9.setText("Tên Hoạt Động");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 110, 40));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 110, 40));
 
         jLabel10.setBackground(new java.awt.Color(153, 255, 255));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel10.setOpaque(true);
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 10, 130));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 10, 130));
 
         jLabel8.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sum_24px.png"))); // NOI18N
         jLabel8.setText("Tổng hoạt động đã triển khai:");
         jLabel8.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 0, 240, 40));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 240, 40));
 
         jLabel12.setBackground(new java.awt.Color(255, 255, 255));
         jLabel12.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -364,16 +372,16 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel12.setOpaque(true);
         jLabel12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 210, 40));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 210, 40));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel6.setText("Địa Điểm");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 50, 90, 40));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 50, 90, 40));
 
         jlbCountCurrent.setBackground(new java.awt.Color(255, 255, 255));
         jlbCountCurrent.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jlbCountCurrent.setOpaque(true);
-        jPanel2.add(jlbCountCurrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 50, 40));
+        jPanel2.add(jlbCountCurrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 40, 40));
 
         jbtExtracEnd.setBorder(null);
         jbtExtracEnd.setText("Hoạt động đã kết thúc");
@@ -388,7 +396,7 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
                 jbtExtracEndMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtExtracEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, 190, 50));
+        jPanel2.add(jbtExtracEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 190, 50));
 
         jbtDelete.setBorder(null);
         jbtDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Delete_24px.png"))); // NOI18N
@@ -405,7 +413,7 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
                 jbtDeleteMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 230, 100, 50));
+        jPanel2.add(jbtDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 230, 100, 50));
 
         jbtUpda.setBorder(null);
         jbtUpda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/update_24px.png"))); // NOI18N
@@ -422,7 +430,7 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
                 jbtUpdaMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtUpda, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 230, 120, 50));
+        jPanel2.add(jbtUpda, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 230, 120, 50));
 
         jbtShow.setBorder(null);
         jbtShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/list_view_24px.png"))); // NOI18N
@@ -439,7 +447,7 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
                 jbtShowMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 120, 50));
+        jPanel2.add(jbtShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, 120, 50));
 
         jbtExtracNow.setBorder(null);
         jbtExtracNow.setText("Hoạt động hiện tại");
@@ -454,7 +462,7 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
                 jbtExtracNowMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtExtracNow, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 170, 50));
+        jPanel2.add(jbtExtracNow, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 170, 50));
 
         jbtAdd.setBorder(null);
         jbtAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/add_24px.png"))); // NOI18N
@@ -472,37 +480,37 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
                 jbtAddMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 100, 50));
+        jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 100, 50));
 
         jtxtNumOfStaff.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtNumOfStaff.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtNumOfStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 240, 40));
+        jPanel2.add(jtxtNumOfStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 240, 40));
 
         jLabel11.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel11.setText("Số Cán Bộ Tham Gia");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 140, 40));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 140, 40));
 
         jLabel13.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel13.setText("Số Trẻ Tham Gia");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 110, 140, 40));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, 140, 40));
 
         jtxtNumOfChild.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtNumOfChild.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtNumOfChild, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 110, 240, 40));
+        jPanel2.add(jtxtNumOfChild, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 110, 240, 40));
 
         jTabbedPane1.addTab("tab1", jPanel2);
 
-        jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, -1));
+        jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1240, 690));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1140, 650));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1190, 690));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel7.setText("Tìm Theo Tên Hoạt Động");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 170, 40));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 170, 40));
 
         jtxtFind.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtFind.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 400, 40));
+        jPanel1.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 400, 40));
 
         jbtFind.setBorder(null);
         jbtFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/search_24px.png"))); // NOI18N
@@ -516,7 +524,7 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
                 jbtFindMouseClicked(evt);
             }
         });
-        jPanel1.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 0, 50, 40));
+        jPanel1.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 0, 50, 40));
 
         jbtRe.setBackground(new java.awt.Color(153, 255, 204));
         jbtRe.setBorder(null);
@@ -533,9 +541,9 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         });
         jPanel1.add(jbtRe, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 700));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 740));
 
-        setSize(new java.awt.Dimension(1140, 701));
+        setSize(new java.awt.Dimension(1191, 701));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCustom1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCustom1MouseClicked

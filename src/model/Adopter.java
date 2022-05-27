@@ -8,19 +8,16 @@ package model;
  *
  * @author ADMIN
  */
-public class introducter {
+public class Adopter {
 
-    public introducter(String CCCD, String Name, String Gender, String Address, String PhoneNumber, String DayOfBirth) {
-        this.CCCD = CCCD;
-        this.Name = Name;
-        this.Gender = Gender;
-        this.Address = Address;
-        this.PhoneNumber = PhoneNumber;
-        this.DayOfBirth = DayOfBirth;
-    }
-
-    public introducter() {
-    }
+//    public Adopter(String CCCD, String Name, String Gender, String Address, String PhoneNumber, String DOB) {
+//        this.CCCD = CCCD;
+//        this.Name = Name;
+//        this.Gender = Gender;
+//        this.Address = Address;
+//        this.PhoneNumber = PhoneNumber;
+//        this.DOB = DOB;
+//    }
 
     public String getCCCD() {
         return CCCD;
@@ -62,12 +59,12 @@ public class introducter {
         this.PhoneNumber = PhoneNumber;
     }
 
-    public String getDayOfBirth() {
-        return DayOfBirth;
+    public String getDOB() {
+        return DOB;
     }
 
-    public void setDayOfBirth(String DayOfBirth) {
-        this.DayOfBirth = DayOfBirth;
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
     }
-    private String CCCD, Name,  Gender,  Address,  PhoneNumber,  DayOfBirth;
+    String CCCD, Name, Gender, Address, PhoneNumber, DOB;
 }

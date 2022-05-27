@@ -1,7 +1,6 @@
 package view;
 
 import controller.AdminListener;
-import controller.SendID_NVQL;
 import controller.StaffManagerListener;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -14,21 +13,18 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import model.Adopter;
 import model.managementStaff;
+import view.Thong_bao_nhan_vien.main_thong_bao_nv;
+import view.thong_bao_cho_trang_chu.main_thong_bao;
+import view.viewStaffManager.AdopterManager;
 import view.viewStaffManager.ExtracurricularActivities;
 import view.viewStaffManager.CharityActivityManager;
 import view.viewStaffManager.ChildrenManager;
 import view.viewStaffManager.EquipmentManager;
+import view.viewStaffManager.IntroductorManager;
 import view.viewStaffManager.StaffManager;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-/**
- *
- * @author QUOC KHANH
- */
 public class staff extends javax.swing.JFrame {
 
     StaffManager staffManager = new StaffManager();
@@ -36,6 +32,10 @@ public class staff extends javax.swing.JFrame {
     ChildrenManager childManager = new ChildrenManager();
     ExtracurricularActivities extracManager = new ExtracurricularActivities();
     CharityActivityManager charityManager = new CharityActivityManager();
+    IntroductorManager introManager = new IntroductorManager();
+    main_thong_bao_nv StaffNotifi = new main_thong_bao_nv();
+    main_thong_bao News = new main_thong_bao();
+    AdopterManager adop = new AdopterManager();
     Login log = new Login();
     AdminListener admin = new AdminListener();
 
@@ -60,9 +60,12 @@ public class staff extends javax.swing.JFrame {
         setMenuColor(jlb1);
         jbtExtracurricular.setVisible(false);
         jbtCharity.setVisible(false);
+        jbtSendStaff.setVisible(false);
+        jbtSendmain.setVisible(false);
         setCursor();
     }
-    public void setCursor(){
+
+    public void setCursor() {
         jbtStaffManager.setCursor(new Cursor(HAND_CURSOR) {
         });
         jbtChildManager.setCursor(new Cursor(HAND_CURSOR) {
@@ -106,14 +109,21 @@ public class staff extends javax.swing.JFrame {
     public void setShowMenu(JFrame jf) {
         jbtExtracurricular.setVisible(false);
         jbtCharity.setVisible(false);
+        jbtSendStaff.setVisible(false);
+        jbtSendmain.setVisible(false);
         staffManager.setVisible(false);
         childManager.setVisible(false);
         equipmentManager.setVisible(false);
         extracManager.setVisible(false);
         charityManager.setVisible(false);
-        jf.setVisible(true);
+        introManager.setVisible(false);
+        StaffNotifi.setVisible(false);
+        adop.setVisible(false);
+        if (jf != null) {
+            jf.setVisible(true);
+        }
     }
-    
+
     public ImageIcon ResizeImage(String ImagePath) {
         ImageIcon myImage = new ImageIcon(ImagePath);
         Image img = myImage.getImage();
@@ -121,6 +131,7 @@ public class staff extends javax.swing.JFrame {
         ImageIcon image = new ImageIcon(newImage);
         return image;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,6 +169,8 @@ public class staff extends javax.swing.JFrame {
         jbtLogout = new juttonCustom.JButtonCustom();
         jbtCharity = new juttonCustom.JButtonCustom();
         jbtExtracurricular = new juttonCustom.JButtonCustom();
+        jbtSendStaff = new juttonCustom.JButtonCustom();
+        jbtSendmain = new juttonCustom.JButtonCustom();
 
         jLabel4.setText("jLabel4");
 
@@ -269,6 +282,11 @@ public class staff extends javax.swing.JFrame {
         jbtAdopters.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jbtAdopters.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jbtAdopters.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jbtAdopters.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtAdoptersMouseClicked(evt);
+            }
+        });
 
         jbtFeedback.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jbtFeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/feedback_48px.png"))); // NOI18N
@@ -294,7 +312,7 @@ public class staff extends javax.swing.JFrame {
         jbtCacular.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jbtSendNotification.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtSendNotification.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ảnh/icons8_notification_48px.png"))); // NOI18N
+        jbtSendNotification.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/notification_48px.png"))); // NOI18N
         jbtSendNotification.setText("Gửi thông báo");
         jbtSendNotification.setBoderColor(new java.awt.Color(255, 255, 255));
         jbtSendNotification.setColoOver(new java.awt.Color(255, 255, 0));
@@ -512,6 +530,42 @@ public class staff extends javax.swing.JFrame {
         });
         jPanel1.add(jbtExtracurricular, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 230, -1));
 
+        jbtSendStaff.setBackground(new java.awt.Color(204, 255, 255));
+        jbtSendStaff.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jbtSendStaff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/handshake_heart_48px.png"))); // NOI18N
+        jbtSendStaff.setText("Gửi cho cán bộ nhân viên");
+        jbtSendStaff.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtSendStaff.setColoOver(new java.awt.Color(255, 255, 0));
+        jbtSendStaff.setColorClick(new java.awt.Color(102, 255, 51));
+        jbtSendStaff.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
+        jbtSendStaff.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jbtSendStaff.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbtSendStaff.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jbtSendStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtSendStaffMouseClicked(evt);
+            }
+        });
+        jPanel1.add(jbtSendStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 570, 260, 50));
+
+        jbtSendmain.setBackground(new java.awt.Color(204, 255, 255));
+        jbtSendmain.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jbtSendmain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pullups_50px.png"))); // NOI18N
+        jbtSendmain.setText("Đưa ra trang chủ");
+        jbtSendmain.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtSendmain.setColoOver(new java.awt.Color(255, 255, 0));
+        jbtSendmain.setColorClick(new java.awt.Color(102, 255, 51));
+        jbtSendmain.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
+        jbtSendmain.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jbtSendmain.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbtSendmain.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jbtSendmain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtSendmainMouseClicked(evt);
+            }
+        });
+        jPanel1.add(jbtSendmain, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 520, 260, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -520,7 +574,7 @@ public class staff extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(1144, 701));
@@ -537,7 +591,7 @@ public class staff extends javax.swing.JFrame {
 
     private void jbtChildManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtChildManagerMouseClicked
         setShowMenu(childManager);
-        childManager.ShowListChild();
+        childManager.ShowChild(1);
         childManager.setID_NVQL(ID_NVQL);
         setMenuColor(jlb2);
     }//GEN-LAST:event_jbtChildManagerMouseClicked
@@ -562,7 +616,8 @@ public class staff extends javax.swing.JFrame {
 
         this.setVisible(false);
         log.setVisible(true);
-        
+        setShowMenu(null);
+
 
     }//GEN-LAST:event_jbtLogoutActionPerformed
 
@@ -577,11 +632,15 @@ public class staff extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtActivityMouseClicked
 
     private void jbtSendNotificationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtSendNotificationMouseClicked
-        // TODO add your handling code here:
+        setMenuColor(jlb9);
+        jbtSendStaff.setVisible(true);
+        jbtSendmain.setVisible(true);
     }//GEN-LAST:event_jbtSendNotificationMouseClicked
 
     private void jbtIntroductorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtIntroductorMouseClicked
-       setMenuColor(jlb5);
+        setMenuColor(jlb5);
+        setShowMenu(introManager);
+        introManager.setID_NVQL(ID_NVQL);
     }//GEN-LAST:event_jbtIntroductorMouseClicked
 
     private void jbtCharityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtCharityMouseClicked
@@ -592,44 +651,60 @@ public class staff extends javax.swing.JFrame {
     private void jbtExtracurricularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtExtracurricularMouseClicked
         setShowMenu(extracManager);
         extracManager.setIDNVQL(ID_NVQL);
-        
+
     }//GEN-LAST:event_jbtExtracurricularMouseClicked
+
+    private void jbtSendStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtSendStaffMouseClicked
+        setShowMenu(StaffNotifi);
+        StaffNotifi.setID_NVQL(ID_NVQL);
+    }//GEN-LAST:event_jbtSendStaffMouseClicked
+
+    private void jbtSendmainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtSendmainMouseClicked
+        setShowMenu(News);
+        News.setID_NVQL(ID_NVQL);
+    }//GEN-LAST:event_jbtSendmainMouseClicked
+
+    private void jbtAdoptersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAdoptersMouseClicked
+        setShowMenu(adop);
+        setMenuColor(jlb6);
+        adop.setID_NVQL(ID_NVQL);
+    }//GEN-LAST:event_jbtAdoptersMouseClicked
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new staff().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new staff().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel4;
@@ -647,6 +722,8 @@ public class staff extends javax.swing.JFrame {
     private juttonCustom.JButtonCustom jbtIntroductor;
     private juttonCustom.JButtonCustom jbtLogout;
     private juttonCustom.JButtonCustom jbtSendNotification;
+    private juttonCustom.JButtonCustom jbtSendStaff;
+    private juttonCustom.JButtonCustom jbtSendmain;
     private juttonCustom.JButtonCustom jbtStaffManager;
     private javax.swing.JLabel jlb1;
     private javax.swing.JLabel jlb2;
