@@ -95,10 +95,23 @@ public class AdopterListener extends ConnectDatabase {
             pre.setString(5, gender);
             pre.setString(6, Address);
             pre.setString(7, PhoneNumber);
-            pre.setInt(8,IDNVQL );
+            pre.setInt(8, IDNVQL);
 //            System.out.println(CCCD_Choose + name + Address);
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Cập nhật đối tượng nhận nuôi trẻ " + name + " thành công");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    public void DeleteAdopter(String CCCD_Choose) {
+        String sql = "DELETE_ADOPTER\n"
+                + "@CCCD = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, CCCD_Choose);
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Xoá người nhận nuôi "+ CCCD_Choose + " thành công!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

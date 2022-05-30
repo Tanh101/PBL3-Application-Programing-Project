@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Adopter;
 import model.Introductor;
+import view.AddJframe.ChildrenAdopted;
 
 /**
  *
@@ -22,6 +23,7 @@ import model.Introductor;
  */
 public class AdopterManager extends javax.swing.JFrame {
     AdopterListener adop = new AdopterListener();
+    ChildrenAdopted chilAdop = new ChildrenAdopted();
     public String getID_NVQL() {
         return ID_NVQL;
     }
@@ -139,6 +141,16 @@ public class AdopterManager extends javax.swing.JFrame {
         ArrayList<Adopter> list = adop.FindAdop(i, Text);
         showSupport(list);
     }
+    
+    public void Delete(){
+        int k = jtbAdopter.getSelectedRow();
+        if (k < 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn đối tượng muốn cập nhật");
+        } else {
+            String CCCD_Choose = (String) jtbAdopter.getModel().getValueAt(k, 0);
+            adop.DeleteAdopter(CCCD_Choose);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -179,6 +191,9 @@ public class AdopterManager extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -307,6 +322,11 @@ public class AdopterManager extends javax.swing.JFrame {
         jbtDelete.setColorClick(new java.awt.Color(0, 204, 255));
         jbtDelete.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jbtDelete.setRadius(40);
+        jbtDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtDeleteMouseClicked(evt);
+            }
+        });
         jPanel3.add(jbtDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 250, 120, 50));
 
         jbtWatch.setBorder(null);
@@ -317,6 +337,11 @@ public class AdopterManager extends javax.swing.JFrame {
         jbtWatch.setColorClick(new java.awt.Color(0, 204, 255));
         jbtWatch.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jbtWatch.setRadius(40);
+        jbtWatch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtWatchMouseClicked(evt);
+            }
+        });
         jPanel3.add(jbtWatch, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, 230, 50));
 
         jLabel9.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -407,6 +432,28 @@ public class AdopterManager extends javax.swing.JFrame {
         Find(2);
         
     }//GEN-LAST:event_jbtFindMouseClicked
+
+    private void jbtWatchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtWatchMouseClicked
+        int k = jtbAdopter.getSelectedRow();
+        if (k < 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn đối tượng muốn xem");
+        } else {
+            String CCCD_Choose = (String) jtbAdopter.getModel().getValueAt(k, 0);
+            chilAdop.setID(CCCD_Choose);
+        }
+        chilAdop.setVisible(true);
+    }//GEN-LAST:event_jbtWatchMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        chilAdop.setVisible(false);
+        this.setVisible(false);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void jbtDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteMouseClicked
+       Delete();
+       Statistic();
+        Show();
+    }//GEN-LAST:event_jbtDeleteMouseClicked
 
     /**
      * @param args the command line arguments

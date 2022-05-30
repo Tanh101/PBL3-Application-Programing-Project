@@ -361,13 +361,12 @@ public class LoginUser extends javax.swing.JFrame {
                     this.checkLogin = 1;
                     this.UserName = inputAccoutn;
                     this.setVisible(false);
-                    showMessageDialog(null, "Đăng Nhập Thành Công!");
                 } else {
                     this.checkLogin = 0;
                     showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
                 }
             } catch (SQLException ex) {
-                
+                ex.printStackTrace();
             }
         
 

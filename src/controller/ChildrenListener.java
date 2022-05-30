@@ -12,9 +12,12 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
+import model.Adopted;
+import model.Adopter;
 import model.Children;
 import model.IntroduceChildren;
 import model.Staff;
+import view.AddJframe.ChildrenAdopted;
 
 /**
  *
@@ -243,6 +246,26 @@ public class ChildrenListener extends ConnectDatabase {
         return list;
     }
 
+    public void UpdateChildrenIntro(String ID_Choose, String Name, String DOB, String Address, String Gender, String Situation, String DateIntro, String Img) {
+        String sql = "UPDATE_CHILDREN_INTRODUCED\n"
+                + "@ID_CHOOSE = ?, @NAME = ?, @DOB = ?, @ADDRESS = ?, @GENDER = ?, @SITUATION = ?, @DATEINTRO = ?, @IMG = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, ID_Choose);
+            pre.setString(2, Name);
+            pre.setString(3, DOB);
+            pre.setString(4, Address);
+            pre.setString(5, Gender);
+            pre.setString(6, Situation);
+            pre.setString(7, DateIntro);
+            pre.setString(8, Img);
+            pre.executeUpdate();
+            showMessageDialog(null, "Cập nhật trẻ " + ID_Choose + " thành công");
+        } catch (Exception e) {
+            showMessageDialog(null, e.getMessage());
+        }
+    }
+
     private String procedureFindItroChild(int i) {
         if (i == 1) {
             return "FIND_ID_CHILD @ID =?"
@@ -302,19 +325,77 @@ public class ChildrenListener extends ConnectDatabase {
                 pre.setString(7, Access);
                 pre.executeUpdate();
                 showMessageDialog(null, "Thêm trẻ " + NewID + " vào trung tâm thành công");
-            }else {
+            } else {
                 showMessageDialog(null, "Trẻ đã tồn tại trong trung tâm");
             }
         } catch (Exception e) {
             showMessageDialog(null, e.getMessage());
         }
     }
-    
-    
-    
-    
-    
 
+    //------------------------------------------------------Adopter MANAGEMENT ----------------------------------------------
+    //----------------------------------------------Children change to Adopted -----------------------------------------
+    private String proShowChildAdop(int i) {
+        if (i == 1) {
+            return "SHOW_ADOPTED @CCCD_CHOOSE = ?";
+        } else if (i == 2) {
+
+            return "FIND_ADOPTED_IDTRE\n"
+                    + "@ID_TRE = ?";
+        } else {
+            return "FIND_ADOPTED_NAME\n"
+                    + "@NAME = ?";
+        }
+    }
+
+    public ArrayList<Adopted> showAdopted(int i, String ID) {
+        ArrayList<Adopted> list = new ArrayList<Adopted>();
+        String sql = proShowChildAdop(i);
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, ID);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                Adopted chil = new Adopted();
+                chil.setID_TRE(rs.getString(1));
+                chil.setName(rs.getString(2));
+                chil.setDOB(rs.getDate(3).toString());
+                chil.setAddress(rs.getString(4));
+                chil.setGender(rs.getString(5));
+                chil.setImg(rs.getString(6));
+                chil.setState(rs.getString(7));
+                Date date = rs.getDate(8);
+                if (date == null) {
+                    chil.setDateAdopt("");
+                } else {
+                    chil.setDateAdopt(date.toString());
+                }
+                list.add(chil);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public void UpdateAdopted(String ID_Choose, String Name, String DOB, String Address, String Gender, String DateAdopt, String img) {
+        String sql = "UPDATE_ADOPTED\n"
+                + "@ID_CHOOSE = ?, @NAME = ?, @DOB = ?, @ADDRESS = ?,@GENDER = ?,  @DATEADOPT = ?, @IMG = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, ID_Choose);
+            pre.setString(2, Name);
+            pre.setString(3, DOB);
+            pre.setString(4, Address);
+            pre.setString(5, Gender);
+            pre.setString(6, DateAdopt);
+            pre.setString(7, img);
+            pre.executeUpdate();
+            showMessageDialog(null, "Cập nhật trẻ " + ID_Choose + " thành công!");
+        } catch (Exception e) {
+            showMessageDialog(null, e.getMessage());
+        }
+    }
 //    public static void main(String[] args) {
 //        ChildrenListener st = new ChildrenListener();
 //        ArrayList<IntroduceChildren> v = new ArrayList<>();

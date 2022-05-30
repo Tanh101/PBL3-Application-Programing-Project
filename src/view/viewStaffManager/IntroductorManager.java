@@ -65,8 +65,9 @@ public class IntroductorManager extends javax.swing.JFrame {
         jtxtPhoneNumber.setText("");
         jradioFemale.setSelected(false);
         jradioMale.setSelected(false);
-        jtxtUsername .setText("");
+        jtxtUsername.setText("");
         jtxtPass.setText("");
+
     }
 
     public void Statistic() {
@@ -78,6 +79,7 @@ public class IntroductorManager extends javax.swing.JFrame {
     public void getDataFromTable() {
         int k = jtbIntroductor.getSelectedRow();
         String ID_Choose = (String) jtbIntroductor.getModel().getValueAt(k, 0);
+        childIntro.setID(ID_Choose);
         ArrayList<Introductor> list = new ArrayList<Introductor>();
         list = intro.getListIntro(1, ID_Choose);
         Introductor introductor = list.get(0);
@@ -99,7 +101,7 @@ public class IntroductorManager extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < list.size(); i++) {
             model.addRow(new Object[]{
-                list.get(i).getID(), list.get(i).getName(),list.get(i).getUsername(), 
+                list.get(i).getID(), list.get(i).getName(), list.get(i).getUsername(),
                 list.get(i).getPassword(), list.get(i).getDayOfBirth(),
                 list.get(i).getGender(), list.get(i).getAddress(),
                 list.get(i).getPhoneNumber()
@@ -142,7 +144,7 @@ public class IntroductorManager extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin người giới thiệu");
         } else {
             intro.AddIntro(ID, Name, DOB, Gender, Address, Phone, Integer.parseInt(ID_NVQL), Username, Password, "1");
-            
+
         }
 
     }
@@ -178,7 +180,7 @@ public class IntroductorManager extends javax.swing.JFrame {
             String Address = jtxtAddress.getText();
             String Phone = jtxtPhoneNumber.getText();
             String Username = jtxtUsername.getText();
-        String Password = jtxtPass.getText();
+            String Password = jtxtPass.getText();
             if (Name.isEmpty() || DOB.isEmpty() || Address.isEmpty() || Phone.isEmpty() || Username.isEmpty() || Password.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin người giới thiệu");
             } else {
@@ -234,6 +236,9 @@ public class IntroductorManager extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(330, 70, 70, 70));
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -521,51 +526,56 @@ public class IntroductorManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtFindMouseClicked
 
     private void jbtWatchChildMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtWatchChildMouseClicked
-        childIntro.setIDNVQL(ID_NVQL);
+
         int k = jtbIntroductor.getSelectedRow();
         if (k < 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn đối tượng muốn xem!");
         } else {
             String ID_Choose = (String) jtbIntroductor.getModel().getValueAt(k, 0);
-            childIntro.setID(ID_Choose);
             childIntro.setVisible(true);
+            childIntro.setIDNVQL(ID_NVQL);
+            childIntro.setID(ID_Choose);
         }
     }//GEN-LAST:event_jbtWatchChildMouseClicked
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        childIntro.setVisible(false);
+    }//GEN-LAST:event_formWindowClosed
+
 //    public static void main(String args[]) {
-        //        /* Set the Nimbus look and feel */
-        //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        //        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-        //         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-        //         */
-        //        try {
-        //            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-        //                if ("Nimbus".equals(info.getName())) {
-        //                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-        //                    break;
-        //                }
-        //            }
-        //        } catch (ClassNotFoundException ex) {
-        //            java.util.logging.Logger.getLogger(IntroductorManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        //        } catch (InstantiationException ex) {
-        //            java.util.logging.Logger.getLogger(IntroductorManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        //        } catch (IllegalAccessException ex) {
-        //            java.util.logging.Logger.getLogger(IntroductorManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        //            java.util.logging.Logger.getLogger(IntroductorManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        //        }
-        //        //</editor-fold>
-        //        //</editor-fold>
-        //        //</editor-fold>
-        //        //</editor-fold>
-        //
-        //        /* Create and display the form */
-        //        java.awt.EventQueue.invokeLater(new Runnable() {
-        //            public void run() {
-        //                new IntroductorManager().setVisible(true);
-        //            }
-        //        });
-        //    }
+    //        /* Set the Nimbus look and feel */
+    //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    //        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    //         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+    //         */
+    //        try {
+    //            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+    //                if ("Nimbus".equals(info.getName())) {
+    //                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+    //                    break;
+    //                }
+    //            }
+    //        } catch (ClassNotFoundException ex) {
+    //            java.util.logging.Logger.getLogger(IntroductorManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        } catch (InstantiationException ex) {
+    //            java.util.logging.Logger.getLogger(IntroductorManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        } catch (IllegalAccessException ex) {
+    //            java.util.logging.Logger.getLogger(IntroductorManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+    //            java.util.logging.Logger.getLogger(IntroductorManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        }
+    //        //</editor-fold>
+    //        //</editor-fold>
+    //        //</editor-fold>
+    //        //</editor-fold>
+    //
+    //        /* Create and display the form */
+    //        java.awt.EventQueue.invokeLater(new Runnable() {
+    //            public void run() {
+    //                new IntroductorManager().setVisible(true);
+    //            }
+    //        });
+    //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

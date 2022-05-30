@@ -11,11 +11,12 @@ import java.util.ArrayList;
 import model.Account.Account;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class LoginListener extends ConnectDatabase {
 
     private static ArrayList<Account> list = new ArrayList<Account>();
-    
 
     public LoginListener() {
 //        this.list = new ArrayList<Account>();
@@ -45,13 +46,15 @@ public class LoginListener extends ConnectDatabase {
 
     public boolean checkAccountUser(String acc, String pass) throws SQLException {
         Account ac = null;
-        String sql = "SELECT * FROM TAIKHOANUSER WHERE UserName=? AND PASSWORD=?";
+        String sql = "LOGIN_USER\n"
+                + "@USERNAME= ?, @PASS =?";
         PreparedStatement pre = conn.prepareStatement(sql);
         try {
             pre.setString(1, acc);
             pre.setString(2, pass);
             ResultSet rs = pre.executeQuery();
             if (rs.next()) {
+                showMessageDialog(null, "Đăng Nhập Thành Công!");
                 return true;
             }
         } catch (Exception e) {
@@ -77,6 +80,7 @@ public class LoginListener extends ConnectDatabase {
         }
         return null;
     }
+
     public String getNameStaff(String UserName) throws SQLException {
         String sql = "SELECT HoTen From CANBONHANVIEN WHERE ID_CBNV=?";
         PreparedStatement pre = conn.prepareStatement(sql);
@@ -90,5 +94,26 @@ public class LoginListener extends ConnectDatabase {
             e.getMessage();
         }
         return null;
+    }
+
+    //-------------------------------------REGISTER-------------------------------------------
+    public void Register(String Name, String DOB, String Gender, String Address, String PhoneNumber, String Username, String pass) {
+        String sql = " REGISTER\n"
+                + "@Name = ?, @DOB = ?, @Gender = ?, @Address = ?,@PhoneNumber = ?, @Username = ?, @pass = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, Name);
+            pre.setString(2, DOB);
+            pre.setString(3, Gender);
+            pre.setString(4, Address);
+            pre.setString(5, PhoneNumber);
+            pre.setString(6, Username);
+            pre.setString(7, pass);
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Đăng ký tài khoản thành công");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
     }
 }
