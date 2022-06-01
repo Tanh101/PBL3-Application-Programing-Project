@@ -96,17 +96,14 @@ public class Children {
         this.state = state;
     }
 
-    public Children(String ID_TRE, String Name, String DateOfBirth, String Address, String Gender, String DateEnter, String DateQuit, String urlPath, String state) {
-        this.ID_TRE = ID_TRE;
-        this.Name = Name;
-        this.DateOfBirth = DateOfBirth;
-        this.Address = Address;
-        this.Gender = Gender;
-        this.DateEnter = DateEnter;
-        this.DateQuit = DateQuit;
-        this.urlPath = urlPath;
-        this.state = state;
+
+    public String getSituation() {
+        return Situation;
     }
 
-    private String ID_TRE, Name, DateOfBirth, Address, Gender, DateEnter, DateQuit, urlPath, state;
+    public void setSituation(String Situation) {
+        this.Situation = Situation;
+    }
+
+    private String ID_TRE, Name, DateOfBirth, Address, Gender, DateEnter, DateQuit, urlPath, state, Situation;
 }

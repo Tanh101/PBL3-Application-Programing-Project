@@ -50,10 +50,11 @@ public class ChildrenManager extends javax.swing.JFrame {
         jtbChildren.getColumnModel().getColumn(0).setPreferredWidth(90);
         jtbChildren.getColumnModel().getColumn(1).setPreferredWidth(180);
         jtbChildren.getColumnModel().getColumn(2).setPreferredWidth(110);
-        jtbChildren.getColumnModel().getColumn(3).setPreferredWidth(380);
+        jtbChildren.getColumnModel().getColumn(3).setPreferredWidth(350);
         jtbChildren.getColumnModel().getColumn(4).setPreferredWidth(110);
-        jtbChildren.getColumnModel().getColumn(5).setPreferredWidth(110);
-        jtbChildren.getColumnModel().getColumn(6).setPreferredWidth(110);
+        jtbChildren.getColumnModel().getColumn(5).setPreferredWidth(120);
+        jtbChildren.getColumnModel().getColumn(6).setPreferredWidth(120);
+        jtbChildren.getColumnModel().getColumn(7).setPreferredWidth(120);
         jtbChildren.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 16));
         ((DefaultTableCellRenderer) jtbChildren.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
@@ -75,6 +76,7 @@ public class ChildrenManager extends javax.swing.JFrame {
         }
         jtxtPath.setText(s.getUrlPath());
         jlbImage.setIcon(ResizeImage(url + s.getUrlPath()));
+        jtxtSituation.setText(s.getSituation());
         jtxtDateEnter.setText(s.getDateEnter());
         jtxtDateQuit.setText(s.getDateQuit());
     }
@@ -85,7 +87,7 @@ public class ChildrenManager extends javax.swing.JFrame {
         for (int i = 0; i < list.size(); i++) {
             model.addRow(new Object[]{
                 list.get(i).getID_TRE(), list.get(i).getName(), list.get(i).getDateOfBirth(), list.get(i).getAddress(),
-                list.get(i).getGender(), list.get(i).getDateEnter(), list.get(i).getDateQuit()
+                list.get(i).getGender(), list.get(i).getSituation(), list.get(i).getDateEnter(), list.get(i).getDateQuit()
             });
         }
         jtbChildren.setModel(model);
@@ -96,10 +98,9 @@ public class ChildrenManager extends javax.swing.JFrame {
         list = childrenListener.getListChildren(childrenListener.proShowChild(i));
         showSupport(list);
     }
-
-    public void Find(int i, String ID) {
+    public void Find(int i, String Text) {
         ArrayList<Children> list = new ArrayList<>();
-        list = childrenListener.FindChild(i, ID);
+        list = childrenListener.FindChild(i, Text);
         showSupport(list);
     }
 
@@ -135,6 +136,7 @@ public class ChildrenManager extends javax.swing.JFrame {
         } else if (jradioFemale.isSelected()) {
             Gender = "Nữ";
         }
+        String Situation = jtxtSituation.getText();
         String DateEnter = date.toString();
         String DateQuit = jtxtDateQuit.getText();
         if (DateQuit.compareTo("") == 0) {
@@ -148,9 +150,10 @@ public class ChildrenManager extends javax.swing.JFrame {
                 || Gender.isEmpty() || DateEnter.isEmpty()) {
             showMessageDialog(null, "Không được để trống thông tin nhân viên!");
         } else {
-            childrenListener.Insert(ID, Name, DOB, Address, Gender, NamePhoto,"1" , ID_NVQL, DateEnter, DateQuit);
+            childrenListener.Insert(ID, Name, DOB, Address, Gender, NamePhoto,"1" ,Situation,  ID_NVQL, DateEnter, DateQuit);
             showMessageDialog(null, "Thêm trẻ " + ID + " thành công");
         }
+        
     }
 
     public void Update() {
@@ -172,6 +175,7 @@ public class ChildrenManager extends javax.swing.JFrame {
             if (NamePhoto.compareTo("") == 0) {
                 NamePhoto = url + "default.png";
             }
+            String Situation = jtxtSituation.getText();
             String DateEnter = jtxtDateEnter.getText();
             String DateQuit = jtxtDateQuit.getText();
             if (DateQuit.compareTo("") == 0) {
@@ -182,7 +186,7 @@ public class ChildrenManager extends javax.swing.JFrame {
                 showMessageDialog(null, "Không được để trống thông tin nhân viên!");
 
             } else {
-                childrenListener.Update(ID_Choose, Name, DOB, Address, Gender, NamePhoto, ID_NVQL, DateEnter, DateQuit);
+                childrenListener.Update(ID_Choose, Name, DOB, Address, Gender, NamePhoto,Situation, ID_NVQL, DateEnter, DateQuit);
                 showMessageDialog(null, "Cập nhật trẻ " + ID_Choose + " thành công");
             }
         }
@@ -199,6 +203,7 @@ public class ChildrenManager extends javax.swing.JFrame {
         jtxtDateEnter.setText("");
         jtxtDateQuit.setText("");
         jtxtPath.setText("");
+        jtxtSituation.setText("");
         jlbImage.setIcon(ResizeImage(url + "default.png"));
     }
 
@@ -273,8 +278,10 @@ public class ChildrenManager extends javax.swing.JFrame {
         jblDemo1 = new javax.swing.JLabel();
         jlbNumofCurrentChild = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jtxtSituation = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jtxtFind1 = new javax.swing.JTextField();
+        jtxtFind = new javax.swing.JTextField();
         jbtFind = new view.JButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -314,11 +321,11 @@ public class ChildrenManager extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel3.setText("Địa Chỉ");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 80, 40));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 80, 40));
 
         jtxtAddress.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtAddress.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 240, 40));
+        jPanel2.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 240, 40));
 
         jbtUpdate.setBorder(null);
         jbtUpdate.setText("Cập Nhật");
@@ -350,20 +357,20 @@ public class ChildrenManager extends javax.swing.JFrame {
         jPanel2.add(jtxtPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 170, 30));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel4.setText("Ngày Rời");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 180, 100, 40));
+        jLabel4.setText("Ngày rời TT");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 130, 100, 40));
 
         jtxtDateQuit.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDateQuit.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtDateQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 180, 240, 40));
+        jPanel2.add(jtxtDateQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 130, 240, 40));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel5.setText("Ngày Vào");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 110, 40));
+        jLabel5.setText("Ngày nhận nuôi");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 110, 40));
 
         jtxtDateEnter.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDateEnter.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtDateEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 240, 40));
+        jPanel2.add(jtxtDateEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 240, 40));
 
         jbtChildQuit.setBorder(null);
         jbtChildQuit.setText("Trẻ Đã Rời");
@@ -408,19 +415,19 @@ public class ChildrenManager extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel6.setText("Ngày Sinh");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 70, 80, 40));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 40, 80, 40));
 
         jtxtDOB.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDOB.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtDOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 70, 240, 40));
+        jPanel2.add(jtxtDOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 40, 240, 40));
 
         jtxtName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 240, 40));
+        jPanel2.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 240, 40));
 
         jLabel9.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel9.setText("Giới Tính");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 90, 40));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 80, 90, 40));
 
         jbtAdd.setBorder(null);
         jbtAdd.setText("Thêm");
@@ -465,7 +472,7 @@ public class ChildrenManager extends javax.swing.JFrame {
         jLabel10.setBackground(new java.awt.Color(153, 255, 255));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel10.setOpaque(true);
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 70, 10, 150));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 40, 10, 150));
 
         jbtDelel.setBorder(null);
         jbtDelel.setText("Xoá");
@@ -490,18 +497,18 @@ public class ChildrenManager extends javax.swing.JFrame {
         jtbChildren.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbChildren.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID_TRE", "Họ Tên", "Ngày Sinh", "Địa Chỉ", "Giới Tính", "Ngày nhận vào", "Ngày  rời trung tâm"
+                "ID_TRE", "Họ Tên", "Ngày Sinh", "Địa Chỉ", "Giới Tính", "Hoàn cảnh", "Ngày nhận vào", "Ngày rời"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -522,20 +529,20 @@ public class ChildrenManager extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbChildren);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1190, 330));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1200, 340));
 
         jlbNumofChildOut.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jPanel2.add(jlbNumofChildOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 10, 50, 40));
+        jPanel2.add(jlbNumofChildOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 0, 50, 40));
 
         buttonGroupGender.add(jradioFemale);
         jradioFemale.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jradioFemale.setText("Nữ");
-        jPanel2.add(jradioFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 130, -1, -1));
+        jPanel2.add(jradioFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 90, -1, -1));
 
         buttonGroupGender.add(jradioMale);
         jradioMale.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jradioMale.setText("Nam");
-        jPanel2.add(jradioMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 130, -1, -1));
+        jPanel2.add(jradioMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 90, -1, -1));
 
         jlbImage.setOpaque(true);
         jPanel2.add(jlbImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 160, 150));
@@ -561,18 +568,26 @@ public class ChildrenManager extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel12.setText("Họ Tên");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 90, 40));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 90, 40));
 
         jblDemo1.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jblDemo1.setText("Số trẻ hiện tại trong trung tâm:");
-        jPanel2.add(jblDemo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 220, 40));
+        jPanel2.add(jblDemo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 220, 40));
 
         jlbNumofCurrentChild.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jPanel2.add(jlbNumofCurrentChild, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 50, 40));
+        jPanel2.add(jlbNumofCurrentChild, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 50, 40));
 
         jLabel15.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel15.setText("Số trẻ đã rời trung tâm: ");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 10, 170, 40));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 170, 40));
+
+        jLabel8.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel8.setText("Hoàn Cảnh");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 180, 80, 40));
+
+        jtxtSituation.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtSituation.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel2.add(jtxtSituation, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 180, 240, 40));
 
         jTabbedPane1.addTab("tab1", jPanel2);
 
@@ -584,9 +599,9 @@ public class ChildrenManager extends javax.swing.JFrame {
         jLabel7.setText("Tìm  Tên Trẻ");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 100, 40));
 
-        jtxtFind1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtFind1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(jtxtFind1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 240, 40));
+        jtxtFind.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtFind.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel1.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 240, 40));
 
         jbtFind.setBorder(null);
         jbtFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/search_26px.png"))); // NOI18N
@@ -599,11 +614,6 @@ public class ChildrenManager extends javax.swing.JFrame {
         jbtFind.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtFindMouseClicked(evt);
-            }
-        });
-        jbtFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtFindActionPerformed(evt);
             }
         });
         jPanel1.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 90, 40));
@@ -656,16 +666,12 @@ public class ChildrenManager extends javax.swing.JFrame {
         Reset();
     }//GEN-LAST:event_jbtResestMouseClicked
 
-    private void jbtFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFindActionPerformed
-
-    }//GEN-LAST:event_jbtFindActionPerformed
-
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked
-        String ID = jtxtName.getText();
-        if (!ID.isEmpty()) {
-            Find(1, ID);
-        }else if(!jtxtName.getText().isEmpty()) {
-            Find( 2, jtxtName.getText() );
+        String Name = jtxtFind.getText();
+        if (Name.compareTo("") == 0) {
+            showMessageDialog(null, "Vui lòng nhập thông tin cần tìm kiếm");
+        }else{
+            Find( 2, Name);
         }
 
     }//GEN-LAST:event_jbtFindMouseClicked
@@ -765,6 +771,7 @@ public class ChildrenManager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -789,8 +796,9 @@ public class ChildrenManager extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtDOB;
     private javax.swing.JTextField jtxtDateEnter;
     private javax.swing.JTextField jtxtDateQuit;
-    private javax.swing.JTextField jtxtFind1;
+    private javax.swing.JTextField jtxtFind;
     private javax.swing.JTextField jtxtName;
     private javax.swing.JTextField jtxtPath;
+    private javax.swing.JTextField jtxtSituation;
     // End of variables declaration//GEN-END:variables
 }

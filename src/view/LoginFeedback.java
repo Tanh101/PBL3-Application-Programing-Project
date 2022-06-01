@@ -16,7 +16,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
  *
  * @author ADMIN
  */
-public class LoginUser extends javax.swing.JFrame {
+public class LoginFeedback extends javax.swing.JFrame {
     private static int count = 0;
 
     public int getCheckLogin() {
@@ -31,7 +31,7 @@ public class LoginUser extends javax.swing.JFrame {
     /**
      * Creates new form Register
      */
-    public LoginUser() {
+    public LoginFeedback() {
         initComponents();
     }
 
@@ -368,6 +368,8 @@ public class LoginUser extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+        
+
     }//GEN-LAST:event_jbtLoginActionPerformed
 
     private void jlbRegisterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbRegisterMouseEntered
@@ -413,32 +415,34 @@ public class LoginUser extends javax.swing.JFrame {
 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class  
+            java.util.logging.Logger.getLogger(LoginFeedback.class  
 
 .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
 } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class  
+            java.util.logging.Logger.getLogger(LoginFeedback.class  
 
 .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
 } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class  
+            java.util.logging.Logger.getLogger(LoginFeedback.class  
 
 .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
 } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class  
+            java.util.logging.Logger.getLogger(LoginFeedback.class  
 
 .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginUser().setVisible(true);
+                new LoginFeedback().setVisible(true);
             }
         });
     }

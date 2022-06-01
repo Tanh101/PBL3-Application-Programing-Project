@@ -47,18 +47,17 @@ public class ChildrenListener extends ConnectDatabase {
         return "";
     }
 
-    private String getSqlFindName() {
-        String sql = "SELECT T.ID_Tre, T.HoTen, T.NgaySinh, T.DiaChi, T.GioiTinh,T.TenAnh, Q.NgayVaoTT, Q.NgayRoiTT\n"
-                + "FROM TRE T\n"
-                + "INNER JOIN QUANLYTRE Q\n"
-                + "ON T.ID_Tre = Q.ID_Tre\n"
-                + "WHERE T.HoTen LIKE ? AND T.Quyen = '1'";
-        return sql;
-    }
-
+//    private String getSqlFindName() {
+//        String sql = "SELECT T.ID_Tre, T.HoTen, T.NgaySinh, T.DiaChi, T.GioiTinh,T.TenAnh, Q.NgayVaoTT, Q.NgayRoiTT\n"
+//                + "FROM TRE T\n"
+//                + "INNER JOIN QUANLYTRE Q\n"
+//                + "ON T.ID_Tre = Q.ID_Tre\n"
+//                + "WHERE T.HoTen LIKE ? AND T.Quyen = '1'";
+//        return sql;
+//    }
     private String getSqlUpdate() {
         String sql = "UPDATE TRE\n"
-                + "SET HoTen = ?, NgaySinh = ?,DiaChi = ?, GioiTinh = ?, TenAnh = ?\n"
+                + "SET HoTen = ?, NgaySinh = ?,DiaChi = ?, GioiTinh = ?, TenAnh = ?, HoanCanh = ?\n"
                 + "WHERE ID_Tre = ?\n"
                 + "UPDATE QUANLYTRE\n"
                 + "SET ID_NVQL = ?,NgayVaoTT = ?, NgayRoiTT = ?\n"
@@ -68,7 +67,7 @@ public class ChildrenListener extends ConnectDatabase {
 
     private String getSqlInsert() {
         return "INSERT INTO TRE\n"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?);\n"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?);\n"
                 + "INSERT INTO QUANLYTRE\n"
                 + "VALUES (?, ?, ?, ?)";
     }
@@ -92,8 +91,9 @@ public class ChildrenListener extends ConnectDatabase {
                 chil.setAddress(rs.getString(4));
                 chil.setGender(rs.getString(5));
                 chil.setUrlPath(rs.getString(6));
-                chil.setDateEnter(rs.getDate(7).toString());
-                Date date = rs.getDate(8);
+                chil.setSituation(rs.getString(7));
+                chil.setDateEnter(rs.getDate(8).toString());
+                Date date = rs.getDate(9);
                 if (date == null) {
                     chil.setDateQuit("");
                 } else {
@@ -110,7 +110,7 @@ public class ChildrenListener extends ConnectDatabase {
     public ArrayList<Children> FindChild(int i, String Choose) {
         ArrayList<Children> list = new ArrayList<Children>();
         try {
-            String sql = ProcedureFindChild(i);
+            String sql = ProcedureFindChild(i);                    
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, Choose);
             ResultSet rs = pre.executeQuery();
@@ -119,12 +119,12 @@ public class ChildrenListener extends ConnectDatabase {
                 chil.setID_TRE(rs.getString(1));
                 chil.setName(rs.getString(2));
                 chil.setDateOfBirth(rs.getDate(3).toString());
-
                 chil.setAddress(rs.getString(4));
                 chil.setGender(rs.getString(5));
                 chil.setUrlPath(rs.getString(6));
-                chil.setDateEnter(rs.getDate(7).toString());
-                Date date = rs.getDate(8);
+                chil.setSituation(rs.getString(7));
+                chil.setDateEnter(rs.getDate(8).toString());
+                Date date = rs.getDate(9);
                 if (date == null) {
                     chil.setDateQuit("");
                 } else {
@@ -140,7 +140,7 @@ public class ChildrenListener extends ConnectDatabase {
     }
 
     public void Update(String ID_Choose, String Name, String DOB, String Address,
-            String Gender, String NamePhoto, String ID_NVQL, String DateEnter, String DateQuit) {
+            String Gender, String NamePhoto,String Situation, String ID_NVQL, String DateEnter, String DateQuit) {
         String sql = getSqlUpdate();
         PreparedStatement pre;
         try {
@@ -150,13 +150,12 @@ public class ChildrenListener extends ConnectDatabase {
             pre.setString(3, Address);
             pre.setString(4, Gender);
             pre.setString(5, NamePhoto);
+            pre.setString(6, Situation);
             pre.setString(6, ID_Choose);
-
             pre.setString(7, ID_NVQL);
             pre.setString(8, DateEnter);
             pre.setString(9, DateQuit);
             pre.setString(10, ID_Choose);
-
             pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -165,12 +164,11 @@ public class ChildrenListener extends ConnectDatabase {
     }
 
     public void Insert(String ID_TRE, String Name, String DOB, String Address,
-            String Gender, String NamePhoto, String Access, String ID_NVQL, String DateEnter, String DateQuit) {
+            String Gender, String NamePhoto, String Access, String Situation, String ID_NVQL, String DateEnter, String DateQuit) {
         String sql = getSqlInsert();
 
         try {
             if (FindChild(1, ID_TRE).size() == 0) {
-
                 PreparedStatement pre = conn.prepareStatement(sql);
                 pre.setString(1, ID_TRE);
                 pre.setString(2, Name);
@@ -179,10 +177,11 @@ public class ChildrenListener extends ConnectDatabase {
                 pre.setString(5, Gender);
                 pre.setString(6, NamePhoto);
                 pre.setString(7, Access);
-                pre.setString(8, ID_TRE);
-                pre.setString(9, ID_NVQL);
-                pre.setString(10, DateEnter);
-                pre.setString(11, DateQuit);
+                pre.setString(8, Situation);
+                pre.setString(9, ID_TRE);
+                pre.setString(10, ID_NVQL);
+                pre.setString(11, DateEnter);
+                pre.setString(12, DateQuit);
 
                 pre.executeUpdate();
             } else {
@@ -396,12 +395,10 @@ public class ChildrenListener extends ConnectDatabase {
             showMessageDialog(null, e.getMessage());
         }
     }
-//    public static void main(String[] args) {
-//        ChildrenListener st = new ChildrenListener();
-//        ArrayList<IntroduceChildren> v = new ArrayList<>();
-//        v = st.listIntroduceChildren(1, "DTGT004");
-//        System.out.println(v.get(0).getState());
-////        v.get(0).getState();
-//        System.out.println(v.size());
-//    }
+    public static void main(String[] args) {
+        ChildrenListener st = new ChildrenListener();
+        ArrayList<Children> v = new ArrayList<>();
+        v = st.FindChild(2, " ");
+        System.out.println(v.size());
+    }
 }
