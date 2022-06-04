@@ -116,4 +116,27 @@ public class LoginListener extends ConnectDatabase {
         }
 
     }
+    public void RegisterIntroductor(String ID, String Name, String DOB, String Gender, 
+            String Address, String PhoneNumber,String IDNVQL,  String Username, String pass, String Access){
+        String sql = "ADD_NEW_INTRODUCTOR @ID = ?, @Name = ?, @DOB = ?, @Gender = ?,@ADDRESS = ?,"
+                + "@PHONE = ?, @IDNVQL = ?, @USERNAME = ?, @PASSWORD = ?, @ACCESS = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, ID);
+            pre.setString(2, Name);
+            pre.setString(3, DOB);
+            pre.setString(4, Gender);
+            pre.setString(5, Address);
+            pre.setString(6, PhoneNumber);
+            pre.setString(7, IDNVQL);
+            pre.setString(8, Username);
+            pre.setString(9, pass);
+            pre.setString(10, Access);
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Đăng ký tài khoản thành công");
+        } catch (Exception e) {
+            showMessageDialog(null, e.getMessage());
+//            e.printStackTrace();
+        }
+    }
 }

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import static javax.swing.JOptionPane.showMessageDialog;
+import view.AddJframe.InforChildrenIntroduction;
 
 /**
  *
@@ -353,7 +354,7 @@ public class LoginUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbVisibleMouseClicked
 
     private void jbtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLoginActionPerformed
-        LoginListener log = new LoginListener();
+         LoginListener log = new LoginListener();
         String inputAccoutn = this.jtxtAccount.getText();
         String pass = new String(this.jpass.getPassword());
             try {
@@ -361,6 +362,7 @@ public class LoginUser extends javax.swing.JFrame {
                     this.checkLogin = 1;
                     this.UserName = inputAccoutn;
                     this.setVisible(false);
+                    new InforChildrenIntroduction().setVisible(true);
                 } else {
                     this.checkLogin = 0;
                     showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
@@ -386,6 +388,7 @@ public class LoginUser extends javax.swing.JFrame {
     private void jbtExitLoginUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtExitLoginUserMouseClicked
         
         this.setVisible(false);
+        new MainPage().setVisible(true);
 //        new Information().setVisible(true);
     }//GEN-LAST:event_jbtExitLoginUserMouseClicked
 

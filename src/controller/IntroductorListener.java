@@ -150,4 +150,21 @@ public class IntroductorListener extends ConnectDatabase {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+
+    public String getNameIntroductor(String IDDTGT) {
+        String Name = "";
+        try {
+            String sql = "SELECT HoTen FROM DOITUONGGIOITHIEUTRE WHERE TaiKhoan = ?";
+
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, IDDTGT);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                Name = rs.getString(1);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return Name;
+    }
 }

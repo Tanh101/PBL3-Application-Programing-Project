@@ -263,11 +263,11 @@ public class MainPage extends javax.swing.JFrame{
     private void jbtIntroChidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIntroChidActionPerformed
         // TODO add your handling code here:
 //        this.setEnabled(false);
+        this.setVisible(false);
         LoginUser log = new LoginUser();
         log.setVisible(true);
         if(log.getCheckLogin() == 1){
             log.setVisible(false);
-            
         }
         layed = 3;
         

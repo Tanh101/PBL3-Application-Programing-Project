@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.IntroductorListener;
 import controller.LoginListener;
 import javax.swing.JOptionPane;
 
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 public class Register extends javax.swing.JFrame {
 
     LoginListener log = new LoginListener();
+    IntroductorListener intro = new IntroductorListener();
 
     /**
      * Creates new form Register
@@ -22,7 +24,7 @@ public class Register extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void Register() {
+    public void RegisterIntroductor() {
         String Name = jtxtName.getText();
         String Address = jtxtAddress.getText();
         String DOB = jtxtDOB.getText();
@@ -36,10 +38,19 @@ public class Register extends javax.swing.JFrame {
         String Phone = jtxtPhoneNumber.getText();
         String Username = jtxtUsername.getText();
         String Pass = jtxtPas.getText();
+        String ID = intro.getListIntro().get(intro.getListIntro().size() - 1).getID();
+        String[] arr = ID.split("DTGT", 2);
+        ID = String.valueOf(Integer.parseInt(arr[1]) + 1);
+        if (ID.length() == 1) {
+            arr[0] += "00";
+        } else {
+            arr[0] += "0";
+        }
+        ID = "DTGT" + arr[0] + ID;
         if (Name.isEmpty() || DOB.isBlank() || Gender.isEmpty() || Phone.isEmpty() || Username.isEmpty() || Pass.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
         } else {
-            log.Register(Name, DOB, Gender, Address, Phone, Username, Pass);
+            log.RegisterIntroductor(ID, Name, DOB, Gender, Address, Phone, null, Username, Pass, "1");
             
         }
     }
@@ -68,7 +79,7 @@ public class Register extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jradioMale = new javax.swing.JRadioButton();
         jrdioFemale = new javax.swing.JRadioButton();
-        jbtLogin = new view.JButtonCustom();
+        jtbRegister = new view.JButtonCustom();
         jtxtUsername = new javax.swing.JTextField();
         jtxtAddress = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -174,19 +185,19 @@ public class Register extends javax.swing.JFrame {
         jrdioFemale.setText("Nữ");
         jPanel3.add(jrdioFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 290, -1, -1));
 
-        jbtLogin.setForeground(new java.awt.Color(51, 153, 255));
-        jbtLogin.setText("Đăng Ký");
-        jbtLogin.setBoderColor(new java.awt.Color(0, 153, 255));
-        jbtLogin.setColoOver(new java.awt.Color(204, 255, 51));
-        jbtLogin.setColorClick(new java.awt.Color(153, 255, 153));
-        jbtLogin.setFont(new java.awt.Font("Calibri", 0, 25)); // NOI18N
-        jbtLogin.setRadius(50);
-        jbtLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtbRegister.setForeground(new java.awt.Color(51, 153, 255));
+        jtbRegister.setText("Đăng Ký");
+        jtbRegister.setBoderColor(new java.awt.Color(0, 153, 255));
+        jtbRegister.setColoOver(new java.awt.Color(204, 255, 51));
+        jtbRegister.setColorClick(new java.awt.Color(153, 255, 153));
+        jtbRegister.setFont(new java.awt.Font("Calibri", 0, 25)); // NOI18N
+        jtbRegister.setRadius(50);
+        jtbRegister.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtLoginMouseClicked(evt);
+                jtbRegisterMouseClicked(evt);
             }
         });
-        jPanel3.add(jbtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 140, 60));
+        jPanel3.add(jtbRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 140, 60));
 
         jtxtUsername.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jPanel3.add(jtxtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, 308, 40));
@@ -210,13 +221,14 @@ public class Register extends javax.swing.JFrame {
 
     private void jbtCloseRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtCloseRegisterMouseClicked
         this.setVisible(false);
-//        new Information().setVisible(true);
+      new LoginUser().setVisible(true);
     }//GEN-LAST:event_jbtCloseRegisterMouseClicked
 
-    private void jbtLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtLoginMouseClicked
-        Register();
+    private void jtbRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbRegisterMouseClicked
+        RegisterIntroductor();
         this.setVisible(false);
-    }//GEN-LAST:event_jbtLoginMouseClicked
+        new LoginUser().setVisible(true);
+    }//GEN-LAST:event_jtbRegisterMouseClicked
 
     /**
      * @param args the command line arguments
@@ -269,9 +281,9 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private view.JButtonCustom jbtCloseRegister;
-    private view.JButtonCustom jbtLogin;
     private javax.swing.JRadioButton jradioMale;
     private javax.swing.JRadioButton jrdioFemale;
+    private view.JButtonCustom jtbRegister;
     private javax.swing.JTextField jtxtAddress;
     private javax.swing.JTextField jtxtDOB;
     private javax.swing.JTextField jtxtName;

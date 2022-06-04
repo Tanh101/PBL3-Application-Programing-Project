@@ -35,6 +35,9 @@ public class ChildrenListener extends ConnectDatabase {
         }
 
     }
+    public String proShowChildIntro(){
+        return "SELECT * FROM TRE WHERE Quyen = '0'";
+    }
 
     private String ProcedureFindChild(int i) {
         if (i == 1) {
@@ -151,11 +154,11 @@ public class ChildrenListener extends ConnectDatabase {
             pre.setString(4, Gender);
             pre.setString(5, NamePhoto);
             pre.setString(6, Situation);
-            pre.setString(6, ID_Choose);
-            pre.setString(7, ID_NVQL);
-            pre.setString(8, DateEnter);
-            pre.setString(9, DateQuit);
-            pre.setString(10, ID_Choose);
+            pre.setString(7, ID_Choose);
+            pre.setString(8, ID_NVQL);
+            pre.setString(9, DateEnter);
+            pre.setString(10, DateQuit);
+            pre.setString(11, ID_Choose);
             pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

@@ -5,6 +5,7 @@
 package view.AddJframe;
 
 import controller.ChildrenListener;
+import controller.IntroductorListener;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -32,6 +33,7 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
 
     private String url = "D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\ChildrenImage\\";
     private ChildrenListener childrenListener = new ChildrenListener();
+    private IntroductorListener introListener = new IntroductorListener();
     String IDNVQL, ID;
 
     public void setID(String ID) {
@@ -48,115 +50,126 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
 //        setWidthTable();
     }
 
-//    public ImageIcon ResizeImage(String ImagePath) {
-//        ImageIcon myImage = new ImageIcon(ImagePath);
-//        Image img = myImage.getImage();
-//        Image newImage = img.getScaledInstance(jlbImage.getWidth(), jlbImage.getHeight(), Image.SCALE_SMOOTH);
-//        ImageIcon image = new ImageIcon(newImage);
-//        return image;
-//    }
-//
-//    public void ClearJtxt() {
-//        jtxtAddress.setText("");
-//        jtxtName.setText("");
-//        jtxtDOB.setText("");
-//        jtxtDateAdopt.setText("");
-//        jradioFemale.setSelected(false);
-//        jradioFemale.setSelected(false);
-//
-//    }
-//
-//    public void setWidthTable() {
-//        jtbChildrenIntr.getTableHeader().setBackground(new Color(0, 204, 255));
-//        jtbChildrenIntr.setBackground(Color.WHITE);
-//        jtbChildrenIntr.getColumnModel().getColumn(0).setPreferredWidth(90);
-//        jtbChildrenIntr.getColumnModel().getColumn(1).setPreferredWidth(180);
-//        jtbChildrenIntr.getColumnModel().getColumn(2).setPreferredWidth(110);
-//        jtbChildrenIntr.getColumnModel().getColumn(3).setPreferredWidth(180);
-//        jtbChildrenIntr.getColumnModel().getColumn(4).setPreferredWidth(110);
-//        jtbChildrenIntr.getColumnModel().getColumn(5).setPreferredWidth(110);
-//        jtbChildrenIntr.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 16));
-//        ((DefaultTableCellRenderer) jtbChildrenIntr.getTableHeader().getDefaultRenderer())
-//                .setHorizontalAlignment(JLabel.CENTER);
-//    }
-//
-//    public void getDataFromTable() {
-//        int k = jtbChildrenIntr.getSelectedRow();
-//        String ID_Choose = (String) jtbChildrenIntr.getModel().getValueAt(k, 0);
-//        ArrayList<Adopted> list = new ArrayList<Adopted>();
-//        list = childrenListener.showAdopted(2, ID_Choose);
-//        Adopted ic = list.get(0);
-//        jtxtName.setText(ic.getName());
-//        jtxtDOB.setText(ic.getDOB());
-//        jtxtAddress.setText(ic.getAddress());
-//        if (ic.getGender().compareTo("Nam") == 0) {
-//            jradioMale.setSelected(true);
-//        } else {
-//            jradioFemale.setSelected(true);
-//        }
-//        jtxtNameImg.setText(ic.getImg());
-//        jlbImage.setIcon(ResizeImage(url + ic.getImg()));
-//        jtxtDateAdopt.setText(ic.getDateAdopt());
-//    }
-//
-//    public void showSupport(ArrayList<Adopted> list) {
-//        DefaultTableModel model = (DefaultTableModel) jtbChildrenIntr.getModel();
-//        model.setRowCount(0);
-//        for (int i = 0; i < list.size(); i++) {
-//            model.addRow(new Object[]{
-//                list.get(i).getID_TRE(), list.get(i).getName(), list.get(i).getDOB(), list.get(i).getAddress(),
-//                list.get(i).getGender(), list.get(i).getState(), list.get(i).getDateAdopt()
-//            });
-//        }
-//        jtbChildrenIntr.setModel(model);
-//    }
-//
-//    public void ShowChild(int i, String ID) {
-//        ArrayList<Adopted> list = new ArrayList<>();
-//        list = childrenListener.showAdopted(i, ID);
-//        showSupport(list);
-//    }
-//
+    public ImageIcon ResizeImage(String ImagePath) {
+        ImageIcon myImage = new ImageIcon(ImagePath);
+        Image img = myImage.getImage();
+        Image newImage = img.getScaledInstance(jlbImage.getWidth(), jlbImage.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImage);
+        return image;
+    }
+
+    public void ClearJtxt() {
+        jtxtAddress.setText("");
+        jtxtName.setText("");
+        jtxtDOB.setText("");
+        jtxtSituation.setText("");
+        jradioFemale.setSelected(false);
+        jradioFemale.setSelected(false);
+        jtxtNameImg.setText("");
+
+    }
+
+    public void setWidthTable() {
+        jtbChildIntro.getTableHeader().setBackground(new Color(0, 204, 255));
+        jtbChildIntro.setBackground(Color.WHITE);
+        jtbChildIntro.getColumnModel().getColumn(0).setPreferredWidth(90);
+        jtbChildIntro.getColumnModel().getColumn(1).setPreferredWidth(180);
+        jtbChildIntro.getColumnModel().getColumn(2).setPreferredWidth(110);
+        jtbChildIntro.getColumnModel().getColumn(3).setPreferredWidth(180);
+        jtbChildIntro.getColumnModel().getColumn(4).setPreferredWidth(110);
+        jtbChildIntro.getColumnModel().getColumn(5).setPreferredWidth(110);
+        jtbChildIntro.getColumnModel().getColumn(6).setPreferredWidth(110);
+        jtbChildIntro.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 16));
+        ((DefaultTableCellRenderer) jtbChildIntro.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
+    }
+
+    public void getDataFromTable() {
+        int k = jtbChildIntro.getSelectedRow();
+        String ID_Choose = (String) jtbChildIntro.getModel().getValueAt(k, 0);
+        ArrayList<IntroduceChildren> list = new ArrayList<IntroduceChildren>();
+        list = childrenListener.FindChildIntro(1, ID, ID_Choose);
+        IntroduceChildren ic = list.get(0);
+        jtxtName.setText(ic.getName());
+        jtxtDOB.setText(ic.getDOB());
+        jtxtAddress.setText(ic.getAddress());
+        if (ic.getGender().compareTo("Nam") == 0) {
+            jradioMale.setSelected(true);
+        } else {
+            jradioFemale.setSelected(true);
+        }
+        jtxtNameImg.setText(ic.getUrlImg());
+        jlbImage.setIcon(ResizeImage(url + ic.getUrlImg()));
+        jtxtSituation.setText(ic.getSituation());
+    }
+
+    public void showSupport(ArrayList<IntroduceChildren> list) {
+        DefaultTableModel model = (DefaultTableModel) jtbChildIntro.getModel();
+        model.setRowCount(0);
+        for (int i = 0; i < list.size(); i++) {
+            model.addRow(new Object[]{
+                list.get(i).getName(), list.get(i).getDOB(), list.get(i).getAddress(),
+                list.get(i).getGender(), list.get(i).getSituation(), list.get(i).getState(), list.get(i).getDateIntroduce()
+            });
+        }
+        jtbChildIntro.setModel(model);
+    }
+
+    public void ShowChild(int i, String ID) {
+        ArrayList<IntroduceChildren> list = new ArrayList<>();
+        list = childrenListener.listIntroduceChildren(i, ID);
+        showSupport(list);
+    }
+
+    public void Add() {
+        ArrayList<Children> list = new ArrayList<>();
+        list = childrenListener.getListChildren(childrenListener.proShowChildIntro());
+        String ID;
+        if (list.size() == 0) {
+            ID = "TREGT001";
+        } else {
+            String tmp = list.get(list.size() - 1).getID_TRE();
+            String[] arr = tmp.split("TREGT", 2);
+
+            ID = "TREGT";
+            if (String.valueOf(Integer.parseInt(arr[1]) + 1).length() == 1) {
+                ID += "00";
+            } else {
+                ID += "0";
+            }
+            int tmp2 = Integer.parseInt(arr[1]) + 1;
+            ID += String.valueOf(tmp2);
+        }
+
+        long millis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(millis);
+        String Name = jtxtName.getText();
+        String DOB = jtxtDOB.getText();
+        String Address = jtxtAddress.getText();
+        String Gender = "";
+        if (jradioMale.isSelected()) {
+            Gender = "Nam";
+        } else if (jradioFemale.isSelected()) {
+            Gender = "Nữ";
+        }
+        String Situation = jtxtSituation.getText();
+        String DateEnter = date.toString();
+        String DateQuit = null;
+        String NamePhoto = jtxtNameImg.getText();
+        if (NamePhoto.compareTo("") == 0) {
+            NamePhoto = url + "default.png";
+        }
+        if (ID.isEmpty() || Name.isEmpty() || DOB.isEmpty() || Address.isEmpty()
+                || Gender.isEmpty() || DateEnter.isEmpty()) {
+            showMessageDialog(null, "Không được để trống thông tin nhân viên!");
+        } else {
+            childrenListener.Insert(ID, Name, DOB, Address, Gender, NamePhoto, "1", Situation, "", DateEnter, DateQuit);
+            showMessageDialog(null, "Giới thiệu trẻ " + Name + " thành công");
+
+        }
+    }
 //    public void Find(int i, String Name) {
 //        showSupport(childrenListener.showAdopted(i, Name));
-//    }
-//
-//    public void Delete() {
-//        int k = jtbChildrenIntr.getSelectedRow();
-//        if (k < 0) {
-//            showMessageDialog(null, "Vui Lòng chọn trẻ muốn xoá!");
-//        } else {
-//            String ID_Choose = (String) jtbChildrenIntr.getModel().getValueAt(k, 0);
-//            childrenListener.Delete(ID_Choose);
-//        }
-//
-//    }
-//
-//    public void Update() {
-//        int k = jtbChildrenIntr.getSelectedRow();
-//        if (k < 0) {
-//            showMessageDialog(null, "Vui Lòng chọn trẻ muốn cập nhật!");
-//        } else {
-//            String ID_Choose = (String) jtbChildrenIntr.getModel().getValueAt(k, 0);
-//            String Name = jtxtName.getText();
-//            String DOB = jtxtDOB.getText();
-//            String Address = jtxtAddress.getText();
-//            String Gender;
-//            if (jradioMale.isSelected()) {
-//                Gender = "Nam";
-//            } else {
-//                Gender = "Nữ";
-//            }
-//            String Img = jtxtNameImg.getText();
-//            String DateAdopt = jtxtDateAdopt.getText();
-//            String img = jtxtNameImg.getText();
-//            if (Name.isEmpty() || DOB.isEmpty() || Gender.isEmpty() || Img.isEmpty() || DateAdopt.isEmpty()) {
-//                showMessageDialog(null, "Vui lòng điền đầy đủ thông tin của trẻ");
-//            } else {
-//                childrenListener.UpdateAdopted(ID_Choose, Name, DOB, Address, Gender, DateAdopt, img);
-//            }
-//        }
-//
 //    }
 
     @SuppressWarnings("unchecked")
@@ -169,7 +182,7 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jtxtNameImg = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtbChildrenIntr = new javax.swing.JTable();
+        jtbChildIntro = new javax.swing.JTable();
         jtxtDOB = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -183,6 +196,10 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jradioMale = new javax.swing.JRadioButton();
         jradioFemale = new javax.swing.JRadioButton();
+        jbtIntroduction = new view.JButtonCustom();
+        jbtReset = new view.JButtonCustom();
+        jLabel19 = new javax.swing.JLabel();
+        jtxtSituation = new javax.swing.JTextField();
         jtbRest = new view.JButtonCustom();
         jLabel1 = new javax.swing.JLabel();
         jlbName = new javax.swing.JLabel();
@@ -210,60 +227,60 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
 
         jtxtNameImg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtNameImg.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel3.add(jtxtNameImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 180, 30));
+        jPanel3.add(jtxtNameImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 180, 30));
 
-        jtbChildrenIntr.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jtbChildrenIntr.setModel(new javax.swing.table.DefaultTableModel(
+        jtbChildIntro.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jtbChildIntro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Tên Trẻ", "Ngày sinh", "Địa Chỉ", "Giới tính", "Trạng thái", "Ngày Giới Thiệu"
+                "Tên Trẻ", "Ngày sinh", "Địa Chỉ", "Giới tính", "Hoàn Cảnh", "Trạng thái", "Ngày Giới Thiệu"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jtbChildrenIntr.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jtbChildrenIntr.setGridColor(new java.awt.Color(0, 204, 204));
-        jtbChildrenIntr.setOpaque(false);
-        jtbChildrenIntr.setRowHeight(40);
-        jtbChildrenIntr.setSelectionBackground(new java.awt.Color(102, 204, 255));
-        jtbChildrenIntr.setShowHorizontalLines(true);
-        jtbChildrenIntr.setShowVerticalLines(true);
-        jtbChildrenIntr.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtbChildIntro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtbChildIntro.setGridColor(new java.awt.Color(0, 204, 204));
+        jtbChildIntro.setOpaque(false);
+        jtbChildIntro.setRowHeight(40);
+        jtbChildIntro.setSelectionBackground(new java.awt.Color(102, 204, 255));
+        jtbChildIntro.setShowHorizontalLines(true);
+        jtbChildIntro.setShowVerticalLines(true);
+        jtbChildIntro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtbChildrenIntrMouseClicked(evt);
+                jtbChildIntroMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(jtbChildrenIntr);
+        jScrollPane2.setViewportView(jtbChildIntro);
 
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1200, 340));
 
         jtxtDOB.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDOB.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel3.add(jtxtDOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 140, 260, 40));
+        jPanel3.add(jtxtDOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 150, 260, 40));
 
         jLabel14.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel14.setText("Địa chỉ");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 70, 100, 40));
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 80, 100, 40));
 
         jLabel15.setBackground(new java.awt.Color(153, 255, 255));
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel15.setOpaque(true);
-        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 10, 140));
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 10, 150));
 
         jtxtAddress.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtAddress.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -272,19 +289,19 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
                 jtxtAddressActionPerformed(evt);
             }
         });
-        jPanel3.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 70, 260, 40));
+        jPanel3.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 80, 260, 40));
 
         jLabel16.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel16.setText("Ngày sinh");
-        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 140, 120, 40));
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 150, 120, 40));
 
         jLabel17.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel17.setText("Tên trẻ");
-        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 90, 40));
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 90, 40));
 
         jtxtName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel3.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 260, 40));
+        jPanel3.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, 260, 40));
 
         jbtChooseImg.setBorder(null);
         jbtChooseImg.setText("Chọn ảnh");
@@ -298,27 +315,65 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
                 jbtChooseImgActionPerformed(evt);
             }
         });
-        jPanel3.add(jbtChooseImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 110, 30));
-        jPanel3.add(jlbImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 140, 130));
+        jPanel3.add(jbtChooseImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 110, 30));
+        jPanel3.add(jlbImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 140, 130));
 
         jLabel18.setBackground(new java.awt.Color(153, 255, 255));
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel18.setOpaque(true);
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 50, 10, 140));
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 60, 10, 160));
 
         jLabel9.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel9.setText("Giới Tính");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 90, 40));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 90, 40));
 
         buttonGroup2.add(jradioMale);
         jradioMale.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jradioMale.setText("Nam");
-        jPanel3.add(jradioMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, -1, -1));
+        jPanel3.add(jradioMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, -1, -1));
 
         buttonGroup2.add(jradioFemale);
         jradioFemale.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jradioFemale.setText("Nữ");
-        jPanel3.add(jradioFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 150, -1, -1));
+        jPanel3.add(jradioFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, -1, -1));
+
+        jbtIntroduction.setBorder(null);
+        jbtIntroduction.setText("Giới Thiệu");
+        jbtIntroduction.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtIntroduction.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtIntroduction.setColor(new java.awt.Color(51, 255, 153));
+        jbtIntroduction.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtIntroduction.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtIntroduction.setRadius(40);
+        jbtIntroduction.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtIntroductionMouseClicked(evt);
+            }
+        });
+        jPanel3.add(jbtIntroduction, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 250, 120, 50));
+
+        jbtReset.setBorder(null);
+        jbtReset.setText("Làm mới");
+        jbtReset.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtReset.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtReset.setColor(new java.awt.Color(51, 255, 153));
+        jbtReset.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtReset.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtReset.setRadius(40);
+        jbtReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtResetMouseClicked(evt);
+            }
+        });
+        jPanel3.add(jbtReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, 120, 50));
+
+        jLabel19.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel19.setText("Hoàn Cảnh");
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 90, 40));
+
+        jtxtSituation.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtSituation.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel3.add(jtxtSituation, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, 260, 40));
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 650));
 
@@ -341,6 +396,9 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
         jLabel1.setOpaque(true);
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 310, 60));
 
+        jlbName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jlbName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbName.setText("Ly Van Tanh");
         jlbName.setOpaque(true);
         jPanel1.add(jlbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 210, 50));
 
@@ -350,12 +408,12 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtChooseImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtChooseImgActionPerformed
-//        JFileChooser f = new JFileChooser("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\ChildrenImage");
-//        int result = f.showOpenDialog(this);
-//        f.setDialogTitle("Mở File");
-//        File FileName = f.getSelectedFile();
-//        jtxtNameImg.setText(FileName.getName());
-//        jlbImage.setIcon(ResizeImage(String.valueOf(url + FileName.getName())));
+        JFileChooser f = new JFileChooser("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\ChildrenImage");
+        int result = f.showOpenDialog(this);
+        f.setDialogTitle("Mở File");
+        File FileName = f.getSelectedFile();
+        jtxtNameImg.setText(FileName.getName());
+        jlbImage.setIcon(ResizeImage(String.valueOf(url + FileName.getName())));
     }//GEN-LAST:event_jbtChooseImgActionPerformed
 
     private void jtbRestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbRestMouseClicked
@@ -363,12 +421,12 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbRestMouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-//        ShowChild(1, ID);
+        ShowChild(1, ID);
     }//GEN-LAST:event_formWindowActivated
 
-    private void jtbChildrenIntrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbChildrenIntrMouseClicked
+    private void jtbChildIntroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbChildIntroMouseClicked
 //        getDataFromTable();
-    }//GEN-LAST:event_jtbChildrenIntrMouseClicked
+    }//GEN-LAST:event_jtbChildIntroMouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 //        ClearJtxt();
@@ -377,6 +435,19 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
     private void jtxtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtAddressActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtAddressActionPerformed
+
+    private void jbtIntroductionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtIntroductionMouseClicked
+        Add();
+        ShowChild(1, ID);
+        ClearJtxt();
+        jlbName.setText(introListener.getNameIntroductor(ID));
+    }//GEN-LAST:event_jbtIntroductionMouseClicked
+
+    private void jbtResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResetMouseClicked
+        ShowChild(1, ID);
+        ClearJtxt();
+        jlbName.setText(introListener.getNameIntroductor(ID));
+    }//GEN-LAST:event_jbtResetMouseClicked
 
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
@@ -421,21 +492,25 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private view.JButtonCustom jbtChooseImg;
+    private view.JButtonCustom jbtIntroduction;
+    private view.JButtonCustom jbtReset;
     private javax.swing.JLabel jlbImage;
     private javax.swing.JLabel jlbName;
     private javax.swing.JRadioButton jradioFemale;
     private javax.swing.JRadioButton jradioMale;
-    private javax.swing.JTable jtbChildrenIntr;
+    private javax.swing.JTable jtbChildIntro;
     private view.JButtonCustom jtbRest;
     private javax.swing.JTextField jtxtAddress;
     private javax.swing.JTextField jtxtDOB;
     private javax.swing.JTextField jtxtName;
     private javax.swing.JTextField jtxtNameImg;
+    private javax.swing.JTextField jtxtSituation;
     // End of variables declaration//GEN-END:variables
 }
