@@ -138,14 +138,14 @@ public class Admin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jbtLogout = new view.JButtonCustom();
-        jbtLogoutIcon = new juttonCustom.JButtonCustom();
+        jbtLogoutIcon = new jbuttonCustom.JButtonCustom();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbStaffManager = new javax.swing.JTable();
-        jbtExit = new juttonCustom.JButtonCustom();
+        jbtExit = new jbuttonCustom.JButtonCustom();
         jLabel9 = new javax.swing.JLabel();
-        jtbMaxmize = new juttonCustom.JButtonCustom();
-        jbtMinimize = new juttonCustom.JButtonCustom();
+        jtbMaxmize = new jbuttonCustom.JButtonCustom();
+        jbtMinimize = new jbuttonCustom.JButtonCustom();
         jPanel6 = new javax.swing.JPanel();
         jbtShowCurrent = new view.JButtonCustom();
         jbtUpdate = new view.JButtonCustom();
@@ -615,15 +615,15 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private view.JButtonCustom jbtAdd;
     private view.JButtonCustom jbtDelete;
-    private juttonCustom.JButtonCustom jbtExit;
+    private jbuttonCustom.JButtonCustom jbtExit;
     private view.JButtonCustom jbtLogout;
-    private juttonCustom.JButtonCustom jbtLogoutIcon;
-    private juttonCustom.JButtonCustom jbtMinimize;
+    private jbuttonCustom.JButtonCustom jbtLogoutIcon;
+    private jbuttonCustom.JButtonCustom jbtMinimize;
     private view.JButtonCustom jbtShow;
     private view.JButtonCustom jbtShowCurrent;
     private view.JButtonCustom jbtShowQuit;
     private view.JButtonCustom jbtUpdate;
-    private juttonCustom.JButtonCustom jtbMaxmize;
+    private jbuttonCustom.JButtonCustom jtbMaxmize;
     private javax.swing.JTable jtbStaffManager;
     // End of variables declaration//GEN-END:variables
 }

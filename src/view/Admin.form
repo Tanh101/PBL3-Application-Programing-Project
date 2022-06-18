@@ -174,7 +174,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="juttonCustom.JButtonCustom" name="jbtLogoutIcon">
+            <Component class="jbuttonCustom.JButtonCustom" name="jbtLogoutIcon">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Img/logout_rounded_down_26px.png"/>
@@ -326,7 +326,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="juttonCustom.JButtonCustom" name="jbtExit">
+        <Component class="jbuttonCustom.JButtonCustom" name="jbtExit">
           <Properties>
             <Property name="text" type="java.lang.String" value="X"/>
             <Property name="boderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -352,7 +352,7 @@
             <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; NH&#xc2;N VI&#xca;N"/>
           </Properties>
         </Component>
-        <Component class="juttonCustom.JButtonCustom" name="jtbMaxmize">
+        <Component class="jbuttonCustom.JButtonCustom" name="jtbMaxmize">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Img/maximize_window_24px.png"/>
@@ -371,7 +371,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtbMaxmizeMouseClicked"/>
           </Events>
         </Component>
-        <Component class="juttonCustom.JButtonCustom" name="jbtMinimize">
+        <Component class="jbuttonCustom.JButtonCustom" name="jbtMinimize">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Img/subtract_16px.png"/>

@@ -144,15 +144,6 @@ public class staff extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jpnName = new javax.swing.JPanel();
-        jbtChildManager = new juttonCustom.JButtonCustom();
-        jbtIntroductor = new juttonCustom.JButtonCustom();
-        jbtActivity = new juttonCustom.JButtonCustom();
-        jbtEquipment = new juttonCustom.JButtonCustom();
-        jbtStaffManager = new juttonCustom.JButtonCustom();
-        jbtAdopters = new juttonCustom.JButtonCustom();
-        jbtFeedback = new juttonCustom.JButtonCustom();
-        jbtCacular = new juttonCustom.JButtonCustom();
-        jbtSendNotification = new juttonCustom.JButtonCustom();
         jPanel3 = new javax.swing.JPanel();
         jlbNameStaff = new javax.swing.JLabel();
         jlbIcon = new javax.swing.JLabel();
@@ -166,11 +157,6 @@ public class staff extends javax.swing.JFrame {
         jlb3 = new javax.swing.JLabel();
         jlb2 = new javax.swing.JLabel();
         jlb1 = new javax.swing.JLabel();
-        jbtLogout = new juttonCustom.JButtonCustom();
-        jbtCharity = new juttonCustom.JButtonCustom();
-        jbtExtracurricular = new juttonCustom.JButtonCustom();
-        jbtSendStaff = new juttonCustom.JButtonCustom();
-        jbtSendmain = new juttonCustom.JButtonCustom();
 
         jLabel4.setText("jLabel4");
 
@@ -190,186 +176,15 @@ public class staff extends javax.swing.JFrame {
 
         jpnName.setBackground(new java.awt.Color(255, 255, 255));
 
-        jbtChildManager.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtChildManager.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ảnh/baby.png"))); // NOI18N
-        jbtChildManager.setText("  Quản lý trẻ ");
-        jbtChildManager.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtChildManager.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtChildManager.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtChildManager.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtChildManager.setDisabledIcon(null);
-        jbtChildManager.setDisabledSelectedIcon(null);
-        jbtChildManager.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtChildManager.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtChildManager.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtChildManager.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtChildManagerMouseClicked(evt);
-            }
-        });
-
-        jbtIntroductor.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtIntroductor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ảnh/icons8_people_50px.png"))); // NOI18N
-        jbtIntroductor.setText("Quản Lý Người Giới Thiệu");
-        jbtIntroductor.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtIntroductor.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtIntroductor.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtIntroductor.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtIntroductor.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtIntroductor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtIntroductor.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtIntroductor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtIntroductorMouseClicked(evt);
-            }
-        });
-
-        jbtActivity.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtActivity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ảnh/icons8_strike_40px.png"))); // NOI18N
-        jbtActivity.setText("Quản lý hoạt động");
-        jbtActivity.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtActivity.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtActivity.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtActivity.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtActivity.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtActivity.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtActivity.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtActivity.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtActivityMouseClicked(evt);
-            }
-        });
-
-        jbtEquipment.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtEquipment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ảnh/icons8_touchpad_48px.png"))); // NOI18N
-        jbtEquipment.setText("Quản lý thiết bị");
-        jbtEquipment.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtEquipment.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtEquipment.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtEquipment.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtEquipment.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtEquipment.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtEquipment.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtEquipment.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtEquipmentMouseClicked(evt);
-            }
-        });
-
-        jbtStaffManager.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtStaffManager.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ảnh/icons8_people_50px.png"))); // NOI18N
-        jbtStaffManager.setText("Quản lý Cán Bộ");
-        jbtStaffManager.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtStaffManager.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtStaffManager.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtStaffManager.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtStaffManager.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtStaffManager.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtStaffManager.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtStaffManager.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtStaffManagerMouseClicked(evt);
-            }
-        });
-
-        jbtAdopters.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtAdopters.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ảnh/icons8_people_50px.png"))); // NOI18N
-        jbtAdopters.setText("Quản Lý Người Nhận Nuôi");
-        jbtAdopters.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtAdopters.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtAdopters.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtAdopters.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtAdopters.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtAdopters.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtAdopters.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtAdopters.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtAdoptersMouseClicked(evt);
-            }
-        });
-
-        jbtFeedback.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtFeedback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/feedback_48px.png"))); // NOI18N
-        jbtFeedback.setText("     Quản lý phản hồi      ");
-        jbtFeedback.setAutoscrolls(true);
-        jbtFeedback.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtFeedback.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtFeedback.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtFeedback.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtFeedback.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtFeedback.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtFeedback.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-
-        jbtCacular.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtCacular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ảnh/icons8_search_property_38px_1.png"))); // NOI18N
-        jbtCacular.setText("  Thống kê, tìm kiếm");
-        jbtCacular.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtCacular.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtCacular.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtCacular.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtCacular.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtCacular.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtCacular.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-
-        jbtSendNotification.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtSendNotification.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/notification_48px.png"))); // NOI18N
-        jbtSendNotification.setText("Gửi thông báo");
-        jbtSendNotification.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtSendNotification.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtSendNotification.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtSendNotification.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtSendNotification.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtSendNotification.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtSendNotification.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtSendNotification.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtSendNotificationMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jpnNameLayout = new javax.swing.GroupLayout(jpnName);
         jpnName.setLayout(jpnNameLayout);
         jpnNameLayout.setHorizontalGroup(
             jpnNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jbtEquipment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jbtStaffManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jpnNameLayout.createSequentialGroup()
-                .addGroup(jpnNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbtFeedback, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtCacular, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtChildManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtSendNotification, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtAdopters, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jpnNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                .addComponent(jbtActivity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtIntroductor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
+            .addGap(0, 280, Short.MAX_VALUE)
         );
         jpnNameLayout.setVerticalGroup(
             jpnNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnNameLayout.createSequentialGroup()
-                .addGroup(jpnNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpnNameLayout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(jbtEquipment, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jbtStaffManager, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpnNameLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jbtChildManager, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpnNameLayout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(jbtActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(1, 1, 1)
-                .addComponent(jbtIntroductor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtAdopters, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtCacular, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtSendNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 510, Short.MAX_VALUE)
         );
 
         jPanel1.add(jpnName, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 97, 280, 510));
@@ -477,94 +292,6 @@ public class staff extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 10, 520));
-
-        jbtLogout.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sign_out_24px.png"))); // NOI18N
-        jbtLogout.setText("Đăng Xuất");
-        jbtLogout.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtLogout.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtLogout.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtLogout.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtLogout.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtLogout.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtLogoutActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 271, 44));
-
-        jbtCharity.setBackground(new java.awt.Color(204, 255, 255));
-        jbtCharity.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtCharity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/handshake_heart_48px.png"))); // NOI18N
-        jbtCharity.setText("Hoạt động từ thiện");
-        jbtCharity.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtCharity.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtCharity.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtCharity.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtCharity.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtCharity.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtCharity.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtCharity.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtCharityMouseClicked(evt);
-            }
-        });
-        jPanel1.add(jbtCharity, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 230, 50));
-
-        jbtExtracurricular.setBackground(new java.awt.Color(204, 255, 255));
-        jbtExtracurricular.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtExtracurricular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pullups_50px.png"))); // NOI18N
-        jbtExtracurricular.setText("Hoạt động ngoại khoá");
-        jbtExtracurricular.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtExtracurricular.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtExtracurricular.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtExtracurricular.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtExtracurricular.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtExtracurricular.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtExtracurricular.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtExtracurricular.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtExtracurricularMouseClicked(evt);
-            }
-        });
-        jPanel1.add(jbtExtracurricular, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 230, -1));
-
-        jbtSendStaff.setBackground(new java.awt.Color(204, 255, 255));
-        jbtSendStaff.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtSendStaff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/handshake_heart_48px.png"))); // NOI18N
-        jbtSendStaff.setText("Gửi cho cán bộ nhân viên");
-        jbtSendStaff.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtSendStaff.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtSendStaff.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtSendStaff.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtSendStaff.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtSendStaff.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtSendStaff.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtSendStaff.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtSendStaffMouseClicked(evt);
-            }
-        });
-        jPanel1.add(jbtSendStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 570, 260, 50));
-
-        jbtSendmain.setBackground(new java.awt.Color(204, 255, 255));
-        jbtSendmain.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jbtSendmain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pullups_50px.png"))); // NOI18N
-        jbtSendmain.setText("Đưa ra trang chủ");
-        jbtSendmain.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtSendmain.setColoOver(new java.awt.Color(255, 255, 0));
-        jbtSendmain.setColorClick(new java.awt.Color(102, 255, 51));
-        jbtSendmain.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jbtSendmain.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jbtSendmain.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtSendmain.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jbtSendmain.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtSendmainMouseClicked(evt);
-            }
-        });
-        jPanel1.add(jbtSendmain, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 520, 260, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -711,20 +438,6 @@ public class staff extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private juttonCustom.JButtonCustom jbtActivity;
-    private juttonCustom.JButtonCustom jbtAdopters;
-    private juttonCustom.JButtonCustom jbtCacular;
-    private juttonCustom.JButtonCustom jbtCharity;
-    private juttonCustom.JButtonCustom jbtChildManager;
-    private juttonCustom.JButtonCustom jbtEquipment;
-    private juttonCustom.JButtonCustom jbtExtracurricular;
-    private juttonCustom.JButtonCustom jbtFeedback;
-    private juttonCustom.JButtonCustom jbtIntroductor;
-    private juttonCustom.JButtonCustom jbtLogout;
-    private juttonCustom.JButtonCustom jbtSendNotification;
-    private juttonCustom.JButtonCustom jbtSendStaff;
-    private juttonCustom.JButtonCustom jbtSendmain;
-    private juttonCustom.JButtonCustom jbtStaffManager;
     private javax.swing.JLabel jlb1;
     private javax.swing.JLabel jlb2;
     private javax.swing.JLabel jlb3;

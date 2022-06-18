@@ -44,16 +44,8 @@ public class demo1 extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jtxtID1 = new javax.swing.JTextField();
-        jbtAdd1 = new view.JButtonCustom();
-        jbtUpdate1 = new view.JButtonCustom();
-        jbttNowActi1 = new view.JButtonCustom();
-        jbtReset1 = new view.JButtonCustom();
-        jtbtDel1 = new view.JButtonCustom();
-        jtbtStopActi1 = new view.JButtonCustom();
-        jbtResest1 = new view.JButtonCustom();
         jLabel12 = new javax.swing.JLabel();
         jtxtFind1 = new javax.swing.JTextField();
-        jbtFind = new view.JButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(330, 70, 70, 70));
@@ -155,76 +147,9 @@ public class demo1 extends javax.swing.JFrame {
         jtxtID1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel3.add(jtxtID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 260, 40));
 
-        jbtAdd1.setBorder(null);
-        jbtAdd1.setText("Thêm");
-        jbtAdd1.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtAdd1.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtAdd1.setColor(new java.awt.Color(51, 255, 153));
-        jbtAdd1.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtAdd1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtAdd1.setRadius(40);
-        jPanel3.add(jbtAdd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 120, 50));
-
-        jbtUpdate1.setBorder(null);
-        jbtUpdate1.setText("Cập Nhật");
-        jbtUpdate1.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtUpdate1.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtUpdate1.setColor(new java.awt.Color(51, 255, 153));
-        jbtUpdate1.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtUpdate1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtUpdate1.setRadius(40);
-        jPanel3.add(jbtUpdate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 120, 50));
-
-        jbttNowActi1.setBorder(null);
-        jbttNowActi1.setText("Hoạt động hiện tại");
-        jbttNowActi1.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbttNowActi1.setColoOver(new java.awt.Color(255, 102, 51));
-        jbttNowActi1.setColor(new java.awt.Color(51, 255, 153));
-        jbttNowActi1.setColorClick(new java.awt.Color(0, 204, 255));
-        jbttNowActi1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbttNowActi1.setRadius(40);
-        jPanel3.add(jbttNowActi1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 150, 50));
-
-        jbtReset1.setBorder(null);
-        jbtReset1.setText("Làm mới");
-        jbtReset1.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtReset1.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtReset1.setColor(new java.awt.Color(51, 255, 153));
-        jbtReset1.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtReset1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtReset1.setRadius(40);
-        jPanel3.add(jbtReset1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, 120, 50));
-
-        jtbtDel1.setBorder(null);
-        jtbtDel1.setText("Xoá");
-        jtbtDel1.setBoderColor(new java.awt.Color(255, 255, 255));
-        jtbtDel1.setColoOver(new java.awt.Color(255, 102, 51));
-        jtbtDel1.setColor(new java.awt.Color(51, 255, 153));
-        jtbtDel1.setColorClick(new java.awt.Color(0, 204, 255));
-        jtbtDel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jtbtDel1.setRadius(40);
-        jPanel3.add(jtbtDel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, 120, 50));
-
-        jtbtStopActi1.setBorder(null);
-        jtbtStopActi1.setText("Hoạt động đã ngưng");
-        jtbtStopActi1.setBoderColor(new java.awt.Color(255, 255, 255));
-        jtbtStopActi1.setColoOver(new java.awt.Color(255, 102, 51));
-        jtbtStopActi1.setColor(new java.awt.Color(51, 255, 153));
-        jtbtStopActi1.setColorClick(new java.awt.Color(0, 204, 255));
-        jtbtStopActi1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jtbtStopActi1.setRadius(40);
-        jPanel3.add(jtbtStopActi1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 250, 180, 50));
-
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 660));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1190, 660));
-
-        jbtResest1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/reset_24px.png"))); // NOI18N
-        jbtResest1.setBoderColor(new java.awt.Color(242, 242, 242));
-        jbtResest1.setColoOver(new java.awt.Color(153, 255, 204));
-        jbtResest1.setColor(new java.awt.Color(242, 242, 242));
-        jbtResest1.setColorClick(new java.awt.Color(102, 255, 153));
-        jPanel1.add(jbtResest1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 40));
 
         jLabel12.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel12.setText("Tìm Theo Tên Tổ Chức");
@@ -233,13 +158,6 @@ public class demo1 extends javax.swing.JFrame {
         jtxtFind1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtFind1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel1.add(jtxtFind1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 310, 40));
-
-        jbtFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/search_24px.png"))); // NOI18N
-        jbtFind.setBoderColor(new java.awt.Color(242, 242, 242));
-        jbtFind.setColoOver(new java.awt.Color(153, 255, 204));
-        jbtFind.setColor(new java.awt.Color(242, 242, 242));
-        jbtFind.setColorClick(new java.awt.Color(102, 255, 153));
-        jPanel1.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 0, 50, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 1190, 700));
 
@@ -296,15 +214,7 @@ public class demo1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private view.JButtonCustom jbtAdd1;
-    private view.JButtonCustom jbtFind;
-    private view.JButtonCustom jbtResest1;
-    private view.JButtonCustom jbtReset1;
-    private view.JButtonCustom jbtUpdate1;
-    private view.JButtonCustom jbttNowActi1;
     private javax.swing.JTable jtbCharityActi1;
-    private view.JButtonCustom jtbtDel1;
-    private view.JButtonCustom jtbtStopActi1;
     private javax.swing.JTextField jtxtDateEnter1;
     private javax.swing.JTextField jtxtDateQuit1;
     private javax.swing.JTextField jtxtFind1;

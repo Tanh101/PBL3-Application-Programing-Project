@@ -246,7 +246,6 @@ public class StaffManager extends javax.swing.JFrame {
 
         buttonGroupGender = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jButtonCustom1 = new view.JButtonCustom();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -254,7 +253,6 @@ public class StaffManager extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jtxtDateOfBirth = new javax.swing.JTextField();
-        jbtUpdate = new view.JButtonCustom();
         jtxtID = new javax.swing.JTextField();
         jrdioMale = new javax.swing.JRadioButton();
         jradioFemale = new javax.swing.JRadioButton();
@@ -262,9 +260,6 @@ public class StaffManager extends javax.swing.JFrame {
         jtxtPhoneNumber = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jtxtAddress = new javax.swing.JTextField();
-        jbtStaffQuit = new view.JButtonCustom();
-        jbtFind = new view.JButtonCustom();
-        jbtResest = new view.JButtonCustom();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbStaff = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
@@ -275,15 +270,11 @@ public class StaffManager extends javax.swing.JFrame {
         jtxtDateStart = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jtxtDateEnd = new javax.swing.JTextField();
-        jbtAdd = new view.JButtonCustom();
-        jbtStaffCurrent = new view.JButtonCustom();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jbtDelel1 = new view.JButtonCustom();
         jlbImage = new javax.swing.JLabel();
-        jButtonCustom2 = new view.JButtonCustom();
         jtxtPhoto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
 
@@ -310,19 +301,6 @@ public class StaffManager extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonCustom1.setText("X");
-        jButtonCustom1.setBoderColor(new java.awt.Color(255, 255, 255));
-        jButtonCustom1.setColoOver(new java.awt.Color(255, 51, 51));
-        jButtonCustom1.setColorClick(new java.awt.Color(255, 51, 51));
-        jButtonCustom1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonCustom1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonCustom1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCustom1MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jButtonCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 0, 50, 40));
-
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -346,21 +324,6 @@ public class StaffManager extends javax.swing.JFrame {
         jtxtDateOfBirth.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDateOfBirth.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel2.add(jtxtDateOfBirth, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 240, 240, 40));
-
-        jbtUpdate.setBorder(null);
-        jbtUpdate.setText("Cập Nhật");
-        jbtUpdate.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtUpdate.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtUpdate.setColor(new java.awt.Color(51, 255, 153));
-        jbtUpdate.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtUpdate.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtUpdate.setRadius(40);
-        jbtUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtUpdateMouseClicked(evt);
-            }
-        });
-        jPanel2.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 120, 50));
 
         jtxtID.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtID.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -391,57 +354,6 @@ public class StaffManager extends javax.swing.JFrame {
         jtxtAddress.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtAddress.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel2.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 240, 40));
-
-        jbtStaffQuit.setBorder(null);
-        jbtStaffQuit.setText("Cán Bộ Thôi Việc");
-        jbtStaffQuit.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtStaffQuit.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtStaffQuit.setColor(new java.awt.Color(51, 255, 153));
-        jbtStaffQuit.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtStaffQuit.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtStaffQuit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jbtStaffQuit.setRadius(40);
-        jbtStaffQuit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtStaffQuitActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jbtStaffQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, 140, 50));
-
-        jbtFind.setBorder(null);
-        jbtFind.setText("Tìm Kiếm");
-        jbtFind.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtFind.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtFind.setColor(new java.awt.Color(51, 255, 153));
-        jbtFind.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtFind.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtFind.setRadius(40);
-        jbtFind.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtFindMouseClicked(evt);
-            }
-        });
-        jbtFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtFindActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 70, 120, 50));
-
-        jbtResest.setBorder(null);
-        jbtResest.setText("Làm mới");
-        jbtResest.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtResest.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtResest.setColor(new java.awt.Color(51, 255, 153));
-        jbtResest.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtResest.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtResest.setRadius(40);
-        jbtResest.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtResestMouseClicked(evt);
-            }
-        });
-        jPanel2.add(jbtResest, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 120, 50));
 
         jtbStaff.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbStaff.setModel(new javax.swing.table.DefaultTableModel(
@@ -512,36 +424,6 @@ public class StaffManager extends javax.swing.JFrame {
         jtxtDateEnd.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel2.add(jtxtDateEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, 240, 40));
 
-        jbtAdd.setBorder(null);
-        jbtAdd.setText("Thêm");
-        jbtAdd.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtAdd.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtAdd.setColor(new java.awt.Color(51, 255, 153));
-        jbtAdd.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtAdd.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtAdd.setRadius(40);
-        jbtAdd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtAddMouseClicked(evt);
-            }
-        });
-        jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 70, 120, 50));
-
-        jbtStaffCurrent.setBorder(null);
-        jbtStaffCurrent.setText("Cán Bộ Hiện Tại");
-        jbtStaffCurrent.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtStaffCurrent.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtStaffCurrent.setColor(new java.awt.Color(51, 255, 153));
-        jbtStaffCurrent.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtStaffCurrent.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtStaffCurrent.setRadius(40);
-        jbtStaffCurrent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtStaffCurrentActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jbtStaffCurrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 0, 140, 50));
-
         jLabel10.setBackground(new java.awt.Color(153, 255, 255));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel10.setOpaque(true);
@@ -556,37 +438,8 @@ public class StaffManager extends javax.swing.JFrame {
         jLabel13.setText("yyyy-mm-dd");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
-        jbtDelel1.setBorder(null);
-        jbtDelel1.setText("Xoá");
-        jbtDelel1.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtDelel1.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtDelel1.setColor(new java.awt.Color(51, 255, 153));
-        jbtDelel1.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtDelel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtDelel1.setRadius(40);
-        jbtDelel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtDelel1MouseClicked(evt);
-            }
-        });
-        jPanel2.add(jbtDelel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 120, 50));
-
         jlbImage.setOpaque(true);
         jPanel2.add(jlbImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 130));
-
-        jButtonCustom2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonCustom2.setText("Chọn Ảnh");
-        jButtonCustom2.setBoderColor(new java.awt.Color(255, 255, 255));
-        jButtonCustom2.setColoOver(new java.awt.Color(102, 255, 204));
-        jButtonCustom2.setColor(new java.awt.Color(102, 204, 255));
-        jButtonCustom2.setColorClick(new java.awt.Color(255, 255, 102));
-        jButtonCustom2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        jButtonCustom2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCustom2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButtonCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 80, 30));
         jPanel2.add(jtxtPhoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 140, 30));
 
         jLabel14.setBackground(new java.awt.Color(153, 255, 255));
@@ -718,8 +571,6 @@ public class StaffManager extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupGender;
-    private view.JButtonCustom jButtonCustom1;
-    private view.JButtonCustom jButtonCustom2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -739,13 +590,6 @@ public class StaffManager extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private view.JButtonCustom jbtAdd;
-    private view.JButtonCustom jbtDelel1;
-    private view.JButtonCustom jbtFind;
-    private view.JButtonCustom jbtResest;
-    private view.JButtonCustom jbtStaffCurrent;
-    private view.JButtonCustom jbtStaffQuit;
-    private view.JButtonCustom jbtUpdate;
     private javax.swing.JLabel jlbImage;
     private javax.swing.JRadioButton jradioFemale;
     private javax.swing.JRadioButton jrdioMale;

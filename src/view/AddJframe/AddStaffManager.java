@@ -176,7 +176,7 @@ public class AddStaffManager extends javax.swing.JFrame {
         jbtChooseImg = new view.JButtonCustom();
         jbtUpdate = new view.JButtonCustom();
         jbtAdd = new view.JButtonCustom();
-        jButtonCustom1 = new juttonCustom.JButtonCustom();
+        jButtonCustom1 = new jbuttonCustom.JButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -405,7 +405,7 @@ public class AddStaffManager extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private juttonCustom.JButtonCustom jButtonCustom1;
+    private jbuttonCustom.JButtonCustom jButtonCustom1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

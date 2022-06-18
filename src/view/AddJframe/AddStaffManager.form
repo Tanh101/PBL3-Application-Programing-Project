@@ -471,7 +471,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="juttonCustom.JButtonCustom" name="jButtonCustom1">
+        <Component class="jbuttonCustom.JButtonCustom" name="jButtonCustom1">
           <Properties>
             <Property name="text" type="java.lang.String" value="X"/>
             <Property name="boderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">

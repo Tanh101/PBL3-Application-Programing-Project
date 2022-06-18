@@ -214,11 +214,6 @@ public class IntroductorManager extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jlbCountIntro = new javax.swing.JLabel();
         jtxtNameIntro = new javax.swing.JTextField();
-        jbtAdd = new view.JButtonCustom();
-        jbtUpdate = new view.JButtonCustom();
-        jbtDisplay = new view.JButtonCustom();
-        jbtDelete = new view.JButtonCustom();
-        jbtWatchChild = new view.JButtonCustom();
         jLabel9 = new javax.swing.JLabel();
         jradioMale = new javax.swing.JRadioButton();
         jradioFemale = new javax.swing.JRadioButton();
@@ -227,10 +222,8 @@ public class IntroductorManager extends javax.swing.JFrame {
         jtxtUsername = new javax.swing.JTextField();
         jtxtPass = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jbtResest1 = new view.JButtonCustom();
         jLabel12 = new javax.swing.JLabel();
         jtxtFind = new javax.swing.JTextField();
-        jbtFind = new view.JButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(330, 70, 70, 70));
@@ -331,81 +324,6 @@ public class IntroductorManager extends javax.swing.JFrame {
         jtxtNameIntro.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel3.add(jtxtNameIntro, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 260, 40));
 
-        jbtAdd.setBorder(null);
-        jbtAdd.setText("Thêm");
-        jbtAdd.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtAdd.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtAdd.setColor(new java.awt.Color(51, 255, 153));
-        jbtAdd.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtAdd.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtAdd.setRadius(40);
-        jbtAdd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtAddMouseClicked(evt);
-            }
-        });
-        jPanel3.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 120, 50));
-
-        jbtUpdate.setBorder(null);
-        jbtUpdate.setText("Cập Nhật");
-        jbtUpdate.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtUpdate.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtUpdate.setColor(new java.awt.Color(51, 255, 153));
-        jbtUpdate.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtUpdate.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtUpdate.setRadius(40);
-        jbtUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtUpdateMouseClicked(evt);
-            }
-        });
-        jPanel3.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 250, 120, 50));
-
-        jbtDisplay.setBorder(null);
-        jbtDisplay.setText("Hiển Thị");
-        jbtDisplay.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtDisplay.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtDisplay.setColor(new java.awt.Color(51, 255, 153));
-        jbtDisplay.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtDisplay.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtDisplay.setRadius(40);
-        jbtDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtDisplayMouseClicked(evt);
-            }
-        });
-        jPanel3.add(jbtDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 120, 50));
-
-        jbtDelete.setBorder(null);
-        jbtDelete.setText("Xoá");
-        jbtDelete.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtDelete.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtDelete.setColor(new java.awt.Color(51, 255, 153));
-        jbtDelete.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtDelete.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtDelete.setRadius(40);
-        jbtDelete.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtDeleteMouseClicked(evt);
-            }
-        });
-        jPanel3.add(jbtDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 250, 120, 50));
-
-        jbtWatchChild.setBorder(null);
-        jbtWatchChild.setText("Xem trẻ được giới thiệu");
-        jbtWatchChild.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtWatchChild.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtWatchChild.setColor(new java.awt.Color(51, 255, 153));
-        jbtWatchChild.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtWatchChild.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtWatchChild.setRadius(40);
-        jbtWatchChild.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtWatchChildMouseClicked(evt);
-            }
-        });
-        jPanel3.add(jbtWatchChild, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 230, 50));
-
         jLabel9.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel9.setText("Giới Tính");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 90, 40));
@@ -444,18 +362,6 @@ public class IntroductorManager extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1190, 660));
 
-        jbtResest1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/reset_24px.png"))); // NOI18N
-        jbtResest1.setBoderColor(new java.awt.Color(255, 255, 102));
-        jbtResest1.setColoOver(new java.awt.Color(102, 255, 102));
-        jbtResest1.setColor(new java.awt.Color(255, 255, 102));
-        jbtResest1.setColorClick(new java.awt.Color(0, 204, 51));
-        jbtResest1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtResest1MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jbtResest1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 40));
-
         jLabel12.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel12.setText("Tìm theo họ tên");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 170, 40));
@@ -463,19 +369,6 @@ public class IntroductorManager extends javax.swing.JFrame {
         jtxtFind.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtFind.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel1.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 310, 40));
-
-        jbtFind.setBackground(new java.awt.Color(255, 255, 102));
-        jbtFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/search_24px.png"))); // NOI18N
-        jbtFind.setBoderColor(new java.awt.Color(255, 255, 102));
-        jbtFind.setColoOver(new java.awt.Color(102, 255, 204));
-        jbtFind.setColor(new java.awt.Color(255, 255, 102));
-        jbtFind.setColorClick(new java.awt.Color(102, 255, 153));
-        jbtFind.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtFindMouseClicked(evt);
-            }
-        });
-        jPanel1.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 0, 50, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 1190, 700));
 
@@ -592,13 +485,6 @@ public class IntroductorManager extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private view.JButtonCustom jbtAdd;
-    private view.JButtonCustom jbtDelete;
-    private view.JButtonCustom jbtDisplay;
-    private view.JButtonCustom jbtFind;
-    private view.JButtonCustom jbtResest1;
-    private view.JButtonCustom jbtUpdate;
-    private view.JButtonCustom jbtWatchChild;
     private javax.swing.JLabel jlbCountIntro;
     private javax.swing.JRadioButton jradioFemale;
     private javax.swing.JRadioButton jradioMale;
