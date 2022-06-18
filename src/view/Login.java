@@ -8,6 +8,7 @@ import controller.LoginListener;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -27,7 +28,9 @@ import view.viewStaffManager.StaffManager;
  * @author ADMIN
  */
 public class Login extends javax.swing.JFrame {
-    private static int  count = 0;
+
+    private static int count = 0;
+
     public Login() {
         initComponents();
 
@@ -62,6 +65,11 @@ public class Login extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -127,6 +135,11 @@ public class Login extends javax.swing.JFrame {
         jpass.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jpass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jpass.setToolTipText("");
+        jpass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jpassKeyPressed(evt);
+            }
+        });
         jPanel3.add(jpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 310, 40));
 
         jboxChoose.setForeground(new java.awt.Color(0, 153, 255));
@@ -224,7 +237,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLoginActionPerformed
-        
+
         LoginListener log = new LoginListener();
         String value = this.jboxChoose.getSelectedItem().toString();
         if (value.equals("Quản Trị Viên")) {
@@ -233,7 +246,7 @@ public class Login extends javax.swing.JFrame {
                     && passText.compareTo("lyvantanh2002") == 0) {
                 new Admin().setVisible(true);
                 this.setVisible(false);
-                
+
             } else {
                 showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
             }
@@ -253,7 +266,7 @@ public class Login extends javax.swing.JFrame {
                     showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
                 }
             } catch (SQLException ex) {
-                
+
             }
         }
 
@@ -274,7 +287,7 @@ public class Login extends javax.swing.JFrame {
                 this.jpass.setEchoChar('*');
             }
     }//GEN-LAST:event_jlbVisibleMouseClicked
-    
+
     private void jboxChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jboxChooseActionPerformed
 
     }//GEN-LAST:event_jboxChooseActionPerformed
@@ -308,6 +321,78 @@ public class Login extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
+
+    private void jpassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpassKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            LoginListener log = new LoginListener();
+            String value = this.jboxChoose.getSelectedItem().toString();
+            if (value.equals("Quản Trị Viên")) {
+                String passText = new String(this.jpass.getPassword());
+                if (this.jtxtAccount.getText().compareTo("lyvantanh1001") == 0
+                        && passText.compareTo("lyvantanh2002") == 0) {
+                    new Admin().setVisible(true);
+                    this.setVisible(false);
+
+                } else {
+                    showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
+                }
+            } else {
+                String acc = this.jtxtAccount.getText();
+                String pass = new String(this.jpass.getPassword());
+                try {
+                    if (log.checkAccount(acc, pass) == true) {
+                        this.setVisible(false);
+                        staff st = new staff();
+                        st.getjlbNameStaff().setText(log.getNameStaff(acc));
+                        System.out.println(log.getNameStaff(acc));
+                        st.setVisible(true);
+                        st.setID_NVQL(acc);
+                        st.setVisible(true);
+                    } else {
+                        showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
+                    }
+                } catch (SQLException ex) {
+
+                }
+            }
+        }
+    }//GEN-LAST:event_jpassKeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            LoginListener log = new LoginListener();
+            String value = this.jboxChoose.getSelectedItem().toString();
+            if (value.equals("Quản Trị Viên")) {
+                String passText = new String(this.jpass.getPassword());
+                if (this.jtxtAccount.getText().compareTo("lyvantanh1001") == 0
+                        && passText.compareTo("lyvantanh2002") == 0) {
+                    new Admin().setVisible(true);
+                    this.setVisible(false);
+
+                } else {
+                    showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
+                }
+            } else {
+                String acc = this.jtxtAccount.getText();
+                String pass = new String(this.jpass.getPassword());
+                try {
+                    if (log.checkAccount(acc, pass) == true) {
+                        this.setVisible(false);
+                        staff st = new staff();
+                        st.getjlbNameStaff().setText(log.getNameStaff(acc));
+                        System.out.println(log.getNameStaff(acc));
+                        st.setVisible(true);
+                        st.setID_NVQL(acc);
+                        st.setVisible(true);
+                    } else {
+                        showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
+                    }
+                } catch (SQLException ex) {
+
+                }
+            }
+        }
+    }//GEN-LAST:event_formKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

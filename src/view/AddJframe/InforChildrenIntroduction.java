@@ -66,12 +66,15 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
         jradioFemale.setSelected(false);
         jradioFemale.setSelected(false);
         jtxtNameImg.setText("");
+        jlbImage.setIcon(ResizeImage(url + "default.png"));
+        jlbName.setText(ID);
 
     }
 
     public void setWidthTable() {
         jtbChildIntro.getTableHeader().setBackground(new Color(0, 204, 255));
         jtbChildIntro.setBackground(Color.WHITE);
+        jtbChildIntro.getColumnModel().getColumn(0).setPreferredWidth(90);
         jtbChildIntro.getColumnModel().getColumn(0).setPreferredWidth(90);
         jtbChildIntro.getColumnModel().getColumn(1).setPreferredWidth(180);
         jtbChildIntro.getColumnModel().getColumn(2).setPreferredWidth(110);
@@ -86,21 +89,20 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
 
     public void getDataFromTable() {
         int k = jtbChildIntro.getSelectedRow();
-        String ID_Choose = (String) jtbChildIntro.getModel().getValueAt(k, 0);
-        ArrayList<IntroduceChildren> list = new ArrayList<IntroduceChildren>();
+        ArrayList<IntroduceChildren> list = new ArrayList<>();
+        String ID_Choose = jtbChildIntro.getModel().getValueAt(k, 0).toString();
         list = childrenListener.FindChildIntro(1, ID, ID_Choose);
-        IntroduceChildren ic = list.get(0);
-        jtxtName.setText(ic.getName());
-        jtxtDOB.setText(ic.getDOB());
-        jtxtAddress.setText(ic.getAddress());
-        if (ic.getGender().compareTo("Nam") == 0) {
+        jtxtNameImg.setText(list.get(0).getUrlImg());
+        jlbImage.setIcon(ResizeImage(url + list.get(0).getUrlImg()));
+        jtxtName.setText(list.get(0).getName());
+        jtxtDOB.setText(list.get(0).getDOB());
+        jtxtAddress.setText(list.get(0).getAddress());
+        if (list.get(0).getGender().compareTo("Nam") == 0) {
             jradioMale.setSelected(true);
         } else {
             jradioFemale.setSelected(true);
         }
-        jtxtNameImg.setText(ic.getUrlImg());
-        jlbImage.setIcon(ResizeImage(url + ic.getUrlImg()));
-        jtxtSituation.setText(ic.getSituation());
+        jtxtSituation.setText(list.get(0).getSituation());
     }
 
     public void showSupport(ArrayList<IntroduceChildren> list) {
@@ -108,7 +110,7 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < list.size(); i++) {
             model.addRow(new Object[]{
-                list.get(i).getName(), list.get(i).getDOB(), list.get(i).getAddress(),
+                list.get(i).getID_TRE(), list.get(i).getName(), list.get(i).getDOB(), list.get(i).getAddress(),
                 list.get(i).getGender(), list.get(i).getSituation(), list.get(i).getState(), list.get(i).getDateIntroduce()
             });
         }
@@ -122,23 +124,23 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
     }
 
     public void Add() {
-        ArrayList<Children> list = new ArrayList<>();
-        list = childrenListener.getListChildren(childrenListener.proShowChildIntro());
-        String ID;
+        ArrayList<IntroduceChildren> list = new ArrayList<>();
+        list = childrenListener.getListChildrenIntroduced(childrenListener.proShowChildIntro());
+        String ID_TRE;
         if (list.size() == 0) {
-            ID = "TREGT001";
+            ID_TRE = "TREGT001";
         } else {
             String tmp = list.get(list.size() - 1).getID_TRE();
             String[] arr = tmp.split("TREGT", 2);
 
-            ID = "TREGT";
+            ID_TRE = "TREGT";
             if (String.valueOf(Integer.parseInt(arr[1]) + 1).length() == 1) {
-                ID += "00";
+                ID_TRE += "00";
             } else {
-                ID += "0";
+                ID_TRE += "0";
             }
             int tmp2 = Integer.parseInt(arr[1]) + 1;
-            ID += String.valueOf(tmp2);
+            ID_TRE += String.valueOf(tmp2);
         }
 
         long millis = System.currentTimeMillis();
@@ -154,7 +156,6 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
         }
         String Situation = jtxtSituation.getText();
         String DateEnter = date.toString();
-        String DateQuit = null;
         String NamePhoto = jtxtNameImg.getText();
         if (NamePhoto.compareTo("") == 0) {
             NamePhoto = url + "default.png";
@@ -163,8 +164,8 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
                 || Gender.isEmpty() || DateEnter.isEmpty()) {
             showMessageDialog(null, "Không được để trống thông tin nhân viên!");
         } else {
-            childrenListener.Insert(ID, Name, DOB, Address, Gender, NamePhoto, "1", Situation, "", DateEnter, DateQuit);
-            showMessageDialog(null, "Giới thiệu trẻ " + Name + " thành công");
+            childrenListener.AddNewChildrenFromIntroductor(ID_TRE, Name, DOB, Address, Gender, NamePhoto, "0", Situation, ID, DateEnter, "0");
+//            showMessageDialog(null, "Giới thiệu trẻ " + Name + " thành công");
 
         }
     }
@@ -232,21 +233,21 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
         jtbChildIntro.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbChildIntro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Tên Trẻ", "Ngày sinh", "Địa Chỉ", "Giới tính", "Hoàn Cảnh", "Trạng thái", "Ngày Giới Thiệu"
+                "ID_TRE", "Tên Trẻ", "Ngày sinh", "Địa Chỉ", "Giới tính", "Hoàn Cảnh", "Trạng thái", "Ngày Giới Thiệu"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                true, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -266,6 +267,9 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(jtbChildIntro);
+        if (jtbChildIntro.getColumnModel().getColumnCount() > 0) {
+            jtbChildIntro.getColumnModel().getColumn(0).setPreferredWidth(100);
+        }
 
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1200, 340));
 
@@ -425,7 +429,7 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jtbChildIntroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbChildIntroMouseClicked
-//        getDataFromTable();
+        getDataFromTable();
     }//GEN-LAST:event_jtbChildIntroMouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

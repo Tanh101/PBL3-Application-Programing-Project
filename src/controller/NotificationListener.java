@@ -34,7 +34,9 @@ public class NotificationListener extends ConnectDatabase {
         return ID;
     }
 
-    public void Add_2_ID(String ID_NVQL, String ID_TB) {
+    public void Add_2_ID(String ID_NVQL) {
+        String ID = total();
+        
         try {
             String sql = "INSERT INTO dbo.CHITIETTHONGBAO  VALUES (? ,?, ?)";
             long millis = System.currentTimeMillis();
@@ -43,15 +45,34 @@ public class NotificationListener extends ConnectDatabase {
             System.out.println(DateEnter);
             PreparedStatement pre = conn.prepareStatement(sql);
 
-            pre.setString(1, ID_TB);
+            pre.setString(1, ID);
             pre.setInt(2, Integer.parseInt(ID_NVQL));
             pre.setString(3, DateEnter);
             ResultSet rs = pre.executeQuery();
             JOptionPane.showMessageDialog(null, "Thêm thông báo thành công");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            
         }
     }
+        public void Add_2_ID(String ID_NVQL,String ID_MESSAGE) {
+
+        try {
+            String sql = "UPDATE dbo.CHITIETTHONGBAO SET ID_NVQL = ?,NgayThongBao=?  where MaThongBao = ?";
+            long millis = System.currentTimeMillis();
+            Date date = new Date(millis);
+            String DateEnter = date.toString();
+            System.out.println(DateEnter);
+            PreparedStatement pre = conn.prepareStatement(sql);
+
+            pre.setString(1, ID_NVQL);
+            pre.setString(2, DateEnter);
+            pre.setString(3, ID_MESSAGE);
+            ResultSet rs = pre.executeQuery();
+            JOptionPane.showMessageDialog(null, "Thêm thông báo thành công");
+        } catch (Exception e) {
+        }
+    }
+
 
     public void InsertStaff(String Header, String Content, String loai_thong_bao) {
         String ID = total();
@@ -59,9 +80,9 @@ public class NotificationListener extends ConnectDatabase {
         String[] arr = ID.split("TB", 2);
         String ID_FINAL = "TB";
         if (String.valueOf(Integer.parseInt(arr[1]) + 1).length() == 1) {
-            ID += "00";
+            ID_FINAL += "00";
         } else {
-            ID += "0";
+            ID_FINAL += "0";
         }
         int tmp2 = Integer.parseInt(arr[1]) + 1;
         ID_FINAL += String.valueOf(tmp2);

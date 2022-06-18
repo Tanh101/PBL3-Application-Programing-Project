@@ -29,7 +29,7 @@ import model.Notification;
 
 public class Information extends JFrame {
 
-    LoginUser log = new LoginUser();
+    LoginFeedback log = new LoginFeedback();
 //    Information infor = new Information();
 
     public Information() {
@@ -61,7 +61,6 @@ public class Information extends JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButtonCustom2 = new view.JButtonCustom();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jpnMain = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -80,7 +79,6 @@ public class Information extends JFrame {
         jpnActi = new javax.swing.JPanel();
         jpnFeed = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jbtLogoutUser = new view.JButtonCustom();
         jlbNameUser = new javax.swing.JLabel();
 
         jMenu4.setText("jMenu4");
@@ -212,19 +210,6 @@ public class Information extends JFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1110, -1));
 
-        jButtonCustom2.setBorder(null);
-        jButtonCustom2.setText("X");
-        jButtonCustom2.setBoderColor(new java.awt.Color(255, 255, 255));
-        jButtonCustom2.setColoOver(new java.awt.Color(255, 51, 51));
-        jButtonCustom2.setColorClick(new java.awt.Color(255, 51, 51));
-        jButtonCustom2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonCustom2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCustom2MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jButtonCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 40, 40));
-
         jpnMain.setBackground(new java.awt.Color(255, 255, 255));
         jpnMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -285,20 +270,6 @@ public class Information extends JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbtLogoutUser.setBorder(null);
-        jbtLogoutUser.setText("Đăng Xuất");
-        jbtLogoutUser.setBoderColor(new java.awt.Color(0, 255, 204));
-        jbtLogoutUser.setColoOver(new java.awt.Color(102, 255, 51));
-        jbtLogoutUser.setColor(new java.awt.Color(0, 255, 204));
-        jbtLogoutUser.setColorClick(new java.awt.Color(255, 51, 51));
-        jbtLogoutUser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jbtLogoutUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtLogoutUserActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jbtLogoutUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 90, 30));
-
         jlbNameUser.setBackground(new java.awt.Color(0, 255, 204));
         jlbNameUser.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlbNameUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/user_60px.png"))); // NOI18N
@@ -319,7 +290,6 @@ public class Information extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtFeedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFeedActionPerformed
-        // TODO add your handling code here:
         LoginListener logLis = new LoginListener();
         jlbMain.setBackground(new Color(255, 255, 255));
         jlbActi.setBackground(new Color(255, 255, 255));
@@ -393,7 +363,6 @@ public class Information extends JFrame {
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private view.JButtonCustom jButtonCustom2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -423,7 +392,6 @@ public class Information extends JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jbtActi;
     private javax.swing.JToggleButton jbtFeed;
-    private view.JButtonCustom jbtLogoutUser;
     private javax.swing.JToggleButton jbtMain;
     private javax.swing.JToggleButton jbtNews;
     private javax.swing.JLabel jlbActi;

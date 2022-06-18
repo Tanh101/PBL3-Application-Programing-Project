@@ -221,13 +221,13 @@ public class Register extends javax.swing.JFrame {
 
     private void jbtCloseRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtCloseRegisterMouseClicked
         this.setVisible(false);
-      new LoginUser().setVisible(true);
+//      new LoginUser().setVisible(true);
     }//GEN-LAST:event_jbtCloseRegisterMouseClicked
 
     private void jtbRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbRegisterMouseClicked
         RegisterIntroductor();
         this.setVisible(false);
-        new LoginUser().setVisible(true);
+//        new LoginUser().setVisible(true);
     }//GEN-LAST:event_jtbRegisterMouseClicked
 
     /**

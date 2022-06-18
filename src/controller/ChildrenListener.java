@@ -35,7 +35,8 @@ public class ChildrenListener extends ConnectDatabase {
         }
 
     }
-    public String proShowChildIntro(){
+
+    public String proShowChildIntro() {
         return "SELECT * FROM TRE WHERE Quyen = '0'";
     }
 
@@ -50,14 +51,29 @@ public class ChildrenListener extends ConnectDatabase {
         return "";
     }
 
-//    private String getSqlFindName() {
-//        String sql = "SELECT T.ID_Tre, T.HoTen, T.NgaySinh, T.DiaChi, T.GioiTinh,T.TenAnh, Q.NgayVaoTT, Q.NgayRoiTT\n"
-//                + "FROM TRE T\n"
-//                + "INNER JOIN QUANLYTRE Q\n"
-//                + "ON T.ID_Tre = Q.ID_Tre\n"
-//                + "WHERE T.HoTen LIKE ? AND T.Quyen = '1'";
-//        return sql;
-//    }
+    public ArrayList<IntroduceChildren> getListChildrenIntroduced(String sql) {
+        ArrayList<IntroduceChildren> list = new ArrayList<IntroduceChildren>();
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                IntroduceChildren introChild = new IntroduceChildren();
+                introChild.setID_TRE(rs.getString(1));
+                introChild.setName(rs.getString(2));
+                introChild.setDOB(rs.getDate(3).toString());
+                introChild.setAddress(rs.getString(4));
+                introChild.setGender(rs.getString(5));
+                introChild.setUrlImg(rs.getString(6));
+                introChild.setState(rs.getString(7));
+                introChild.setSituation(rs.getString(8));
+                list.add(introChild);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     private String getSqlUpdate() {
         String sql = "UPDATE TRE\n"
                 + "SET HoTen = ?, NgaySinh = ?,DiaChi = ?, GioiTinh = ?, TenAnh = ?, HoanCanh = ?\n"
@@ -113,7 +129,7 @@ public class ChildrenListener extends ConnectDatabase {
     public ArrayList<Children> FindChild(int i, String Choose) {
         ArrayList<Children> list = new ArrayList<Children>();
         try {
-            String sql = ProcedureFindChild(i);                    
+            String sql = ProcedureFindChild(i);
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, Choose);
             ResultSet rs = pre.executeQuery();
@@ -143,7 +159,7 @@ public class ChildrenListener extends ConnectDatabase {
     }
 
     public void Update(String ID_Choose, String Name, String DOB, String Address,
-            String Gender, String NamePhoto,String Situation, String ID_NVQL, String DateEnter, String DateQuit) {
+            String Gender, String NamePhoto, String Situation, String ID_NVQL, String DateEnter, String DateQuit) {
         String sql = getSqlUpdate();
         PreparedStatement pre;
         try {
@@ -335,6 +351,32 @@ public class ChildrenListener extends ConnectDatabase {
         }
     }
 
+    public void AddNewChildrenFromIntroductor(String ID_TRE, String Name, String DOB, String Address,
+            String Gender, String NamePhoto, String Access, String Situation, String ID_DTGT,
+            String DateIntro, String State) {
+        String sql = "ADD_NEW_CHILDREN @ID = ?, @NAME = ?, @DOB = ?, @ADDRESS= ?, \n"
+                + "@GENDER = ?,@IMG = ?, @ACCESS = ?, @SITUATION = ?, @ID_DTGT = ?  , @DATEINTRO = ?, @STATE= ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, ID_TRE);
+            pre.setString(2, Name);
+            pre.setString(3, DOB);
+            pre.setString(4, Address);
+            pre.setString(5, Gender);
+            pre.setString(6, NamePhoto);
+            pre.setString(7, Access);
+            pre.setString(8, Situation);
+            pre.setString(9, ID_DTGT);
+            pre.setString(10, DateIntro);
+            pre.setString(11, State);
+            pre.executeUpdate();
+            showMessageDialog(null, "Giới thiệu trẻ " + Name + " thành công");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //------------------------------------------------------Adopter MANAGEMENT ----------------------------------------------
     //----------------------------------------------Children change to Adopted -----------------------------------------
     private String proShowChildAdop(int i) {
@@ -398,6 +440,7 @@ public class ChildrenListener extends ConnectDatabase {
             showMessageDialog(null, e.getMessage());
         }
     }
+
     public static void main(String[] args) {
         ChildrenListener st = new ChildrenListener();
         ArrayList<Children> v = new ArrayList<>();

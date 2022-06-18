@@ -7,6 +7,7 @@ package view;
 import controller.LoginListener;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -18,6 +19,7 @@ import view.AddJframe.InforChildrenIntroduction;
  * @author ADMIN
  */
 public class LoginUser extends javax.swing.JFrame {
+
     private static int count = 0;
 
     public int getCheckLogin() {
@@ -29,6 +31,7 @@ public class LoginUser extends javax.swing.JFrame {
         return UserName;
     }
     private String UserName = null;
+    InforChildrenIntroduction inforChild = new InforChildrenIntroduction();
     /**
      * Creates new form Register
      */
@@ -81,8 +84,8 @@ public class LoginUser extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -162,6 +165,11 @@ public class LoginUser extends javax.swing.JFrame {
         jbtLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtLoginActionPerformed(evt);
+            }
+        });
+        jbtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtLoginKeyPressed(evt);
             }
         });
 
@@ -271,7 +279,7 @@ public class LoginUser extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlbRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jbtExitLoginUser.setBorder(null);
@@ -290,16 +298,16 @@ public class LoginUser extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 881, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jbtExitLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(452, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 435, Short.MAX_VALUE)))
+                    .addGap(0, 491, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +316,7 @@ public class LoginUser extends javax.swing.JFrame {
                 .addComponent(jbtExitLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(19, 19, 19))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(51, Short.MAX_VALUE)
@@ -320,17 +328,14 @@ public class LoginUser extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 518, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(946, 518));
+        setSize(new java.awt.Dimension(944, 518));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -354,22 +359,25 @@ public class LoginUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbVisibleMouseClicked
 
     private void jbtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLoginActionPerformed
-         LoginListener log = new LoginListener();
+        LoginListener log = new LoginListener();
         String inputAccoutn = this.jtxtAccount.getText();
         String pass = new String(this.jpass.getPassword());
-            try {
-                if (log.checkAccountUser(inputAccoutn, pass) == true) {
-                    this.checkLogin = 1;
-                    this.UserName = inputAccoutn;
-                    this.setVisible(false);
-                    new InforChildrenIntroduction().setVisible(true);
-                } else {
-                    this.checkLogin = 0;
-                    showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+        try {
+            if (log.checkAccountUser(inputAccoutn, pass) == true) {
+                this.checkLogin = 1;
+                this.UserName = inputAccoutn;
+                String ID = log.getID(UserName);
+//                System.out.println(ID);
+                inforChild.setID(ID);
+                this.setVisible(false);
+                inforChild.setVisible(true);
+            } else {
+                this.checkLogin = 0;
+                showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jbtLoginActionPerformed
 
     private void jlbRegisterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbRegisterMouseEntered
@@ -386,17 +394,38 @@ public class LoginUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbRegisterMouseExited
 
     private void jbtExitLoginUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtExitLoginUserMouseClicked
-        
+
         this.setVisible(false);
         new MainPage().setVisible(true);
 //        new Information().setVisible(true);
     }//GEN-LAST:event_jbtExitLoginUserMouseClicked
 
     private void jlbRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbRegisterMouseClicked
-        this.setVisible(false);
+//        this.setVisible(false);
         new Register().setVisible(true);
-       
+
     }//GEN-LAST:event_jlbRegisterMouseClicked
+
+    private void jbtLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtLoginKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            LoginListener log = new LoginListener();
+            String inputAccoutn = this.jtxtAccount.getText();
+            String pass = new String(this.jpass.getPassword());
+            try {
+                if (log.checkAccountUser(inputAccoutn, pass) == true) {
+                    this.checkLogin = 1;
+                    this.UserName = inputAccoutn;
+                    this.setVisible(false);
+                    new InforChildrenIntroduction().setVisible(true);
+                } else {
+                    this.checkLogin = 0;
+                    showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jbtLoginKeyPressed
 
     /**
      * @param args the command line arguments
@@ -413,27 +442,23 @@ public class LoginUser extends javax.swing.JFrame {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class  
+            java.util.logging.Logger.getLogger(LoginUser.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(LoginUser.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class  
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(LoginUser.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(LoginUser.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

@@ -275,7 +275,7 @@ public class EquipmentManager extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbEquipment);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 1100, 340));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 1110, 340));
 
         jbtAdd.setBorder(null);
         jbtAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/add_24px.png"))); // NOI18N

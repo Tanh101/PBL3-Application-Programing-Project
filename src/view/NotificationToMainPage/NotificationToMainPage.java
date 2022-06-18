@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view.thong_bao_cho_trang_chu;
+package view.NotificationToMainPage;
 
 import controller.NotificationListener;
 
@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.Vector;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +20,7 @@ import model.Model_message;
  *
  * @author ADMIN
  */
-public class main_thong_bao extends javax.swing.JFrame {
+public class NotificationToMainPage extends javax.swing.JFrame {
 
     /**
      * Creates new form Equipment
@@ -33,11 +34,11 @@ public class main_thong_bao extends javax.swing.JFrame {
     public void setID_NVQL(String ID_NVQL) {
         this.ID_NVQL = ID_NVQL;
     }
-    hien_thi_thong_bao a = new hien_thi_thong_bao();
+    Up_DownNotificationToMainPage a = new Up_DownNotificationToMainPage();
 
     private NotificationListener abc = new NotificationListener();
 
-    public main_thong_bao() {
+    public NotificationToMainPage() {
         initComponents();
         showListCurrentStaff();
         setWidthTable();
@@ -93,8 +94,9 @@ public class main_thong_bao extends javax.swing.JFrame {
     }
 
     public void See(Model_message a) {
-        hien_thi_thong_bao b = new hien_thi_thong_bao(a);
+        Up_DownNotificationToMainPage b = new Up_DownNotificationToMainPage(a);
         b.setID_NVQL(ID_NVQL);
+        b.setMESSAGE(a);
         b.setVisible(true);
 
     }
@@ -149,12 +151,19 @@ public class main_thong_bao extends javax.swing.JFrame {
                 jbtUpActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 120, 50));
+        jPanel1.add(jbtUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 190, 140, 50));
 
         jtbStaffa.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jtbStaffa.setAlignmentX(2.0F);
+        jtbStaffa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jtbStaffa.setVerifyInputWhenFocusTarget(false);
 
+        jtbStaff.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtbStaff.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -172,23 +181,32 @@ public class main_thong_bao extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtbStaff.setRowHeight(40);
+        jtbStaff.setSelectionBackground(new java.awt.Color(102, 204, 255));
+        jtbStaff.setShowGrid(true);
+        jtbStaff.setUpdateSelectionOnSort(false);
         jtbStaff.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtbStaffMouseClicked(evt);
             }
         });
         jtbStaffa.setViewportView(jtbStaff);
+        if (jtbStaff.getColumnModel().getColumnCount() > 0) {
+            jtbStaff.getColumnModel().getColumn(0).setPreferredWidth(100);
+            jtbStaff.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jtbStaff.getColumnModel().getColumn(2).setPreferredWidth(300);
+        }
 
-        jPanel1.add(jtbStaffa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 1010, 230));
+        jPanel1.add(jtbStaffa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 1120, 330));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("THÔNG BÁO");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 210, 70));
+        jLabel1.setText("THÔNG BÁO HIỂN THỊ RA TRANG CHỦ");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 600, 70));
 
         jtxtFind.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtFind.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 400, 40));
+        jPanel1.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 400, 40));
 
         jbtFind.setBorder(null);
         jbtFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/search_24px.png"))); // NOI18N
@@ -206,11 +224,11 @@ public class main_thong_bao extends javax.swing.JFrame {
                 jbtFindActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 250, 50, 40));
+        jPanel1.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 80, 50, 40));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel7.setText("Tìm Theo Tên Nội Dung");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 180, 40));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 180, 40));
 
         jbtSee.setBorder(null);
         jbtSee.setText("Xem");
@@ -225,12 +243,7 @@ public class main_thong_bao extends javax.swing.JFrame {
                 jbtSeeMouseClicked(evt);
             }
         });
-        jbtSee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtSeeActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtSee, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, 120, 50));
+        jPanel1.add(jbtSee, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 120, 50));
 
         jbtDelete.setBorder(null);
         jbtDelete.setText("Xóa");
@@ -250,7 +263,7 @@ public class main_thong_bao extends javax.swing.JFrame {
                 jbtDeleteActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 120, 50));
+        jPanel1.add(jbtDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 120, 50));
 
         jbtSend.setBorder(null);
         jbtSend.setText("Soạn thông báo");
@@ -265,12 +278,7 @@ public class main_thong_bao extends javax.swing.JFrame {
                 jbtSendMouseClicked(evt);
             }
         });
-        jbtSend.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtSendActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtSend, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 120, 50));
+        jPanel1.add(jbtSend, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 130, 50));
 
         jbtDown.setBorder(null);
         jbtDown.setText("Trạng thái ẩn");
@@ -290,7 +298,7 @@ public class main_thong_bao extends javax.swing.JFrame {
                 jbtDownActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 120, 50));
+        jPanel1.add(jbtDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 130, 50));
 
         jbtReset.setBorder(null);
         jbtReset.setText("Làm mới");
@@ -310,11 +318,11 @@ public class main_thong_bao extends javax.swing.JFrame {
                 jbtResetActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 120, 50));
+        jPanel1.add(jbtReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 120, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 590));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1120, 590));
 
-        setSize(new java.awt.Dimension(1017, 550));
+        setSize(new java.awt.Dimension(1118, 587));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtbStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbStaffMouseClicked
@@ -352,16 +360,19 @@ public class main_thong_bao extends javax.swing.JFrame {
 
     private void jbtSeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtSeeMouseClicked
         Model_message b = getDataFromTable();
-        See(b);
+        if (b.getContent().compareTo("") == 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn thông báo muốn xem");
+        } else {
+            See(b);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jbtSeeMouseClicked
-
-    private void jbtSeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSeeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtSeeActionPerformed
 
     private void jbtDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteMouseClicked
         Model_message b = getDataFromTable();
         Delete(b);
+        showListCurrentStaff();
+        JOptionPane.showMessageDialog(rootPane, "Thông báo đã xoá");
     }//GEN-LAST:event_jbtDeleteMouseClicked
 
     private void jbtDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeleteActionPerformed
@@ -369,14 +380,11 @@ public class main_thong_bao extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtDeleteActionPerformed
 
     private void jbtSendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtSendMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtSendMouseClicked
-
-    private void jbtSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSendActionPerformed
-        hien_thi_thong_bao a = new hien_thi_thong_bao();
+        Up_DownNotificationToMainPage a = new Up_DownNotificationToMainPage();
         a.setID_NVQL(ID_NVQL);
         a.setVisible(true);
-    }//GEN-LAST:event_jbtSendActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jbtSendMouseClicked
 
     private void jbtDownMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDownMouseClicked
         // TODO add your handling code here:
@@ -405,7 +413,7 @@ public class main_thong_bao extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new main_thong_bao().setVisible(true);
+                new NotificationToMainPage().setVisible(true);
             }
         });
     }

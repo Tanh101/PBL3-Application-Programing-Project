@@ -13,24 +13,15 @@ import javax.swing.JOptionPane;
  * @author ADMIN
  */
 public class ConnectDatabase {
-
     protected Connection conn = null;
-
     public ConnectDatabase() {
         try {
-//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//            String url = "jdbc:sqlserver://localhost:1433;databaseName=QUANLY;";
-//            conn = DriverManager.getConnection(url, "sa", "606902");
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url = "jdbc:sqlserver://localhost:1433;encrypt=false;databaseName=QUANLY;";
             conn = DriverManager.getConnection(url, "sa", "606902");
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
-//    public static void main(String[] args) {
-//        new ConnectDatabase();
-//    }
 }

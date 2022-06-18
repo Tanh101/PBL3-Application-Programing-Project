@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view.Thong_bao_nhan_vien;
+package view.NotificationToStaff;
 
-
-import thong_bao_cho_trang_chu.*;
+//import thong_bao_cho_trang_chu.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Vector;
@@ -20,12 +19,12 @@ import controller.NotificationListener;
  *
  * @author ADMIN
  */
-public class main_thong_bao_nv extends javax.swing.JFrame {
+public class NotificationToStaff extends javax.swing.JFrame {
 
     /**
      * Creates new form Equipment
      */
-    private String ID_NVQL =null;
+    private String ID_NVQL = null;
 
     public String getID_NVQL() {
         return ID_NVQL;
@@ -34,83 +33,86 @@ public class main_thong_bao_nv extends javax.swing.JFrame {
     public void setID_NVQL(String ID_NVQL) {
         this.ID_NVQL = ID_NVQL;
     }
-    hien_thi_thong_bao_nv a =new hien_thi_thong_bao_nv();
-    
+    SendMessage a = new SendMessage();
+
     private NotificationListener abc = new NotificationListener();
-    public main_thong_bao_nv() {
+
+    public NotificationToStaff() {
         initComponents();
         showListCurrentStaff();
         setWidthTable();
     }
-    public void setWidthTable() {
-        jtbStaff.getTableHeader().setBackground(new Color(0, 204, 255));
-        jtbStaff.setBackground(Color.WHITE);
-        jtbStaff.getColumnModel().getColumn(0).setPreferredWidth(15);
-        jtbStaff.getColumnModel().getColumn(1).setPreferredWidth(150);
-        jtbStaff.getColumnModel().getColumn(2).setPreferredWidth(175);
 
-        jtbStaff.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 16));
-        ((DefaultTableCellRenderer) jtbStaff.getTableHeader().getDefaultRenderer())
+    public void setWidthTable() {
+        jtbNotificationToStaff.getTableHeader().setBackground(new Color(0, 204, 255));
+        jtbNotificationToStaff.setBackground(Color.WHITE);
+        jtbNotificationToStaff.getColumnModel().getColumn(0).setPreferredWidth(15);
+        jtbNotificationToStaff.getColumnModel().getColumn(1).setPreferredWidth(150);
+        jtbNotificationToStaff.getColumnModel().getColumn(2).setPreferredWidth(175);
+
+        jtbNotificationToStaff.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 16));
+        ((DefaultTableCellRenderer) jtbNotificationToStaff.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
     }
+
     public void showListCurrentStaff() {
         Vector<Model_message> vec = abc.getListStaffCurent("0");
-        DefaultTableModel model = (DefaultTableModel) jtbStaff.getModel();
+        DefaultTableModel model = (DefaultTableModel) jtbNotificationToStaff.getModel();
         model.setRowCount(0);
         for (int i = 0; i < vec.size(); i++) {
             model.addRow(new Object[]{
-                vec.get(i).getID_model(),vec.get(i).getHeader(),vec.get(i).getContent()
+                vec.get(i).getID_model(), vec.get(i).getHeader(), vec.get(i).getContent()
             });
         }
-        jtbStaff.setModel(model);
-    }public void showListCurrent(String a) {
-        Vector<Model_message> vec = abc.getListStaffCurent(a);
-        DefaultTableModel model = (DefaultTableModel) jtbStaff.getModel();
-        model.setRowCount(0);
-        for (int i = 0; i < vec.size(); i++) {
-            model.addRow(new Object[]{
-                vec.get(i).getID_model(),vec.get(i).getHeader(),vec.get(i).getContent()
-            });
-        }
-        jtbStaff.setModel(model);
+        jtbNotificationToStaff.setModel(model);
     }
-    
-    
+
+    public void showListCurrent(String a) {
+        Vector<Model_message> vec = abc.getListStaffCurent(a);
+        DefaultTableModel model = (DefaultTableModel) jtbNotificationToStaff.getModel();
+        model.setRowCount(0);
+        for (int i = 0; i < vec.size(); i++) {
+            model.addRow(new Object[]{
+                vec.get(i).getID_model(), vec.get(i).getHeader(), vec.get(i).getContent()
+            });
+        }
+        jtbNotificationToStaff.setModel(model);
+    }
+
     public Model_message getDataFromTable() {
-        int k = jtbStaff.getSelectedRow();
-        String ID_Choose = (String) jtbStaff.getModel().getValueAt(k, 0);
-        Vector<Model_message> list = new Vector<Model_message>();        
+        int k = jtbNotificationToStaff.getSelectedRow();
+        String ID_Choose = (String) jtbNotificationToStaff.getModel().getValueAt(k, 0);
+        Vector<Model_message> list = new Vector<Model_message>();
         list = abc.FindID(ID_Choose);
         model.Model_message s = list.get(0);
         return s;
     }
-    public void Delete(Model_message a)
-    {
+
+    public void Delete(Model_message a) {
         abc.Delete(a.getID_model());
     }
-    public void See(Model_message a)
-    {
-       hien_thi_thong_bao_nv b = new hien_thi_thong_bao_nv(a);
-       b.setVisible(true);
-        
-    }
 
-    
+    public void See(Model_message a) {
+        SendMessage b = new SendMessage(a);
+//       b.setMESSAGE(a);
+//       b.setID_NVQL(ID_NVQL);
+        b.setVisible(true);
+
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jtbStaffa = new javax.swing.JScrollPane();
-        jtbStaff = new javax.swing.JTable();
+        jtbStaff = new javax.swing.JScrollPane();
+        jtbNotificationToStaff = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jtxtFind = new javax.swing.JTextField();
         jbtFind = new view.JButtonCustom();
         jLabel7 = new javax.swing.JLabel();
         jbtSee = new view.JButtonCustom();
         jbtSend = new view.JButtonCustom();
-        jbtReset = new view.JButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(365, 85, 85, 85));
@@ -126,10 +128,15 @@ public class main_thong_bao_nv extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtbStaffa.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jtbStaff.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jtbStaff.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jtbStaff.setRowHeaderView(null);
 
-        jtbStaff.setModel(new javax.swing.table.DefaultTableModel(
+        jtbNotificationToStaff.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jtbNotificationToStaff.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -147,23 +154,32 @@ public class main_thong_bao_nv extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jtbStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtbNotificationToStaff.setRowHeight(40);
+        jtbNotificationToStaff.setSelectionBackground(new java.awt.Color(0, 153, 255));
+        jtbNotificationToStaff.setShowGrid(true);
+        jtbNotificationToStaff.setUpdateSelectionOnSort(false);
+        jtbNotificationToStaff.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtbStaffMouseClicked(evt);
+                jtbNotificationToStaffMouseClicked(evt);
             }
         });
-        jtbStaffa.setViewportView(jtbStaff);
+        jtbStaff.setViewportView(jtbNotificationToStaff);
+        if (jtbNotificationToStaff.getColumnModel().getColumnCount() > 0) {
+            jtbNotificationToStaff.getColumnModel().getColumn(0).setPreferredWidth(110);
+            jtbNotificationToStaff.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jtbNotificationToStaff.getColumnModel().getColumn(2).setPreferredWidth(350);
+        }
 
-        jPanel1.add(jtbStaffa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 1010, 230));
+        jPanel1.add(jtbStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 1090, 300));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("THÔNG BÁO");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 210, 70));
+        jLabel1.setText("THÔNG BÁO CHO CÁN BỘ NHÂN VIÊN");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 460, 70));
 
         jtxtFind.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtFind.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 400, 40));
+        jPanel1.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 400, 40));
 
         jbtFind.setBorder(null);
         jbtFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/search_24px.png"))); // NOI18N
@@ -181,14 +197,14 @@ public class main_thong_bao_nv extends javax.swing.JFrame {
                 jbtFindActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 250, 50, 40));
+        jPanel1.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, 50, 40));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel7.setText("Tìm Theo Tên Nội Dung");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 180, 40));
+        jLabel7.setText("Tìm theo tiêu đề");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 130, 40));
 
         jbtSee.setBorder(null);
-        jbtSee.setText("Xem");
+        jbtSee.setText("Xem Thông Báo");
         jbtSee.setBoderColor(new java.awt.Color(255, 255, 255));
         jbtSee.setColoOver(new java.awt.Color(255, 102, 51));
         jbtSee.setColor(new java.awt.Color(51, 255, 153));
@@ -205,10 +221,10 @@ public class main_thong_bao_nv extends javax.swing.JFrame {
                 jbtSeeActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtSee, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, 120, 50));
+        jPanel1.add(jbtSee, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 200, 150, 60));
 
         jbtSend.setBorder(null);
-        jbtSend.setText("Soạn thông báo");
+        jbtSend.setText("Soạn Thông Báo");
         jbtSend.setBoderColor(new java.awt.Color(255, 255, 255));
         jbtSend.setColoOver(new java.awt.Color(255, 102, 51));
         jbtSend.setColor(new java.awt.Color(51, 255, 153));
@@ -220,56 +236,31 @@ public class main_thong_bao_nv extends javax.swing.JFrame {
                 jbtSendMouseClicked(evt);
             }
         });
-        jbtSend.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtSendActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtSend, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 120, 50));
+        jPanel1.add(jbtSend, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 150, 60));
 
-        jbtReset.setBorder(null);
-        jbtReset.setText("Làm mới");
-        jbtReset.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtReset.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtReset.setColor(new java.awt.Color(51, 255, 153));
-        jbtReset.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtReset.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtReset.setRadius(40);
-        jbtReset.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtResetMouseClicked(evt);
-            }
-        });
-        jbtReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtResetActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, 120, 50));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 580));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 590));
-
-        setSize(new java.awt.Dimension(1017, 550));
+        setSize(new java.awt.Dimension(1079, 576));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtbStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbStaffMouseClicked
+    private void jtbNotificationToStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbNotificationToStaffMouseClicked
         getDataFromTable();
-    }//GEN-LAST:event_jtbStaffMouseClicked
+    }//GEN-LAST:event_jtbNotificationToStaffMouseClicked
 
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked
         Vector<Model_message> vec = new Vector<Model_message>();
-        DefaultTableModel model = (DefaultTableModel) jtbStaff.getModel();
-        if (jtxtFind.getText()=="")
+        DefaultTableModel model = (DefaultTableModel) jtbNotificationToStaff.getModel();
+        if (jtxtFind.getText() == "")
             showListCurrentStaff();
-        else{
-            vec = abc.Finda("%" + jtxtFind.getText() + "%","0");
+        else {
+            vec = abc.Finda("%" + jtxtFind.getText() + "%", "0");
             model.setRowCount(0);
             for (int i = 0; i < vec.size(); i++) {
                 model.addRow(new Object[]{
-                    vec.get(i).getID_model(),vec.get(i).getHeader(),vec.get(i).getContent()
+                    vec.get(i).getID_model(), vec.get(i).getHeader(), vec.get(i).getContent()
                 });
             }
-            jtbStaff.setModel(model);
+            jtbNotificationToStaff.setModel(model);
         }
     }//GEN-LAST:event_jbtFindMouseClicked
 
@@ -280,6 +271,7 @@ public class main_thong_bao_nv extends javax.swing.JFrame {
     private void jbtSeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtSeeMouseClicked
         Model_message b = getDataFromTable();
         See(b);
+        this.setVisible(false);
     }//GEN-LAST:event_jbtSeeMouseClicked
 
     private void jbtSeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSeeActionPerformed
@@ -287,37 +279,24 @@ public class main_thong_bao_nv extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSeeActionPerformed
 
     private void jbtSendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtSendMouseClicked
-        // TODO add your handling code here:
+        SendMessage a = new SendMessage();
+        a.setID_NVQL(ID_NVQL);
+        a.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jbtSendMouseClicked
 
-    private void jbtSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSendActionPerformed
-       hien_thi_thong_bao_nv a = new hien_thi_thong_bao_nv();
-       a.setID_NVQL(ID_NVQL);
-       a.setVisible(true);
-    }//GEN-LAST:event_jbtSendActionPerformed
-
-    private void jbtResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResetMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtResetMouseClicked
-
-    private void jbtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResetActionPerformed
-        showListCurrentStaff();
-    }//GEN-LAST:event_jbtResetActionPerformed
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-       showListCurrentStaff();       
+        showListCurrentStaff();
     }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
      */
-    
-    
     public static void main(String args[]) {
-       
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new main_thong_bao_nv().setVisible(true);
+                new NotificationToStaff().setVisible(true);
             }
         });
     }
@@ -327,11 +306,10 @@ public class main_thong_bao_nv extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private view.JButtonCustom jbtFind;
-    private view.JButtonCustom jbtReset;
     private view.JButtonCustom jbtSee;
     private view.JButtonCustom jbtSend;
-    private javax.swing.JTable jtbStaff;
-    private javax.swing.JScrollPane jtbStaffa;
+    private javax.swing.JTable jtbNotificationToStaff;
+    private javax.swing.JScrollPane jtbStaff;
     private javax.swing.JTextField jtxtFind;
     // End of variables declaration//GEN-END:variables
 }

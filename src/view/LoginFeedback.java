@@ -163,6 +163,11 @@ public class LoginFeedback extends javax.swing.JFrame {
                 jbtLoginActionPerformed(evt);
             }
         });
+        jbtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jbtLoginKeyTyped(evt);
+            }
+        });
 
         jlbRegister.setBackground(new java.awt.Color(25, 118, 211));
         jlbRegister.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -386,16 +391,22 @@ public class LoginFeedback extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbRegisterMouseExited
 
     private void jbtExitLoginUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtExitLoginUserMouseClicked
-        
+       
         this.setVisible(false);
 //        new Information().setVisible(true);
     }//GEN-LAST:event_jbtExitLoginUserMouseClicked
 
     private void jlbRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbRegisterMouseClicked
-        this.setVisible(false);
+//        this.setVisible(false);
         new Register().setVisible(true);
        
     }//GEN-LAST:event_jlbRegisterMouseClicked
+
+    private void jbtLoginKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtLoginKeyTyped
+        if(evt.equals("Enter")){
+            
+        }
+    }//GEN-LAST:event_jbtLoginKeyTyped
 
     /**
      * @param args the command line arguments

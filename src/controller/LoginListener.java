@@ -139,4 +139,19 @@ public class LoginListener extends ConnectDatabase {
 //            e.printStackTrace();
         }
     }
+
+    public String getID(String UserName) {
+        String sql = "SELECT ID FROM DOITUONGGIOITHIEUTRE WHERE TaiKhoan = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, UserName);
+            ResultSet rs = pre.executeQuery();
+            if(rs.next()){
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
