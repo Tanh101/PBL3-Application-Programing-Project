@@ -26,6 +26,7 @@ import view.staff;
  * @author ADMIN
  */
 public class StaffManager extends javax.swing.JFrame {
+
     private String url = "D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\StaffImage\\";
 
     private StaffManagerListener staffListener = new StaffManagerListener();
@@ -82,7 +83,7 @@ public class StaffManager extends javax.swing.JFrame {
         }
         jtbStaff.setModel(model);
     }
-    
+
     public void showListStaff() {
 
         Vector<Staff> vec = staffListener.getListStaff();
@@ -161,14 +162,19 @@ public class StaffManager extends javax.swing.JFrame {
         String DateStart = jtxtDateStart.getText();
         String DateEnd = jtxtDateEnd.getText();
         String NamePhoto = jtxtPhoto.getText();
-        if(NamePhoto.compareTo("") == 0){
-            NamePhoto = url + "default.png"; 
+        if (NamePhoto.compareTo("") == 0) {
+            NamePhoto = url + "default.png";
         }
         if (ID.isEmpty() || Pass.isEmpty() || Name.isEmpty() || DOB.isEmpty() || PhoneNumber.isEmpty()
                 || Address.isEmpty() || Gender.isEmpty() || DateStart.isEmpty()) {
             showMessageDialog(null, "Không được để trống thông tin nhân viên!");
         } else {
-            staffListener.InsertStaff(ID, Pass, Name, DOB, PhoneNumber, Gender, Address,NamePhoto, ID_NVQL_Extends, DateStart, DateEnd);
+            if (staffListener.Find(ID).size() == 0) {
+                staffListener.InsertStaff(ID, Pass, Name, DOB, PhoneNumber, Gender, Address, NamePhoto, ID_NVQL_Extends, DateStart, DateEnd);
+            }
+            else{
+                showMessageDialog(null, "Đã tồn tại cán bộ có ID là " + ID + " trong trung tâm!");
+            }
         }
     }
 
@@ -187,7 +193,7 @@ public class StaffManager extends javax.swing.JFrame {
         String DOB = jtxtDateOfBirth.getText();
         String PhoneNumber = jtxtPhoneNumber.getText();
         String Address = jtxtAddress.getText();
-        
+
         String Gender = "";
         if (jrdioMale.isSelected()) {
             Gender = "Nam";
@@ -195,11 +201,10 @@ public class StaffManager extends javax.swing.JFrame {
             Gender = "Nữ";
         }
         String NamePhoto = jtxtPhoto.getText();
-        if(NamePhoto.compareTo("") == 0){
-            NamePhoto = url + "default.png"; 
+        if (NamePhoto.compareTo("") == 0) {
+            NamePhoto = url + "default.png";
         }
         String DateStart = jtxtDateStart.getText();
-        System.out.println(DateStart);
         String DateEnd = jtxtDateEnd.getText();
         if (DateEnd.compareTo("") == 0) {
             DateEnd = null;
@@ -208,7 +213,7 @@ public class StaffManager extends javax.swing.JFrame {
                 || Address.isEmpty() || Gender.isEmpty() || DateStart.isEmpty()) {
             showMessageDialog(null, "Không được để trống thông tin nhân viên!");
         } else {
-            staffListener.Update(ID_Choose, this.ID_NVQL_Extends, ID, Pass, Name, DOB, PhoneNumber, Gender, Address,NamePhoto, DateStart, DateEnd);
+            staffListener.Update(ID_Choose, this.ID_NVQL_Extends, ID, Pass, Name, DOB, PhoneNumber, Gender, Address, NamePhoto, DateStart, DateEnd);
         }
     }
 
@@ -246,16 +251,13 @@ public class StaffManager extends javax.swing.JFrame {
 
         buttonGroupGender = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jButtonCustom1 = new view.JButtonCustom();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jtxtDateOfBirth = new javax.swing.JTextField();
         jbtUpdate = new view.JButtonCustom();
-        jtxtID = new javax.swing.JTextField();
         jrdioMale = new javax.swing.JRadioButton();
         jradioFemale = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
@@ -269,7 +271,7 @@ public class StaffManager extends javax.swing.JFrame {
         jtbStaff = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jtxtPass = new javax.swing.JTextField();
-        jtxtName = new javax.swing.JTextField();
+        jtxtID = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jtxtDateStart = new javax.swing.JTextField();
@@ -277,7 +279,6 @@ public class StaffManager extends javax.swing.JFrame {
         jtxtDateEnd = new javax.swing.JTextField();
         jbtAdd = new view.JButtonCustom();
         jbtStaffCurrent = new view.JButtonCustom();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -285,10 +286,14 @@ public class StaffManager extends javax.swing.JFrame {
         jlbImage = new javax.swing.JLabel();
         jButtonCustom2 = new view.JButtonCustom();
         jtxtPhoto = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jtxtName = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jButtonCustom1 = new jbuttonCustom.JButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBounds(new java.awt.Rectangle(365, 70, 70, 70));
+        setBounds(new java.awt.Rectangle(330, 70, 70, 70));
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(840, 650));
         setSize(new java.awt.Dimension(840, 650));
@@ -310,42 +315,34 @@ public class StaffManager extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonCustom1.setText("X");
-        jButtonCustom1.setBoderColor(new java.awt.Color(255, 255, 255));
-        jButtonCustom1.setColoOver(new java.awt.Color(255, 51, 51));
-        jButtonCustom1.setColorClick(new java.awt.Color(255, 51, 51));
-        jButtonCustom1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonCustom1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonCustom1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCustom1MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jButtonCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 0, 50, 40));
-
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setMinimumSize(new java.awt.Dimension(1191, 701));
+        jPanel3.setPreferredSize(new java.awt.Dimension(1191, 701));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1300, 701));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1191, 701));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel1.setText("Giới Tính");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 310, 67, 40));
-
-        jLabel2.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel2.setText("ID_CBNV");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 67, 40));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 200, 67, 40));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel3.setText("Ngày Sinh");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 230, 67, 40));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 140, 67, 40));
 
         jtxtDateOfBirth.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDateOfBirth.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtDateOfBirth, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 240, 240, 40));
+        jtxtDateOfBirth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtDateOfBirthActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jtxtDateOfBirth, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 160, 240, 40));
 
         jbtUpdate.setBorder(null);
         jbtUpdate.setText("Cập Nhật");
@@ -360,37 +357,33 @@ public class StaffManager extends javax.swing.JFrame {
                 jbtUpdateMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 120, 50));
-
-        jtxtID.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtID.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 240, 40));
+        jPanel2.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 330, 120, 50));
 
         buttonGroupGender.add(jrdioMale);
         jrdioMale.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jrdioMale.setText("Nam");
-        jPanel2.add(jrdioMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 320, -1, -1));
+        jPanel2.add(jrdioMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 220, -1, -1));
 
         buttonGroupGender.add(jradioFemale);
         jradioFemale.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jradioFemale.setText("Nữ");
-        jPanel2.add(jradioFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 320, -1, -1));
+        jPanel2.add(jradioFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 220, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel4.setText("Số Điện Thoại");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, 110, 40));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 110, 40));
 
         jtxtPhoneNumber.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtPhoneNumber.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtPhoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, 240, 40));
+        jPanel2.add(jtxtPhoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, 240, 40));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel5.setText("Quê Quán");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 80, 40));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 90, 80, 40));
 
         jtxtAddress.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtAddress.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 240, 40));
+        jPanel2.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 100, 240, 40));
 
         jbtStaffQuit.setBorder(null);
         jbtStaffQuit.setText("Cán Bộ Thôi Việc");
@@ -406,7 +399,7 @@ public class StaffManager extends javax.swing.JFrame {
                 jbtStaffQuitActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtStaffQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, 140, 50));
+        jPanel2.add(jbtStaffQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 140, 50));
 
         jbtFind.setBorder(null);
         jbtFind.setText("Tìm Kiếm");
@@ -426,7 +419,7 @@ public class StaffManager extends javax.swing.JFrame {
                 jbtFindActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 70, 120, 50));
+        jPanel2.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 120, 50));
 
         jbtResest.setBorder(null);
         jbtResest.setText("Làm mới");
@@ -441,7 +434,7 @@ public class StaffManager extends javax.swing.JFrame {
                 jbtResestMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtResest, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 120, 50));
+        jPanel2.add(jbtResest, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, 120, 50));
 
         jtbStaff.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbStaff.setModel(new javax.swing.table.DefaultTableModel(
@@ -478,39 +471,39 @@ public class StaffManager extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbStaff);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 1100, 300));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 1190, 310));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel6.setText("Mật Khẩu");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 67, 40));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, 67, 40));
 
         jtxtPass.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtPass.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, 240, 40));
+        jPanel2.add(jtxtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 30, 240, 40));
 
-        jtxtName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtxtName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 170, 240, 40));
+        jtxtID.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtID.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel2.add(jtxtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 240, 40));
 
         jLabel9.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel9.setText("Họ Tên");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 67, 40));
+        jLabel9.setText("ID_CBNV");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 67, 40));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel7.setText(" Ngày Vào Làm");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, 40));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, 40));
 
         jtxtDateStart.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDateStart.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtDateStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 240, 40));
+        jPanel2.add(jtxtDateStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 240, 40));
 
         jLabel8.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel8.setText("Ngày Nghỉ Việc");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 290, -1, 40));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 240, -1, 40));
 
         jtxtDateEnd.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDateEnd.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtDateEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, 240, 40));
+        jPanel2.add(jtxtDateEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 260, 240, 40));
 
         jbtAdd.setBorder(null);
         jbtAdd.setText("Thêm");
@@ -525,7 +518,7 @@ public class StaffManager extends javax.swing.JFrame {
                 jbtAddMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 70, 120, 50));
+        jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 120, 50));
 
         jbtStaffCurrent.setBorder(null);
         jbtStaffCurrent.setText("Cán Bộ Hiện Tại");
@@ -540,21 +533,16 @@ public class StaffManager extends javax.swing.JFrame {
                 jbtStaffCurrentActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtStaffCurrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 0, 140, 50));
-
-        jLabel10.setBackground(new java.awt.Color(153, 255, 255));
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
-        jLabel10.setOpaque(true);
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 7, 140));
+        jPanel2.add(jbtStaffCurrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 330, 140, 50));
 
         jLabel11.setText("yyyy-mm-dd");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, -1, -1));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 280, -1, -1));
 
         jLabel12.setText("yyyy-mm-dd");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 260, -1, -1));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, -1, -1));
 
         jLabel13.setText("yyyy-mm-dd");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, -1, -1));
 
         jbtDelel1.setBorder(null);
         jbtDelel1.setText("Xoá");
@@ -569,10 +557,10 @@ public class StaffManager extends javax.swing.JFrame {
                 jbtDelel1MouseClicked(evt);
             }
         });
-        jPanel2.add(jbtDelel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 120, 50));
+        jPanel2.add(jbtDelel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 330, 120, 50));
 
         jlbImage.setOpaque(true);
-        jPanel2.add(jlbImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 130));
+        jPanel2.add(jlbImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 150, 140));
 
         jButtonCustom2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonCustom2.setText("Chọn Ảnh");
@@ -586,28 +574,42 @@ public class StaffManager extends javax.swing.JFrame {
                 jButtonCustom2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButtonCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 80, 30));
-        jPanel2.add(jtxtPhoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 140, 30));
+        jPanel2.add(jButtonCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 80, 30));
+        jPanel2.add(jtxtPhoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 140, 30));
 
-        jLabel14.setBackground(new java.awt.Color(153, 255, 255));
+        jLabel10.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel10.setText("Họ Tên");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 67, 40));
+
+        jtxtName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtxtName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel2.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 240, 40));
+
+        jLabel2.setBackground(new java.awt.Color(102, 255, 255));
+        jLabel2.setOpaque(true);
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, 5, 250));
+
+        jLabel14.setBackground(new java.awt.Color(102, 255, 255));
         jLabel14.setOpaque(true);
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 710, 7));
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 5, 250));
+
+        jButtonCustom1.setText("X");
+        jButtonCustom1.setBoderColor(new java.awt.Color(255, 255, 255));
+        jButtonCustom1.setColoOver(new java.awt.Color(255, 102, 0));
+        jButtonCustom1.setColorClick(new java.awt.Color(255, 0, 0));
+        jPanel2.add(jButtonCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1145, 0, 50, 40));
 
         jTabbedPane1.addTab("tab1", jPanel2);
 
-        jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 670));
+        jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1240, 700));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1110, 670));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1191, 701));
+        jPanel3.getAccessibleContext().setAccessibleDescription("");
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 720));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 720));
 
-        setSize(new java.awt.Dimension(1105, 719));
+        setSize(new java.awt.Dimension(1191, 701));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonCustom1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCustom1MouseClicked
-
-        this.setVisible(false);
-    }//GEN-LAST:event_jButtonCustom1MouseClicked
 
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -620,6 +622,7 @@ public class StaffManager extends javax.swing.JFrame {
 
     private void jbtResestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResestMouseClicked
         Resest();
+        showListStaff();
     }//GEN-LAST:event_jbtResestMouseClicked
 
     private void jbtFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFindActionPerformed
@@ -669,7 +672,8 @@ public class StaffManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbStaffMouseClicked
 
     private void jbtDelel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDelel1MouseClicked
-        // TODO add your handling code here:
+        Delete();
+        showListStaff();
     }//GEN-LAST:event_jbtDelel1MouseClicked
 
     private void jButtonCustom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustom2ActionPerformed
@@ -680,6 +684,10 @@ public class StaffManager extends javax.swing.JFrame {
         jtxtPhoto.setText(FileName.getName());
         jlbImage.setIcon(ResizeImage(String.valueOf(url + FileName.getName())));
     }//GEN-LAST:event_jButtonCustom2ActionPerformed
+
+    private void jtxtDateOfBirthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtDateOfBirthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtDateOfBirthActionPerformed
 
     /**
      * @param args the command line arguments
@@ -718,7 +726,7 @@ public class StaffManager extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupGender;
-    private view.JButtonCustom jButtonCustom1;
+    private jbuttonCustom.JButtonCustom jButtonCustom1;
     private view.JButtonCustom jButtonCustom2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

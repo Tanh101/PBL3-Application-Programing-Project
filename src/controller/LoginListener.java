@@ -19,18 +19,24 @@ public class LoginListener extends ConnectDatabase {
     private static ArrayList<Account> list = new ArrayList<Account>();
 
     public LoginListener() {
-//        this.list = new ArrayList<Account>();
+
     }
 
-    public boolean checkAccount(String acc, String pass) throws SQLException {
+    public boolean checkAccount(String acc, String pass, int i) {
         if (conn != null) {
             Account ac = null;
-            String sql = "SELECT * FROM TAIKHOAN WHERE ID_NVQL=? AND PASSWORD=?";
-            PreparedStatement pre = conn.prepareStatement(sql);
-            int account;
+            String sql = "";
+            if (i == 1) {
+                sql = "LOGIN_ADMIN @ACCOUNT = ?, @PASSWORD = ?";
+            } else if (i == 2) {
+                sql = "LOGIN_NVQL @ACCOUNT = ?, @PASSWORD = ?";
+            }
+            else{
+                sql = "";
+            }
             try {
-                account = Integer.parseInt(acc);
-                pre.setInt(1, Integer.parseInt(acc));
+                PreparedStatement pre = conn.prepareStatement(sql);
+                pre.setString(1, acc);
                 pre.setString(2, pass);
                 ResultSet rs = pre.executeQuery();
                 if (rs.next()) {
@@ -81,10 +87,10 @@ public class LoginListener extends ConnectDatabase {
         return null;
     }
 
-    public String getNameStaff(String UserName) throws SQLException {
+    public String getNameStaff(String UserName) {
         String sql = "SELECT HoTen From CANBONHANVIEN WHERE ID_CBNV=?";
-        PreparedStatement pre = conn.prepareStatement(sql);
         try {
+            PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, UserName);
             ResultSet rs = pre.executeQuery();
             if (rs.next()) {
@@ -116,8 +122,9 @@ public class LoginListener extends ConnectDatabase {
         }
 
     }
-    public void RegisterIntroductor(String ID, String Name, String DOB, String Gender, 
-            String Address, String PhoneNumber,String IDNVQL,  String Username, String pass, String Access){
+
+    public void RegisterIntroductor(String ID, String Name, String DOB, String Gender,
+            String Address, String PhoneNumber, String IDNVQL, String Username, String pass, String Access) {
         String sql = "ADD_NEW_INTRODUCTOR @ID = ?, @Name = ?, @DOB = ?, @Gender = ?,@ADDRESS = ?,"
                 + "@PHONE = ?, @IDNVQL = ?, @USERNAME = ?, @PASSWORD = ?, @ACCESS = ?";
         try {
@@ -146,7 +153,7 @@ public class LoginListener extends ConnectDatabase {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, UserName);
             ResultSet rs = pre.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return rs.getString(1);
             }
         } catch (Exception e) {

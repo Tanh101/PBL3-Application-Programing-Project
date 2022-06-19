@@ -2,6 +2,7 @@ package view.AddJframe;
 
 import controller.EquipmentListener;
 import java.sql.Date;
+import java.util.ArrayList;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JTextField;
 import model.Equipment;
@@ -34,10 +35,20 @@ public class AddEquipment extends javax.swing.JFrame {
     }
 
     public void Add() {
-//        jtxtDateEnter.setEnabled(false);
         long millis = System.currentTimeMillis();
         Date date = new Date(millis);
-        String ID = jtxtID.getText();
+        ArrayList<Equipment> list = new ArrayList<>();
+        list = equipListener.getListEquipment(equipListener.getSQLShow(1));
+        String ID = list.get(list.size() - 1).getID();
+        String[] tmp = ID.split("TB");
+        int t = Integer.parseInt(tmp[1]);
+        t += 1;
+        if (String.valueOf(t).length() == 2) {
+            ID = "TB00" + String.valueOf(t);
+        } else if (String.valueOf(t).length() == 1) {
+            ID = "TB000" + String.valueOf(t);
+        }
+
         String Name = jtxtName.getText();
         String Price = jtxtPrice.getText();
         String NumGood = jtxtNumGood.getText();
@@ -48,22 +59,16 @@ public class AddEquipment extends javax.swing.JFrame {
         if (DateQuit.compareTo("") == 0) {
             DateQuit = null;
         }
-        if (ID.isEmpty() || Name.isEmpty() || Price.isEmpty() || NumGood.isEmpty()
+        if (Name.isEmpty() || Price.isEmpty() || NumGood.isEmpty()
                 || NumBad.isEmpty() || Provider.isEmpty()) {
             showMessageDialog(null, "Không được để trống thông tin Thiết Bị!");
         } else {
-//            System.out.println(ID+ Name+ Price+NumGood+ NumBad+Provider+ getIDNVQL()+ DateEnter+ DateQuit);
             equipListener.Insert(ID, Name, Price, NumGood, NumBad, Provider, getIDNVQL(), DateEnter, DateQuit);
-            if (equipListener.FindID(ID) != null) {
-                showMessageDialog(null, "Thêm Thành công!");
-            } else {
-                showMessageDialog(null, "Mã Thiết Bị đã tồn tại! Vui lòng kiểm tra lại");
-            }
         }
     }
 
     public void Update() {
-
+        
         String ID = jtxtID.getText();
         String Name = jtxtName.getText();
         String Price = jtxtPrice.getText();
@@ -79,15 +84,11 @@ public class AddEquipment extends javax.swing.JFrame {
                 || NumBad.isEmpty() || Provider.isEmpty()) {
             showMessageDialog(null, "Không được để trống thông tin Thiết Bị!");
         } else {
-        
             equipListener.Update(IDChosse, ID, Name, Price, NumGood, NumBad, Provider, getIDNVQL(), DateEnter, DateQuit);
-            showMessageDialog(null, "Cập nhật thành công!");
-
         }
     }
 
     public void resetForm() {
-//        jtxtDateEnter.setEnabled(true);
         jtxtID.setText("");
         jtxtName.setText("");
         jtxtPrice.setText("");
@@ -140,6 +141,7 @@ public class AddEquipment extends javax.swing.JFrame {
 
         jtxtID.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtID.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jtxtID.setEnabled(false);
         jPanel1.add(jtxtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 240, 40));
 
         jLabel8.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
@@ -267,6 +269,7 @@ public class AddEquipment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCustom1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCustom1MouseClicked
+        resetForm();
         this.setVisible(false);
     }//GEN-LAST:event_jButtonCustom1MouseClicked
 
@@ -280,6 +283,7 @@ public class AddEquipment extends javax.swing.JFrame {
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
         Update();
         this.setVisible(false);
+        resetForm();
     }//GEN-LAST:event_jbtUpdateMouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

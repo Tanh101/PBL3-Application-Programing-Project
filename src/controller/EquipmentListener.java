@@ -3,8 +3,10 @@ package controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 import model.Children;
 import model.Equipment;
@@ -21,22 +23,12 @@ public class EquipmentListener extends ConnectDatabase {
 
     public String getSQLShow(int i) {
         if (i == 1) {
-            return "SELECT T.MaThietBi, T.TenThietBi, T.Gia, T.DonViCungCap, T.SoThietBiTot, T.SoThietBiHong, CT.NgayNhapVao, CT.NgayXuatRa\n"
-                    + "FROM TRANGTHIETBI T\n"
-                    + "INNER JOIN CHITIETTRANGTHIETBI CT\n"
-                    + "ON T.MaThietBi = CT.MaThietBi";
+            return "SHOW_EQUIPMENT"
+                    + "";
         } else if (i == 2) {
-            return "SELECT T.MaThietBi, T.TenThietBi, T.Gia, T.DonViCungCap, T.SoThietBiTot, T.SoThietBiHong, CT.NgayNhapVao, CT.NgayXuatRa\n"
-                    + "FROM TRANGTHIETBI T\n"
-                    + "INNER JOIN CHITIETTRANGTHIETBI CT\n"
-                    + "ON T.MaThietBi = CT.MaThietBi\n"
-                    + "WHERE CT.NgayXuatRa IS NULL";
+            return "SHOW_EQUIPMENT_CURRENT";
         } else {
-            return "SELECT T.MaThietBi, T.TenThietBi, T.Gia, T.DonViCungCap, T.SoThietBiTot, T.SoThietBiHong, CT.NgayNhapVao, CT.NgayXuatRa\n"
-                    + "FROM TRANGTHIETBI T\n"
-                    + "INNER JOIN CHITIETTRANGTHIETBI CT\n"
-                    + "ON T.MaThietBi = CT.MaThietBi\n"
-                    + "WHERE CT.NgayXuatRa IS NOT NULL";
+            return "SHOW_EQUIPMENT_BAD";
         }
 
     }
@@ -78,8 +70,8 @@ public class EquipmentListener extends ConnectDatabase {
                 + "WHERE MaThietBi = ?";
     }
 
-    public Vector<Equipment> getListEquipment(String sql) {
-        Vector<Equipment> list = new Vector<Equipment>();
+    public ArrayList<Equipment> getListEquipment(String sql) {
+        ArrayList<Equipment> list = new ArrayList<Equipment>();
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -107,8 +99,8 @@ public class EquipmentListener extends ConnectDatabase {
         return list;
     }
 
-    public Vector<Equipment> FindID(String Choose) {
-        Vector<Equipment> list = new Vector<Equipment>();
+    public ArrayList<Equipment> FindID(String Choose) {
+        ArrayList<Equipment> list = new ArrayList<Equipment>();
         try {
             String sql = getSqlFindID();
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -140,8 +132,8 @@ public class EquipmentListener extends ConnectDatabase {
         return list;
     }
 
-    public Vector<Equipment> FindName(String Name) {
-        Vector<Equipment> list = new Vector<Equipment>();
+    public ArrayList<Equipment> FindName(String Name) {
+        ArrayList<Equipment> list = new ArrayList<Equipment>();
         try {
             String sql = getSqlFindName();
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -188,10 +180,10 @@ public class EquipmentListener extends ConnectDatabase {
             pre.setString(8, ID_NVQL);
             pre.setString(9, DateEnter);
             pre.setString(10, DateQuit);
-//            System.out.println("dd");
-            pre.execute();
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Cập nhật thiết bị " + ID_Choose + " thành công");
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
     }
@@ -201,7 +193,6 @@ public class EquipmentListener extends ConnectDatabase {
         String sql = getSqlInsert();
 
         try {
-
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, ID);
             pre.setString(2, Name);
@@ -213,10 +204,10 @@ public class EquipmentListener extends ConnectDatabase {
             pre.setString(8, ID_NVQL);
             pre.setString(9, DateEnter);
             pre.setString(10, DateQuit);
-            pre.executeQuery();
-
+            pre.executeUpdate();
+            showMessageDialog(null, "Thêm thiết bị " + ID + " thành công");
         } catch (Exception e) {
-//            showMessageDialog(null, "Thiết bị đã tồn tại! Vui lòng nhập lại");
+            showMessageDialog(null, e.getMessage());
         }
     }
 
@@ -225,9 +216,10 @@ public class EquipmentListener extends ConnectDatabase {
             String sql = getSqlDelete();
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, ID_choose);
-            pre.executeQuery();
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Xóa thiết bị " + ID_choose + " thành công");
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
     }

@@ -1,8 +1,11 @@
 package view;
 
+import controller.ActivityListerner;
 import controller.InformationListener;
 import controller.LoginListener;
+import controller.NotificationListener;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,17 +27,51 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import jdk.jfr.Event;
+import model.Charity;
+import model.Model_message;
 import model.Notification;
+import view.NotificationToStaff.SendMessage;
 
 public class Information extends JFrame {
 
     LoginFeedback log = new LoginFeedback();
 //    Information infor = new Information();
-
+ 
     public Information() {
         initComponents();
+        
     }
+    public Information(int a) {
+        initComponents();
+        jlbMain.setBackground(new Color(255, 255, 255));
+        jlbActi.setBackground(new Color(255, 255, 255));
+        jlbNew.setBackground(new Color(102, 255, 255));
+        jlbFeed.setBackground(new Color(255, 255, 255));
+        jTabbedPane1.setSelectedIndex(1);
+        ShowListContentNotification();
+    }
+    
+    private NotificationListener abc = new NotificationListener();
+    private ActivityListerner ac = new ActivityListerner();
+    public void getDataFromTable_news() {
+        int k = jList1.getSelectedIndex();
+        Model_message a =  abc.Find_the_number(k);        
+        new_view b = new new_view(a);
+        b.setVisible(true);
+        this.setVisible(false);               
+    }
+//    public void getDataFromTable_Action() {
+//        int k = jList1.getSelectedIndex();
+//        System.out.println(k);
+//        Model_message a =  abc.Find_the_number(k);        
+//        new_view b = new new_view(a);
+//        b.setVisible(true);
+//        this.setVisible(false);               
+//    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -61,6 +98,7 @@ public class Information extends JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jButtonCustom2 = new view.JButtonCustom();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jpnMain = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -77,8 +115,11 @@ public class Information extends JFrame {
         jList1 = new javax.swing.JList<>();
         jLabel18 = new javax.swing.JLabel();
         jpnActi = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jpnFeed = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jbtLogoutUser = new view.JButtonCustom();
         jlbNameUser = new javax.swing.JLabel();
 
         jMenu4.setText("jMenu4");
@@ -88,6 +129,11 @@ public class Information extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -151,6 +197,11 @@ public class Information extends JFrame {
         jbtActi.setBorderPainted(false);
         jbtActi.setContentAreaFilled(false);
         jbtActi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtActi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtActiMouseClicked(evt);
+            }
+        });
         jbtActi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtActiActionPerformed(evt);
@@ -210,6 +261,19 @@ public class Information extends JFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1110, -1));
 
+        jButtonCustom2.setBorder(null);
+        jButtonCustom2.setText("X");
+        jButtonCustom2.setBoderColor(new java.awt.Color(255, 255, 255));
+        jButtonCustom2.setColoOver(new java.awt.Color(255, 51, 51));
+        jButtonCustom2.setColorClick(new java.awt.Color(255, 51, 51));
+        jButtonCustom2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCustom2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCustom2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jButtonCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 40, 40));
+
         jpnMain.setBackground(new java.awt.Color(255, 255, 255));
         jpnMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -250,6 +314,11 @@ public class Information extends JFrame {
         jList1.setFixedCellWidth(600);
         jList1.setFocusCycleRoot(true);
         jList1.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
         jList1.getAccessibleContext().setAccessibleName("");
 
@@ -262,6 +331,30 @@ public class Information extends JFrame {
 
         jpnActi.setBackground(new java.awt.Color(255, 255, 255));
         jpnActi.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Tên Tổ Chức", "Tên Hoạt Động", "Ngày Diễn Ra"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
+
+        jpnActi.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1010, 540));
+
         jTabbedPane1.addTab("tab3", jpnActi);
 
         jpnFeed.setBackground(new java.awt.Color(255, 255, 255));
@@ -269,6 +362,20 @@ public class Information extends JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jbtLogoutUser.setBorder(null);
+        jbtLogoutUser.setText("Đăng Xuất");
+        jbtLogoutUser.setBoderColor(new java.awt.Color(0, 255, 204));
+        jbtLogoutUser.setColoOver(new java.awt.Color(102, 255, 51));
+        jbtLogoutUser.setColor(new java.awt.Color(0, 255, 204));
+        jbtLogoutUser.setColorClick(new java.awt.Color(255, 51, 51));
+        jbtLogoutUser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbtLogoutUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtLogoutUserActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jbtLogoutUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 90, 30));
 
         jlbNameUser.setBackground(new java.awt.Color(0, 255, 204));
         jlbNameUser.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -350,6 +457,19 @@ public class Information extends JFrame {
         new Information().setVisible(true);
         
     }//GEN-LAST:event_jbtLogoutUserActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        getDataFromTable_news();
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void jbtActiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtActiMouseClicked
+        ShowListAction();
+        setWidthTable();
+    }//GEN-LAST:event_jbtActiMouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        
+    }//GEN-LAST:event_formWindowActivated
     public void ShowListContentNotification() {
         InformationListener info = new InformationListener();
         Vector<String> listContent = info.getListContent();
@@ -362,7 +482,40 @@ public class Information extends JFrame {
 //        ct.setVisible(true);
 
     }
+    public void ShowListAction() {
+//        ActivityListerner info = new ActivityListerner();
+//        Vector<String> listContent = info.getListContent();
+//        DefaultListModel cbo = new DefaultListModel();
+//        for (String no : listContent) {
+//            cbo.addElement(no);
+//        }
+//        jList2.setModel(cbo);
+//        ContentNotification ct = new ContentNotification();
+//        ct.setVisible(true);
+        ActivityListerner ac = new ActivityListerner();
+        ArrayList<Charity> vec = ac.getListCharity("SHOWALL");
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (int i = 0; i < vec.size(); i++) {
+            model.addRow(new Object[]{
+                vec.get(i).getNameOrganization(), vec.get(i).getNameCharity(), vec.get(i).getDateStart()
+            });
+        }
+        jTable1.setModel(model);
+    }
+    public void setWidthTable() {
+
+        jTable1.getTableHeader().setBackground(new Color(0, 204, 255));
+        jTable1.setBackground(Color.WHITE);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(130);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(250);   
+        jTable1.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 17));
+        ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private view.JButtonCustom jButtonCustom2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -389,9 +542,12 @@ public class Information extends JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jbtActi;
     private javax.swing.JToggleButton jbtFeed;
+    private view.JButtonCustom jbtLogoutUser;
     private javax.swing.JToggleButton jbtMain;
     private javax.swing.JToggleButton jbtNews;
     private javax.swing.JLabel jlbActi;

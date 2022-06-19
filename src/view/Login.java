@@ -238,39 +238,7 @@ public class Login extends javax.swing.JFrame {
 
     private void jbtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLoginActionPerformed
 
-        LoginListener log = new LoginListener();
-        String value = this.jboxChoose.getSelectedItem().toString();
-        if (value.equals("Quản Trị Viên")) {
-            String passText = new String(this.jpass.getPassword());
-            if (this.jtxtAccount.getText().compareTo("lyvantanh1001") == 0
-                    && passText.compareTo("lyvantanh2002") == 0) {
-                new Admin().setVisible(true);
-                this.setVisible(false);
-
-            } else {
-                showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
-            }
-        } else {
-            String acc = this.jtxtAccount.getText();
-            String pass = new String(this.jpass.getPassword());
-            try {
-                if (log.checkAccount(acc, pass) == true) {
-                    this.setVisible(false);
-                    staff st = new staff();
-                    st.getjlbNameStaff().setText(log.getNameStaff(acc));
-                    System.out.println(log.getNameStaff(acc));
-                    st.setVisible(true);
-                    st.setID_NVQL(acc);
-                    st.setVisible(true);
-                } else {
-                    showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
-                }
-            } catch (SQLException ex) {
-
-            }
-        }
-
-
+        LoginManager();
     }//GEN-LAST:event_jbtLoginActionPerformed
 
     private void jlbVisibleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbVisibleMouseClicked
@@ -324,73 +292,14 @@ public class Login extends javax.swing.JFrame {
 
     private void jpassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpassKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            LoginListener log = new LoginListener();
-            String value = this.jboxChoose.getSelectedItem().toString();
-            if (value.equals("Quản Trị Viên")) {
-                String passText = new String(this.jpass.getPassword());
-                if (this.jtxtAccount.getText().compareTo("lyvantanh1001") == 0
-                        && passText.compareTo("lyvantanh2002") == 0) {
-                    new Admin().setVisible(true);
-                    this.setVisible(false);
-
-                } else {
-                    showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
-                }
-            } else {
-                String acc = this.jtxtAccount.getText();
-                String pass = new String(this.jpass.getPassword());
-                try {
-                    if (log.checkAccount(acc, pass) == true) {
-                        this.setVisible(false);
-                        staff st = new staff();
-                        st.getjlbNameStaff().setText(log.getNameStaff(acc));
-                        System.out.println(log.getNameStaff(acc));
-                        st.setVisible(true);
-                        st.setID_NVQL(acc);
-                        st.setVisible(true);
-                    } else {
-                        showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
-                    }
-                } catch (SQLException ex) {
-
-                }
-            }
+            LoginManager();
         }
+
     }//GEN-LAST:event_jpassKeyPressed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            LoginListener log = new LoginListener();
-            String value = this.jboxChoose.getSelectedItem().toString();
-            if (value.equals("Quản Trị Viên")) {
-                String passText = new String(this.jpass.getPassword());
-                if (this.jtxtAccount.getText().compareTo("lyvantanh1001") == 0
-                        && passText.compareTo("lyvantanh2002") == 0) {
-                    new Admin().setVisible(true);
-                    this.setVisible(false);
-
-                } else {
-                    showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
-                }
-            } else {
-                String acc = this.jtxtAccount.getText();
-                String pass = new String(this.jpass.getPassword());
-                try {
-                    if (log.checkAccount(acc, pass) == true) {
-                        this.setVisible(false);
-                        staff st = new staff();
-                        st.getjlbNameStaff().setText(log.getNameStaff(acc));
-                        System.out.println(log.getNameStaff(acc));
-                        st.setVisible(true);
-                        st.setID_NVQL(acc);
-                        st.setVisible(true);
-                    } else {
-                        showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
-                    }
-                } catch (SQLException ex) {
-
-                }
-            }
+            LoginManager();
         }
     }//GEN-LAST:event_formKeyPressed
 
@@ -415,7 +324,35 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jpnExit;
     private javax.swing.JTextField jtxtAccount;
     // End of variables declaration//GEN-END:variables
-//    public static void main(String[] args) {
-//        new Login().setVisible(true);
-//    }
+
+    private void LoginManager() {
+
+        LoginListener log = new LoginListener();
+        String pass = new String(this.jpass.getPassword());
+        String acc = jtxtAccount.getText();
+        String value = this.jboxChoose.getSelectedItem().toString();
+        if (value.equals("Quản Trị Viên")) {
+            if (log.checkAccount(acc, pass, 1) == true) {
+                new Admin().setVisible(true);
+                this.setVisible(false);
+            } else {
+                showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
+            }
+        } else {
+            if (log.checkAccount(acc, pass, 2) == true) {
+                this.setVisible(false);
+                staff st = new staff();
+                st.getjlbNameStaff().setText(log.getNameStaff(acc));
+                System.out.println(log.getNameStaff(acc));
+                st.setVisible(true);
+                st.setID_NVQL(acc);
+                st.setVisible(true);
+            } else {
+                showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
+            }
+        }
+
+    }
 }
+
+

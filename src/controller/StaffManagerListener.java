@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import model.Notification;
 import model.Staff;
 import model.LaborContract;
@@ -165,7 +166,7 @@ public class StaffManagerListener extends ConnectDatabase {
     }
 
     public void InsertStaff(String ID, String Pass, String Name,
-            String DOB, String Phone, String Gender, String Address,String NamePhoto, String IDNVQL,
+            String DOB, String Phone, String Gender, String Address, String NamePhoto, String IDNVQL,
             String DateStart, String DateEnd) {
         try {
             String sql = "INSERT INTO TAIKHOANCB\n"
@@ -175,7 +176,6 @@ public class StaffManagerListener extends ConnectDatabase {
                     + "INSERT INTO HOPDONGLAODONG\n"
                     + "VALUES (?, ?, ?, ?)";
             PreparedStatement pre = conn.prepareStatement(sql);
-            //insert to TAIKHOANCB
             pre.setString(1, ID);
             pre.setString(2, Pass);
 
@@ -194,9 +194,10 @@ public class StaffManagerListener extends ConnectDatabase {
             pre.setString(12, DateStart);
             pre.setString(13, DateEnd);
 
-           pre.executeQuery();
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Thêm thành công cán bộ nhân viên " + ID + " thành công!");
         } catch (Exception e) {
-            e.getMessage();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
     }
@@ -207,9 +208,10 @@ public class StaffManagerListener extends ConnectDatabase {
                     + "WHERE ID_CBNV = ?";
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, ID);
-            ResultSet rs = pre.executeQuery();
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Xoá cán bộ nhân viên " + ID + " thành công!");
         } catch (Exception e) {
-            e.getMessage();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
@@ -244,9 +246,11 @@ public class StaffManagerListener extends ConnectDatabase {
             pre.setString(12, ID);
             pre.setString(13, Pass);
             pre.setString(14, ID_Choose);
-            pre.executeQuery();
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Cập nhật " + ID +" Thành công!");
+            
         } catch (Exception e) {
-            e.getMessage();
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 

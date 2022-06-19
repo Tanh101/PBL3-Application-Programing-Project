@@ -4,6 +4,7 @@ import controller.AdminListener;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -51,7 +52,7 @@ public class Admin extends javax.swing.JFrame {
                 .setHorizontalAlignment(JLabel.CENTER);
     }
 
-    public void showSupport(Vector<managementStaff> vec) {
+    public void showSupport(ArrayList<managementStaff> vec) {
         DefaultTableModel model = (DefaultTableModel) jtbStaffManager.getModel();
         model.setRowCount(0);
         for (int i = 0; i < vec.size(); i++) {
@@ -65,20 +66,20 @@ public class Admin extends javax.swing.JFrame {
     }
 
     public void ShowListManagerStaff() {
-        Vector<managementStaff> vec = new Vector<>();
+        ArrayList<managementStaff> vec = new ArrayList<>();
         vec = adminListener.getListManagerStaff(adminListener.getStoreProcShowAll());
 //        System.out.println(vec.size());
         showSupport(vec);
     }
 
     public void ShowListCurrent() {
-        Vector<managementStaff> vec = new Vector<>();
+        ArrayList<managementStaff> vec = new ArrayList<>();
         vec = adminListener.getListManagerStaff(adminListener.getStoreProShowCurrent());
         showSupport(vec);
     }
 
     public void ShowListQuit() {
-        Vector<managementStaff> vec = new Vector<>();
+        ArrayList<managementStaff> vec = new ArrayList<>();
         vec = adminListener.getListManagerStaff(adminListener.getStoreProShowQuit());
         showSupport(vec);
     }
@@ -108,7 +109,6 @@ public class Admin extends javax.swing.JFrame {
         Vector<managementStaff> list = new Vector<managementStaff>();
         list = adminListener.FindID(Integer.parseInt(ID_Choose));
         managementStaff mstaff = list.get(0);
-        add.getJtxtIDNVQL().setText(mstaff.getID_NVQL());
         add.getJtxtPassword().setText(mstaff.getPassword());
         add.getJtxtCCCD().setText(mstaff.getCCCD());
         add.getJtxtName().setText((mstaff.getName()));

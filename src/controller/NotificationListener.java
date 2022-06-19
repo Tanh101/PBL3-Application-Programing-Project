@@ -250,6 +250,26 @@ public class NotificationListener extends ConnectDatabase {
         return list;
     }
 
+    public Model_message Find_the_number(int a) {
+        
+        Model_message m = new Model_message();
+        try {
+            String sql = "SELECT * from THONGBAO WHERE [vitri] = '1'  ";
+            PreparedStatement pre = conn.prepareStatement(sql);        
+            ResultSet rs = pre.executeQuery();
+            for(int i = 0 ;i <= a ; i++) {
+                rs.next();
+                m.setID_model(rs.getString(1));
+                m.setHeader(rs.getString(2));
+                m.setContent(rs.getString(3));
+                m.setVi_tri(rs.getString(4));                
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return m;
+    }
+
     public Vector<Model_message> Finda(String name) {
         Vector<Model_message> list = new Vector<>();
         try {

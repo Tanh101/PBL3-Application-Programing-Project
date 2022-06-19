@@ -8,8 +8,10 @@ import controller.EquipmentListener;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -45,16 +47,17 @@ public class EquipmentManager extends javax.swing.JFrame {
         jtbEquipment.getColumnModel().getColumn(0).setPreferredWidth(100);
         jtbEquipment.getColumnModel().getColumn(1).setPreferredWidth(175);
         jtbEquipment.getColumnModel().getColumn(2).setPreferredWidth(110);
-        jtbEquipment.getColumnModel().getColumn(3).setPreferredWidth(280);
+        jtbEquipment.getColumnModel().getColumn(3).setPreferredWidth(250);
         jtbEquipment.getColumnModel().getColumn(4).setPreferredWidth(110);
         jtbEquipment.getColumnModel().getColumn(5).setPreferredWidth(110);
         jtbEquipment.getColumnModel().getColumn(6).setPreferredWidth(110);
+        jtbEquipment.getColumnModel().getColumn(7).setPreferredWidth(110);
         jtbEquipment.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 16));
         ((DefaultTableCellRenderer) jtbEquipment.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
     }
 
-    public void showSupport(Vector<Equipment> vec) {
+    public void showSupport(ArrayList<Equipment> vec) {
         DefaultTableModel model = (DefaultTableModel) jtbEquipment.getModel();
         model.setRowCount(0);
         for (int i = 0; i < vec.size(); i++) {
@@ -67,11 +70,10 @@ public class EquipmentManager extends javax.swing.JFrame {
     }
 
     public void ShowEquip(int i) {
-        Vector<Equipment> vec = new Vector<>();
+        ArrayList<Equipment> vec = new ArrayList<>();
         vec = equipmentListener.getListEquipment(equipmentListener.getSQLShow(i));
         showSupport(vec);
     }
-
 
     public void Delete() {
         addEquip.getJtxtDateEnter().setEnabled(true);
@@ -84,40 +86,33 @@ public class EquipmentManager extends javax.swing.JFrame {
     public void getDataFromTableToForm() {
         addEquip.getJtxtDateEnter().setEnabled(true);
         int k = jtbEquipment.getSelectedRow();
-        String ID_Choose = (String) jtbEquipment.getModel().getValueAt(k, 0);
-        addEquip.setIDChosse(ID_Choose);
-        Vector<Equipment> list = new Vector<>();
-        Equipment equip = new Equipment();
-        list = equipmentListener.FindID(ID_Choose);
-        equip = list.get(0);
-        addEquip.getJtxtID().setText(equip.getID());
-        addEquip.getJtxtName().setText(equip.getName());
-        addEquip.getJtxtPrice().setText(equip.getPrice());
-        addEquip.getJtxtProvider().setText(equip.getProviders());
-        addEquip.getJtxtNumGood().setText(String.valueOf(equip.getNumOfGood()));
-        addEquip.getJtxtNumBad().setText(String.valueOf(equip.getNumOfBad()));
-        addEquip.getJtxtDateEnter().setText(equip.getDateEnter());
-        addEquip.getJtxtDateQuit().setText(equip.getDateQuit());
+        if (k >= 0) {
+
+            String ID_Choose = (String) jtbEquipment.getModel().getValueAt(k, 0);
+            addEquip.setIDChosse(ID_Choose);
+            ArrayList<Equipment> list = new ArrayList<>();
+            Equipment equip = new Equipment();
+            list = equipmentListener.FindID(ID_Choose);
+            equip = list.get(0);
+            addEquip.getJtxtID().setText(equip.getID());
+            addEquip.getJtxtName().setText(equip.getName());
+            addEquip.getJtxtPrice().setText(equip.getPrice());
+            addEquip.getJtxtProvider().setText(equip.getProviders());
+            addEquip.getJtxtNumGood().setText(String.valueOf(equip.getNumOfGood()));
+            addEquip.getJtxtNumBad().setText(String.valueOf(equip.getNumOfBad()));
+            addEquip.getJtxtDateEnter().setText(equip.getDateEnter());
+            addEquip.getJtxtDateQuit().setText(equip.getDateQuit());
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn thiết bị muốn cập nhật");
+        }
     }
 
-    public void resetForm() {
-//        jtxtDateEnter.setEnabled(true);
-        addEquip.getJtxtID().setText("");
-        addEquip.getJtxtName().setText("");
-        addEquip.getJtxtPrice().setText("");
-        addEquip.getJtxtProvider().setText("");
-        addEquip.getJtxtNumGood().setText("");
-        addEquip.getJtxtNumBad().setText("");
-        addEquip.getJtxtDateEnter().setText("");
-        addEquip.getJtxtDateQuit().setText("");
-    }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButtonCustom1 = new view.JButtonCustom();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -132,6 +127,7 @@ public class EquipmentManager extends javax.swing.JFrame {
         jbtGoodState = new view.JButtonCustom();
         jbtDelel = new view.JButtonCustom();
         jLabel7 = new javax.swing.JLabel();
+        jButtonCustom1 = new view.JButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(365, 85, 85, 85));
@@ -148,21 +144,8 @@ public class EquipmentManager extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButtonCustom1.setText("X");
-        jButtonCustom1.setBoderColor(new java.awt.Color(255, 255, 255));
-        jButtonCustom1.setColoOver(new java.awt.Color(255, 51, 51));
-        jButtonCustom1.setColorClick(new java.awt.Color(255, 51, 51));
-        jButtonCustom1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonCustom1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonCustom1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCustom1MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jButtonCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 0, 50, 40));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -186,11 +169,11 @@ public class EquipmentManager extends javax.swing.JFrame {
                 jbtUpdateMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 120, 50));
+        jPanel2.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 120, 50));
 
         jtxtFind.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtFind.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 400, 40));
+        jPanel2.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 400, 40));
 
         jbtBadState.setBorder(null);
         jbtBadState.setText("Tình Trạng Hư");
@@ -206,7 +189,7 @@ public class EquipmentManager extends javax.swing.JFrame {
                 jbtBadStateMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtBadState, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 130, 60));
+        jPanel2.add(jbtBadState, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 130, 60));
 
         jbtFind.setBorder(null);
         jbtFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/search_26px.png"))); // NOI18N
@@ -219,7 +202,7 @@ public class EquipmentManager extends javax.swing.JFrame {
                 jbtFindMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 0, 50, 40));
+        jPanel2.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 50, 40));
 
         jbtShow.setBorder(null);
         jbtShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/list_view_24px.png"))); // NOI18N
@@ -235,7 +218,7 @@ public class EquipmentManager extends javax.swing.JFrame {
                 jbtShowMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, 120, 50));
+        jPanel2.add(jbtShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 120, 50));
 
         jtbEquipment.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbEquipment.setModel(new javax.swing.table.DefaultTableModel(
@@ -254,7 +237,7 @@ public class EquipmentManager extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, true, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -275,7 +258,7 @@ public class EquipmentManager extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbEquipment);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 1110, 340));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 1110, 380));
 
         jbtAdd.setBorder(null);
         jbtAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/add_24px.png"))); // NOI18N
@@ -291,7 +274,7 @@ public class EquipmentManager extends javax.swing.JFrame {
                 jbtAddMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 120, 50));
+        jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 120, 50));
 
         jbtGoodState.setBorder(null);
         jbtGoodState.setText("Tình Trạng Tốt");
@@ -306,7 +289,7 @@ public class EquipmentManager extends javax.swing.JFrame {
                 jbtGoodStateMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtGoodState, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 160, 130, 60));
+        jPanel2.add(jbtGoodState, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 180, 130, 60));
 
         jbtDelel.setBorder(null);
         jbtDelel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Delete_24px.png"))); // NOI18N
@@ -322,21 +305,34 @@ public class EquipmentManager extends javax.swing.JFrame {
                 jbtDelelMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtDelel, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 60, 120, 50));
+        jPanel2.add(jbtDelel, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 80, 120, 50));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel7.setText("Tìm Theo Tên Thiết Bị");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 150, 40));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 150, 40));
+
+        jButtonCustom1.setText("X");
+        jButtonCustom1.setBoderColor(new java.awt.Color(255, 255, 255));
+        jButtonCustom1.setColoOver(new java.awt.Color(255, 51, 51));
+        jButtonCustom1.setColorClick(new java.awt.Color(255, 51, 51));
+        jButtonCustom1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButtonCustom1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCustom1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCustom1MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jButtonCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 0, 50, 40));
 
         jTabbedPane1.addTab("tab1", jPanel2);
 
-        jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, -1));
+        jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1150, 650));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1110, 600));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 650));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 650));
 
-        setSize(new java.awt.Dimension(1105, 650));
+        setSize(new java.awt.Dimension(1103, 650));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCustom1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCustom1MouseClicked
@@ -355,16 +351,19 @@ public class EquipmentManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtGoodStateMouseClicked
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
+        long millis = System.currentTimeMillis();
+        Date date = new Date(millis);
+        addEquip.getJtxtDateEnter().setText(date.toString());
+        addEquip.getJtxtNumBad().setText("0");
         addEquip.getJtxtDateEnter().setEnabled(false);
         addEquip.getJtxtDateQuit().setEnabled(false);
         addEquip.getJbtUpdate().setVisible(false);
         addEquip.getJbtAdd().setVisible(true);
-        resetForm();
         addEquip.setVisible(true);
     }//GEN-LAST:event_jbtAddMouseClicked
 
     private void jtbEquipmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbEquipmentMouseClicked
-        
+
     }//GEN-LAST:event_jtbEquipmentMouseClicked
 
     private void jbtShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtShowMouseClicked
@@ -374,7 +373,7 @@ public class EquipmentManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtShowMouseClicked
 
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked
-        Vector<Equipment> equip = new Vector<Equipment>();
+        ArrayList<Equipment> equip = new ArrayList<Equipment>();
         equip = equipmentListener.FindName("%" + jtxtFind.getText() + "%");
         showSupport(equip);
     }//GEN-LAST:event_jbtFindMouseClicked
@@ -384,12 +383,12 @@ public class EquipmentManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtBadStateMouseClicked
 
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
+
         addEquip.setVisible(true);
         getDataFromTableToForm();
         addEquip.getJbtUpdate().setVisible(true);
         addEquip.getJtxtDateQuit().setEnabled(true);
         addEquip.getJbtAdd().setVisible(false);
-//        addEquip.getJbtAdd().setVisible(false);
     }//GEN-LAST:event_jbtUpdateMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

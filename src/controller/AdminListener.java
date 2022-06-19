@@ -6,6 +6,7 @@ package controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -34,8 +35,8 @@ public class AdminListener extends ConnectDatabase {
         return "INSERTSTAFF @ID_NVQL = ?";
     }
 
-    public Vector<managementStaff> getListManagerStaff(String sql) {
-        Vector<managementStaff> list = new Vector<managementStaff>();
+    public ArrayList<managementStaff> getListManagerStaff(String sql) {
+        ArrayList<managementStaff> list = new ArrayList<managementStaff>();
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -84,27 +85,28 @@ public class AdminListener extends ConnectDatabase {
     }
 
     private String StroreProcudureAdd() {
-        return "AddNVQL @ID_NVQL = ?, @Pass= ?,  @CCCD = ?, @NAME = ?,@DOB = ?,@GENDER = ?,"
+        return "AddNVQL @ID_NVQL = ?, @Pass= ?, @ROLE = ?,  @CCCD = ?, @NAME = ?,@DOB = ?,@GENDER = ?,"
                 + "@ADDRESS = ?,@PHONE = ?,@EMAIL = ?, @DATEENTER = ?, @DATEQUIT= ?, @IMGAE = ?";
     }
 
-    public void Insert(int IDNVQL, String Pass, String CCCD, String Name, String DOB, String Gender, String Address,
+    public void Insert(int IDNVQL, String Pass,int Role, String CCCD, String Name, String DOB, String Gender, String Address,
             String Phone, String Email, String DateEnter, String DateQuit, String Image) {
         String sql = StroreProcudureAdd();
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, IDNVQL);
             pre.setString(2, Pass);
-            pre.setString(3, CCCD);
-            pre.setString(4, Name);
-            pre.setString(5, DOB);
-            pre.setString(6, Gender);
-            pre.setString(7, Address);
-            pre.setString(8, Phone);
-            pre.setString(9, Email);
-            pre.setString(10, DateEnter);
-            pre.setString(11, DateQuit);
-            pre.setString(12, Image);
+            pre.setInt(3, Role);
+            pre.setString(4, CCCD);
+            pre.setString(5, Name);
+            pre.setString(6, DOB);
+            pre.setString(7, Gender);
+            pre.setString(8, Address);
+            pre.setString(9, Phone);
+            pre.setString(10, Email);
+            pre.setString(11, DateEnter);
+            pre.setString(12, DateQuit);
+            pre.setString(13, Image);
             pre.executeUpdate();
             showMessageDialog(null, "Thêm Nhân Viên Thành Công!");
 
@@ -148,28 +150,27 @@ public class AdminListener extends ConnectDatabase {
     }
 
     private String StoreProcedureUpdate() {
-        return "UpdateNVQL @ID_CHOOSE = ?,@ID_NVQL = ?,@Pass = ?, @CCCD = ?,@NAME = ?,@DOB = ?,@GENDER = ?,\n"
+        return "UpdateNVQL @ID_CHOOSE = ?,@Pass = ?, @CCCD = ?,@NAME = ?,@DOB = ?,@GENDER = ?,\n"
                 + "@ADDRESS = ?,@PHONE = ?,@EMAIL = ?,@DATEENTER = ?,@DATEQUIT = ?,@IMGAE = ?";
     }
 
-    public void Update(int ID_Choose, int IDNVQL, String Pass, String CCCD, String Name, String DOB, String Gender, String Address,
+    public void Update(int ID_Choose,String Pass, String CCCD, String Name, String DOB, String Gender, String Address,
             String Phone, String Email, String DateEnter, String DateQuit, String Image) {
         String sql = StoreProcedureUpdate();
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, ID_Choose);
-            pre.setInt(2, IDNVQL);
-            pre.setString(3, Pass);
-            pre.setString(4, CCCD);
-            pre.setString(5, Name);
-            pre.setString(6, DOB);
-            pre.setString(7, Gender);
-            pre.setString(8, Address);
-            pre.setString(9, Phone);
-            pre.setString(10, Email);
-            pre.setString(11, DateEnter);
-            pre.setString(12, DateQuit);
-            pre.setString(13, Image);
+            pre.setString(2, Pass);
+            pre.setString(3, CCCD);
+            pre.setString(4, Name);
+            pre.setString(5, DOB);
+            pre.setString(6, Gender);
+            pre.setString(7, Address);
+            pre.setString(8, Phone);
+            pre.setString(9, Email);
+            pre.setString(10, DateEnter);
+            pre.setString(11, DateQuit);
+            pre.setString(12, Image);
             pre.executeUpdate();
             showMessageDialog(null, "Cập Nhật Nhân Viên " + String.valueOf(ID_Choose) + " Thành Công!");
         } catch (Exception e) {

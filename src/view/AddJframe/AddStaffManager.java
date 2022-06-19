@@ -8,12 +8,14 @@ import controller.AdminListener;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import model.managementStaff;
 import view.JButtonCustom;
 
 /**
@@ -48,11 +50,8 @@ public class AddStaffManager extends javax.swing.JFrame {
         ImageIcon image = new ImageIcon(newImage);
         return image;
     }
-//    int IDNVQL, String Pass , String CCCD, String Name,String DOB, String Gender, String Address,
-//            String Phone, String Email, String DateEnter,String DateQuit, String Image
 
     public void Resest() {
-        jtxtIDNVQL.setText("");
         jtxtPassword.setText("");
         jtxtCCCD.setText("");
         jtxtName.setText("");
@@ -70,7 +69,8 @@ public class AddStaffManager extends javax.swing.JFrame {
     public void Add() {
         long millis = System.currentTimeMillis();
         Date date = new Date(millis);
-        String IDNVQL = (jtxtIDNVQL.getText());
+        ArrayList<managementStaff> list = adminListener.getListManagerStaff(adminListener.getStoreProShowCurrent());
+        int IDNVQL = Integer.parseInt(list.get(list.size()-1).getID_NVQL()) + 1;
         String Pass = jtxtPassword.getText();
         String CCCD = jtxtCCCD.getText();
         String Name = jtxtName.getText();
@@ -94,18 +94,17 @@ public class AddStaffManager extends javax.swing.JFrame {
         if (Img.compareTo("") == 0) {
             Img = url + "default.jfif";
         }
-        if (jtxtIDNVQL.getText().isEmpty() || Pass.isEmpty() || CCCD.isEmpty() || Name.isEmpty()
+        if (Pass.isEmpty() || CCCD.isEmpty() || Name.isEmpty()
                 || DOB.isEmpty() || Gender.isEmpty() || Address.isEmpty() || Phone.isEmpty() || Email.isEmpty() || DateEnter.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Không được bỏ trống thông tin nhân viên!");
         } else {
-            adminListener.Insert(Integer.parseInt(IDNVQL), Pass, CCCD, Name, DOB, Gender, Address, Phone, Email, DateEnter, DateQuit, Img);
+            adminListener.Insert(IDNVQL, Pass,1, CCCD, Name, DOB, Gender, Address, Phone, Email, DateEnter, DateQuit, Img);
             Resest();
             this.setVisible(false);
         }
     }
     
     public void Update(){
-        String IDNVQL = (jtxtIDNVQL.getText());
         String Pass = jtxtPassword.getText();
         String CCCD = jtxtCCCD.getText();
         String Name = jtxtName.getText();
@@ -129,12 +128,12 @@ public class AddStaffManager extends javax.swing.JFrame {
         if (Img.compareTo("") == 0) {
             Img = url + "default.jfif";
         }
-        if (jtxtIDNVQL.getText().isEmpty() || Pass.isEmpty() || CCCD.isEmpty() || Name.isEmpty()
+        if (Pass.isEmpty() || CCCD.isEmpty() || Name.isEmpty()
                 || DOB.isEmpty() || Gender.isEmpty() || Address.isEmpty() || Phone.isEmpty() || 
                 Email.isEmpty() || DateEnter.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Không được bỏ trống thông tin nhân viên!");
         } else {
-            adminListener.Update(Integer.parseInt(ID_Choose), Integer.parseInt(IDNVQL), Pass, CCCD, Name, DOB, Gender,
+            adminListener.Update(Integer.parseInt(ID_Choose), Pass, CCCD, Name, DOB, Gender,
                                 Address, Phone, Email, DateEnter, DateQuit,  Img);
             Resest();
             this.setVisible(false);
@@ -148,8 +147,6 @@ public class AddStaffManager extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jlbImage = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jtxtIDNVQL = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jtxtPassword = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -188,14 +185,6 @@ public class AddStaffManager extends javax.swing.JFrame {
         jlbImage.setOpaque(true);
         jPanel1.add(jlbImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 170, 150));
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel2.setText("ID_NVQL");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 80, 30));
-
-        jtxtIDNVQL.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(jtxtIDNVQL, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 260, 40));
-
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel3.setText("Mật khẩu");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -215,10 +204,10 @@ public class AddStaffManager extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel5.setText("Họ Tên");
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 90, 30));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 90, 30));
 
         jtxtName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 260, 40));
+        jPanel1.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 260, 40));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel6.setText("Ngày Sinh");
@@ -230,12 +219,12 @@ public class AddStaffManager extends javax.swing.JFrame {
         jPanel1.add(jtxtUrlImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, 160, 30));
 
         jtxtAddress.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 260, 40));
+        jPanel1.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 260, 40));
 
         jLabel9.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel9.setText("Địa Chỉ");
         jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 80, 30));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 80, 30));
 
         jtxtPhone.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel1.add(jtxtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 410, 260, 40));
@@ -246,26 +235,26 @@ public class AddStaffManager extends javax.swing.JFrame {
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 410, 70, 30));
 
         jtxtEmail.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(jtxtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 260, 40));
+        jPanel1.add(jtxtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, 260, 40));
 
         jLabel11.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel11.setText("Email");
         jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 80, 30));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 80, 30));
 
         jLabel12.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel12.setText("Giới Tính");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 90, 40));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 90, 40));
 
         buttonGroup1.add(jradioMale);
         jradioMale.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jradioMale.setText("Nam");
-        jPanel1.add(jradioMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, -1, -1));
+        jPanel1.add(jradioMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
 
         buttonGroup1.add(jradioFemale);
         jradioFemale.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jradioFemale.setText("Nữ");
-        jPanel1.add(jradioFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 310, -1, -1));
+        jPanel1.add(jradioFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, -1, -1));
 
         jtxtDateQuit.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel1.add(jtxtDateQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 490, 260, 40));
@@ -276,7 +265,7 @@ public class AddStaffManager extends javax.swing.JFrame {
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 490, 100, 30));
 
         jtxtDateEnter.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(jtxtDateEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 490, 260, 40));
+        jPanel1.add(jtxtDateEnter, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 490, 260, 40));
 
         jLabel14.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel14.setText("Ngày vào làm");
@@ -411,7 +400,6 @@ public class AddStaffManager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -431,7 +419,6 @@ public class AddStaffManager extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtDateEnter;
     private javax.swing.JTextField jtxtDateQuit;
     private javax.swing.JTextField jtxtEmail;
-    private javax.swing.JTextField jtxtIDNVQL;
     private javax.swing.JTextField jtxtName;
     private javax.swing.JTextField jtxtPassword;
     private javax.swing.JTextField jtxtPhone;
@@ -525,15 +512,7 @@ public class AddStaffManager extends javax.swing.JFrame {
     public void setJtxtDateQuit(JTextField jtxtDateQuit) {
         this.jtxtDateQuit = jtxtDateQuit;
     }
-
-    public JTextField getJtxtIDNVQL() {
-        return jtxtIDNVQL;
-    }
-
-    public void setJtxtIDNVQL(JTextField jtxtIDNVQL) {
-        this.jtxtIDNVQL = jtxtIDNVQL;
-    }
-
+    
     public JTextField getJtxtName() {
         return jtxtName;
     }

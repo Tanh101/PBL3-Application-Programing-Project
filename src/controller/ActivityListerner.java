@@ -316,6 +316,39 @@ public class ActivityListerner extends ConnectDatabase {
         }
         return list;
     }
+     public Vector<String> getListContent() {
+        String sql = "SELECT TenToChucTuThien FROM HOATDONGTUTHIEN";
+        Vector<String> demo = new Vector<String>();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet res = ps.executeQuery();
+            while (res.next()) {
+                demo.add(res.getString(1));
+            }
+        } catch (Exception e) {      
+            e.printStackTrace();
+        }           
+        return demo;
+    }
+     public Charity Find_the_number(int a) {
+        
+        Charity m = new Charity();
+        try {
+            String sql = "SELECT * from THONGBAO WHERE [vitri] = '1'  ";
+            PreparedStatement pre = conn.prepareStatement(sql);        
+            ResultSet rs = pre.executeQuery();
+            for(int i = 0 ;i <= a ; i++) {
+                rs.next();
+//                m.setID_model(rs.getString(1));
+//                m.setHeader(rs.getString(2));
+//                m.setContent(rs.getString(3));
+//                m.setVi_tri(rs.getString(4));                
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return m;
+    }
 
     public static void main(String[] args) {
 //        ActivityListerner ac = new ActivityListerner();
