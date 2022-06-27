@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.Notification;
 import model.Staff;
@@ -21,8 +21,8 @@ import model.LaborContract;
  */
 public class StaffManagerListener extends ConnectDatabase {
 
-    public Vector<Staff> getListStaff() {
-        Vector<Staff> list = new Vector();
+    public ArrayList<Staff> getListStaff() {
+        ArrayList<Staff> list = new ArrayList();
         try {
             String sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
                     + "FROM CANBONHANVIEN C\n"
@@ -50,8 +50,8 @@ public class StaffManagerListener extends ConnectDatabase {
         return list;
     }
 
-    public Vector<Staff> getListStaffCurent() {
-        Vector<Staff> list = new Vector();
+    public ArrayList<Staff> getListStaffCurent() {
+        ArrayList<Staff> list = new ArrayList();
         try {
             String sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
                     + "FROM CANBONHANVIEN C\n"
@@ -82,8 +82,8 @@ public class StaffManagerListener extends ConnectDatabase {
         return list;
     }
 
-    public Vector<Staff> getListStaffQuit() {
-        Vector<Staff> list = new Vector();
+    public ArrayList<Staff> getListStaffQuit() {
+        ArrayList<Staff> list = new ArrayList();
         try {
             String sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
                     + "FROM CANBONHANVIEN C\n"
@@ -135,8 +135,8 @@ public class StaffManagerListener extends ConnectDatabase {
     }
 
     //FIND ID
-    public Vector<Staff> Find(String ID) {
-        Vector<Staff> list = new Vector<Staff>();
+    public ArrayList<Staff> Find(String ID) {
+        ArrayList<Staff> list = new ArrayList<Staff>();
         try {
             String sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
                     + "FROM CANBONHANVIEN C\n"
@@ -275,7 +275,7 @@ public class StaffManagerListener extends ConnectDatabase {
 //        StaffManagerListener st = new StaffManagerListener();
 ////        st.Update("CBNV01", "102200318", "CBNV13", "2020-12-12", "2020-12-12", "2020-12-12", "2020-12-12",
 ////                "2020-12-12", "2020-12-12", "2020-12-12", "2020-12-12", "2020-12-12");
-////        Vector<Staff> kk = st.Find("CBNV01");
+////        ArrayList<Staff> kk = st.Find("CBNV01");
 //
 ////        System.out.println(st.getNameNVQL("102200318"));
 //    }

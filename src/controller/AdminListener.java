@@ -42,7 +42,7 @@ public class AdminListener extends ConnectDatabase {
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
                 managementStaff managerStaff = new managementStaff();
-                managerStaff.setID_NVQL(String.valueOf(rs.getInt(1)));
+                managerStaff.setID_NVQL(rs.getString(1));
                 managerStaff.setPassword(rs.getString(2));
                 managerStaff.setCCCD(rs.getString(3));
                 managerStaff.setName(rs.getString(4));
@@ -89,12 +89,12 @@ public class AdminListener extends ConnectDatabase {
                 + "@ADDRESS = ?,@PHONE = ?,@EMAIL = ?, @DATEENTER = ?, @DATEQUIT= ?, @IMGAE = ?";
     }
 
-    public void Insert(int IDNVQL, String Pass,int Role, String CCCD, String Name, String DOB, String Gender, String Address,
+    public void Insert(String IDNVQL, String Pass,int Role, String CCCD, String Name, String DOB, String Gender, String Address,
             String Phone, String Email, String DateEnter, String DateQuit, String Image) {
         String sql = StroreProcudureAdd();
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setInt(1, IDNVQL);
+            pre.setString(1, IDNVQL);
             pre.setString(2, Pass);
             pre.setInt(3, Role);
             pre.setString(4, CCCD);
@@ -115,16 +115,16 @@ public class AdminListener extends ConnectDatabase {
         }
     }
 
-    public Vector<managementStaff> FindID(int ID) {
+    public Vector<managementStaff> FindID(String ID) {
 //        return "FindID @ID=? ";
         Vector<managementStaff> list = new Vector<managementStaff>();
         try {
             PreparedStatement pre = conn.prepareStatement("FindID @ID=?");
-            pre.setInt(1, ID);
+            pre.setString(1, ID);
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
                 managementStaff managerStaff = new managementStaff();
-                managerStaff.setID_NVQL(String.valueOf(rs.getInt(1)));
+                managerStaff.setID_NVQL(rs.getString(1));
                 managerStaff.setPassword(rs.getString(2));
                 managerStaff.setCCCD(rs.getString(3));
                 managerStaff.setName(rs.getString(4));
@@ -154,12 +154,12 @@ public class AdminListener extends ConnectDatabase {
                 + "@ADDRESS = ?,@PHONE = ?,@EMAIL = ?,@DATEENTER = ?,@DATEQUIT = ?,@IMGAE = ?";
     }
 
-    public void Update(int ID_Choose,String Pass, String CCCD, String Name, String DOB, String Gender, String Address,
+    public void Update(String ID_Choose,String Pass, String CCCD, String Name, String DOB, String Gender, String Address,
             String Phone, String Email, String DateEnter, String DateQuit, String Image) {
         String sql = StoreProcedureUpdate();
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setInt(1, ID_Choose);
+            pre.setString(1, ID_Choose);
             pre.setString(2, Pass);
             pre.setString(3, CCCD);
             pre.setString(4, Name);

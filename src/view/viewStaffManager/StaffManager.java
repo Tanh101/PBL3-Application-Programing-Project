@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.io.File;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -72,7 +72,7 @@ public class StaffManager extends javax.swing.JFrame {
                 .setHorizontalAlignment(JLabel.CENTER);
     }
 
-    public void showSupport(Vector<Staff> vec) {
+    public void showSupport(ArrayList<Staff> vec) {
         DefaultTableModel model = (DefaultTableModel) jtbStaff.getModel();
         model.setRowCount(0);
         for (int i = 0; i < vec.size(); i++) {
@@ -86,12 +86,12 @@ public class StaffManager extends javax.swing.JFrame {
 
     public void showListStaff() {
 
-        Vector<Staff> vec = staffListener.getListStaff();
+        ArrayList<Staff> vec = staffListener.getListStaff();
         showSupport(vec);
     }
 
     public void showListCurrentStaff() {
-        Vector<Staff> vec = staffListener.getListStaffCurent();
+        ArrayList<Staff> vec = staffListener.getListStaffCurent();
         DefaultTableModel model = (DefaultTableModel) jtbStaff.getModel();
         model.setRowCount(0);
         for (int i = 0; i < vec.size(); i++) {
@@ -104,7 +104,7 @@ public class StaffManager extends javax.swing.JFrame {
     }
 
     public void showListQuitStaff() {
-        Vector<Staff> vec = staffListener.getListStaffQuit();
+        ArrayList<Staff> vec = staffListener.getListStaffQuit();
         DefaultTableModel model = (DefaultTableModel) jtbStaff.getModel();
         model.setRowCount(0);
         for (int i = 0; i < vec.size(); i++) {
@@ -127,7 +127,7 @@ public class StaffManager extends javax.swing.JFrame {
     public void getDataFromTable() {
         int k = jtbStaff.getSelectedRow();
         String ID_Choose = (String) jtbStaff.getModel().getValueAt(k, 0);
-        Vector<Staff> list = new Vector<Staff>();
+        ArrayList<Staff> list = new ArrayList<Staff>();
         list = staffListener.Find(ID_Choose);
         Staff s = list.get(0);
 //        System.out.println(s.getName());
@@ -631,7 +631,7 @@ public class StaffManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtFindActionPerformed
 
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked
-        Vector<Staff> list = new Vector<Staff>();
+        ArrayList<Staff> list = new ArrayList<Staff>();
         if (!jtxtID.getText().isEmpty()) {
             list = staffListener.Find(jtxtID.getText());
 

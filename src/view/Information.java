@@ -39,39 +39,40 @@ public class Information extends JFrame {
 
     LoginFeedback log = new LoginFeedback();
 //    Information infor = new Information();
- 
+
     public Information() {
         initComponents();
-        
+        setWidthTable();
+
     }
+
     public Information(int a) {
         initComponents();
         jlbMain.setBackground(new Color(255, 255, 255));
         jlbActi.setBackground(new Color(255, 255, 255));
         jlbNew.setBackground(new Color(102, 255, 255));
-        jlbFeed.setBackground(new Color(255, 255, 255));
+//        jlbFeed.setBackground(new Color(255, 255, 255));
         jTabbedPane1.setSelectedIndex(1);
         ShowListContentNotification();
     }
-    
+
     private NotificationListener abc = new NotificationListener();
     private ActivityListerner ac = new ActivityListerner();
+
     public void getDataFromTable_news() {
         int k = jList1.getSelectedIndex();
-        Model_message a =  abc.Find_the_number(k);        
+        Model_message a = abc.Find_the_number(k);
         new_view b = new new_view(a);
         b.setVisible(true);
-        this.setVisible(false);               
+        this.setVisible(false);
     }
-//    public void getDataFromTable_Action() {
-//        int k = jList1.getSelectedIndex();
-//        System.out.println(k);
-//        Model_message a =  abc.Find_the_number(k);        
-//        new_view b = new new_view(a);
-//        b.setVisible(true);
-//        this.setVisible(false);               
-//    }
-    
+
+    public void SetColor(JLabel lb) {
+        jlbMain.setBackground(new Color(255, 255, 255));
+        jlbActi.setBackground(new Color(255, 255, 255));
+        jlbNew.setBackground(new Color(255, 255, 255));
+        lb.setBackground(new Color(102, 255, 255));
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -81,23 +82,6 @@ public class Information extends JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
-        jbtFeed = new javax.swing.JToggleButton();
-        jlbFeed = new javax.swing.JLabel();
-        jbtMain = new javax.swing.JToggleButton();
-        jbtNews = new javax.swing.JToggleButton();
-        jbtActi = new javax.swing.JToggleButton();
-        jlbMain = new javax.swing.JLabel();
-        jlbNew = new javax.swing.JLabel();
-        jlbActi = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jButtonCustom2 = new view.JButtonCustom();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jpnMain = new javax.swing.JPanel();
@@ -114,13 +98,25 @@ public class Information extends JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jLabel18 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jpnActi = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jpnFeed = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jbtLogoutUser = new view.JButtonCustom();
-        jlbNameUser = new javax.swing.JLabel();
+        jtbActivity = new javax.swing.JTable();
+        jLabel19 = new javax.swing.JLabel();
+        jbtMain = new javax.swing.JToggleButton();
+        jlbMain = new javax.swing.JLabel();
+        jbtNews = new javax.swing.JToggleButton();
+        jlbNew = new javax.swing.JLabel();
+        jbtActi = new javax.swing.JToggleButton();
+        jlbActi = new javax.swing.JLabel();
 
         jMenu4.setText("jMenu4");
 
@@ -129,97 +125,78 @@ public class Information extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbtFeed.setBackground(new java.awt.Color(204, 204, 255));
-        jbtFeed.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-        jbtFeed.setText("PHẢN HỒI");
-        jbtFeed.setBorder(null);
-        jbtFeed.setBorderPainted(false);
-        jbtFeed.setContentAreaFilled(false);
-        jbtFeed.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtFeed.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtFeedActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtFeed, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 180, 30));
-
-        jlbFeed.setBackground(new java.awt.Color(255, 255, 255));
-        jlbFeed.setOpaque(true);
-        jPanel1.add(jlbFeed, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 130, 10));
-
-        jbtMain.setBackground(new java.awt.Color(204, 204, 255));
-        jbtMain.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-        jbtMain.setText("TRANG CHỦ");
-        jbtMain.setBorder(null);
-        jbtMain.setBorderPainted(false);
-        jbtMain.setContentAreaFilled(false);
-        jbtMain.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtMain.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtMainActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 120, 30));
-
-        jbtNews.setBackground(new java.awt.Color(204, 204, 255));
-        jbtNews.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-        jbtNews.setText("TIN TỨC");
-        jbtNews.setBorder(null);
-        jbtNews.setBorderPainted(false);
-        jbtNews.setContentAreaFilled(false);
-        jbtNews.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtNews.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonCustom2.setBorder(null);
+        jButtonCustom2.setText("X");
+        jButtonCustom2.setBoderColor(new java.awt.Color(255, 255, 255));
+        jButtonCustom2.setColoOver(new java.awt.Color(255, 51, 51));
+        jButtonCustom2.setColorClick(new java.awt.Color(255, 51, 51));
+        jButtonCustom2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCustom2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtNewsMouseClicked(evt);
+                jButtonCustom2MouseClicked(evt);
             }
         });
-        jbtNews.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtNewsActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtNews, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 120, 30));
+        jPanel1.add(jButtonCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 40, 40));
 
-        jbtActi.setBackground(new java.awt.Color(204, 204, 255));
-        jbtActi.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-        jbtActi.setText("HOẠT ĐỘNG TỪ THIỆN");
-        jbtActi.setBorder(null);
-        jbtActi.setBorderPainted(false);
-        jbtActi.setContentAreaFilled(false);
-        jbtActi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtActi.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
+
+        jpnMain.setBackground(new java.awt.Color(255, 255, 255));
+        jpnMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setText("- Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi, trẻ không ");
+        jpnMain.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 910, 20));
+
+        jLabel11.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
+        jpnMain.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 490, 910, -1));
+
+        jLabel12.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
+        jpnMain.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 910, -1));
+
+        jLabel13.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
+        jpnMain.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 910, -1));
+
+        jLabel14.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
+        jpnMain.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 910, -1));
+
+        jLabel15.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
+        jpnMain.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 910, -1));
+
+        jLabel16.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
+        jpnMain.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 430, 910, -1));
+
+        jLabel17.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
+        jpnMain.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 910, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/logoZalo.jpg"))); // NOI18N
+        jpnMain.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 200));
+
+        jTabbedPane1.addTab("tab1", jpnMain);
+
+        jpnNews.setBackground(new java.awt.Color(255, 255, 255));
+        jpnNews.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jList1.setToolTipText("");
+        jList1.setFixedCellHeight(50);
+        jList1.setFixedCellWidth(600);
+        jList1.setFocusCycleRoot(true);
+        jList1.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtActiMouseClicked(evt);
+                jList1MouseClicked(evt);
             }
         });
-        jbtActi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtActiActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 180, 30));
+        jScrollPane1.setViewportView(jList1);
+        jList1.getAccessibleContext().setAccessibleName("");
 
-        jlbMain.setBackground(new java.awt.Color(102, 255, 255));
-        jlbMain.setOpaque(true);
-        jPanel1.add(jlbMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 120, 10));
+        jpnNews.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 970, 350));
 
-        jlbNew.setBackground(new java.awt.Color(255, 255, 255));
-        jlbNew.setOpaque(true);
-        jPanel1.add(jlbNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 120, 10));
-
-        jlbActi.setBackground(new java.awt.Color(255, 255, 255));
-        jlbActi.setOpaque(true);
-        jPanel1.add(jlbActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 180, 10));
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/logoZalo.jpg"))); // NOI18N
+        jpnNews.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 200));
 
         jPanel5.setBackground(new java.awt.Color(204, 255, 255));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -259,81 +236,19 @@ public class Information extends JFrame {
         jLabel9.setText("https://www.facebook.com/baotrotrem");
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, 210, 20));
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1110, -1));
-
-        jButtonCustom2.setBorder(null);
-        jButtonCustom2.setText("X");
-        jButtonCustom2.setBoderColor(new java.awt.Color(255, 255, 255));
-        jButtonCustom2.setColoOver(new java.awt.Color(255, 51, 51));
-        jButtonCustom2.setColorClick(new java.awt.Color(255, 51, 51));
-        jButtonCustom2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonCustom2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCustom2MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jButtonCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 40, 40));
-
-        jpnMain.setBackground(new java.awt.Color(255, 255, 255));
-        jpnMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel10.setText("- Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi, trẻ không ");
-        jpnMain.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 910, 20));
-
-        jLabel11.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
-        jpnMain.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 530, 910, -1));
-
-        jLabel12.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
-        jpnMain.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 910, -1));
-
-        jLabel13.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
-        jpnMain.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 910, -1));
-
-        jLabel14.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
-        jpnMain.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 910, -1));
-
-        jLabel15.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
-        jpnMain.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, 910, -1));
-
-        jLabel16.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
-        jpnMain.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 910, -1));
-
-        jLabel17.setText("nương tựa - Trung tâm bảo trợ trẻ em Việt- Nhật được thành lập vào tháng 4 năm 2012, với mục tiêu và sứ mệnh của mình, trung tâm đã hỗ trợ cưu mang trẻ em mồ côi,");
-        jpnMain.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, 910, -1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/logoZalo.jpg"))); // NOI18N
-        jpnMain.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1010, 200));
-
-        jTabbedPane1.addTab("tab1", jpnMain);
-
-        jpnNews.setBackground(new java.awt.Color(255, 255, 255));
-        jpnNews.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jList1.setToolTipText("");
-        jList1.setFixedCellHeight(50);
-        jList1.setFixedCellWidth(600);
-        jList1.setFocusCycleRoot(true);
-        jList1.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jList1);
-        jList1.getAccessibleContext().setAccessibleName("");
-
-        jpnNews.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 920, 320));
-
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/logoZalo.jpg"))); // NOI18N
-        jpnNews.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 990, 200));
+        jpnNews.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 1010, -1));
 
         jTabbedPane1.addTab("tab2", jpnNews);
 
         jpnActi.setBackground(new java.awt.Color(255, 255, 255));
         jpnActi.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtbActivity.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jtbActivity.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -351,44 +266,78 @@ public class Information extends JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jtbActivity.setRowHeight(35);
+        jtbActivity.setSelectionBackground(new java.awt.Color(102, 204, 255));
+        jScrollPane2.setViewportView(jtbActivity);
 
-        jpnActi.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1010, 540));
+        jpnActi.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1010, 540));
+
+        jLabel19.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
+        jLabel19.setText("MỘT SỐ HOẠT ĐỘNG TỪ THIỆN CỦA TRUNG TÂM");
+        jpnActi.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 750, 70));
 
         jTabbedPane1.addTab("tab3", jpnActi);
 
-        jpnFeed.setBackground(new java.awt.Color(255, 255, 255));
-        jpnFeed.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1060, 620));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jbtLogoutUser.setBorder(null);
-        jbtLogoutUser.setText("Đăng Xuất");
-        jbtLogoutUser.setBoderColor(new java.awt.Color(0, 255, 204));
-        jbtLogoutUser.setColoOver(new java.awt.Color(102, 255, 51));
-        jbtLogoutUser.setColor(new java.awt.Color(0, 255, 204));
-        jbtLogoutUser.setColorClick(new java.awt.Color(255, 51, 51));
-        jbtLogoutUser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jbtLogoutUser.addActionListener(new java.awt.event.ActionListener() {
+        jbtMain.setBackground(new java.awt.Color(204, 204, 255));
+        jbtMain.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        jbtMain.setText("TRANG CHỦ");
+        jbtMain.setBorder(null);
+        jbtMain.setBorderPainted(false);
+        jbtMain.setContentAreaFilled(false);
+        jbtMain.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtMain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtLogoutUserActionPerformed(evt);
+                jbtMainActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtLogoutUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 90, 30));
+        jPanel1.add(jbtMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 120, 30));
 
-        jlbNameUser.setBackground(new java.awt.Color(0, 255, 204));
-        jlbNameUser.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jlbNameUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/user_60px.png"))); // NOI18N
-        jlbNameUser.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jlbNameUser.setOpaque(true);
-        jPanel2.add(jlbNameUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 100));
+        jlbMain.setBackground(new java.awt.Color(102, 255, 255));
+        jlbMain.setOpaque(true);
+        jPanel1.add(jlbMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 120, 10));
 
-        jpnFeed.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 1010, 100));
+        jbtNews.setBackground(new java.awt.Color(204, 204, 255));
+        jbtNews.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        jbtNews.setText("TIN TỨC");
+        jbtNews.setBorder(null);
+        jbtNews.setBorderPainted(false);
+        jbtNews.setContentAreaFilled(false);
+        jbtNews.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtNews.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtNewsMouseClicked(evt);
+            }
+        });
+        jbtNews.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtNewsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbtNews, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 120, 30));
 
-        jTabbedPane1.addTab("tab4", jpnFeed);
+        jlbNew.setBackground(new java.awt.Color(255, 255, 255));
+        jlbNew.setOpaque(true);
+        jPanel1.add(jlbNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 120, 10));
 
-        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1010, 660));
+        jbtActi.setBackground(new java.awt.Color(204, 204, 255));
+        jbtActi.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        jbtActi.setText("HOẠT ĐỘNG TỪ THIỆN");
+        jbtActi.setBorder(null);
+        jbtActi.setBorderPainted(false);
+        jbtActi.setContentAreaFilled(false);
+        jbtActi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtActi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtActiMouseClicked(evt);
+            }
+        });
+        jPanel1.add(jbtActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, 180, 30));
+
+        jlbActi.setBackground(new java.awt.Color(255, 255, 255));
+        jlbActi.setOpaque(true);
+        jPanel1.add(jlbActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 40, 180, 10));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, -1));
 
@@ -396,40 +345,8 @@ public class Information extends JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtFeedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtFeedActionPerformed
-        LoginListener logLis = new LoginListener();
-        jlbMain.setBackground(new Color(255, 255, 255));
-        jlbActi.setBackground(new Color(255, 255, 255));
-        jlbNew.setBackground(new Color(255, 255, 255));
-        jlbFeed.setBackground(new Color(102, 255, 255));
-        log.setVisible(true);
-        if (log.getCheckLogin() == 1) {
-            jTabbedPane1.setSelectedIndex(3);
-            try {
-                this.jlbNameUser.setText(logLis.getName(log.getUserName()));
-                jTabbedPane1.setSelectedIndex(3);
-            } catch (SQLException ex) {
-                Logger.getLogger(Information.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            log.setVisible(false);
-        }
-    }//GEN-LAST:event_jbtFeedActionPerformed
-
-    private void jbtActiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtActiActionPerformed
-        // TODO add your handling code here:
-        jlbMain.setBackground(new Color(255, 255, 255));
-        jlbActi.setBackground(new Color(102, 255, 255));
-        jlbNew.setBackground(new Color(255, 255, 255));
-        jlbFeed.setBackground(new Color(255, 255, 255));
-        jTabbedPane1.setSelectedIndex(2);
-    }//GEN-LAST:event_jbtActiActionPerformed
-
     private void jbtNewsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNewsActionPerformed
-        // TODO add your handling code here:
-        jlbMain.setBackground(new Color(255, 255, 255));
-        jlbActi.setBackground(new Color(255, 255, 255));
-        jlbNew.setBackground(new Color(102, 255, 255));
-        jlbFeed.setBackground(new Color(255, 255, 255));
+        SetColor(jlbNew);
         jTabbedPane1.setSelectedIndex(1);
     }//GEN-LAST:event_jbtNewsActionPerformed
 
@@ -441,7 +358,6 @@ public class Information extends JFrame {
         jlbMain.setBackground(new Color(102, 255, 255));
         jlbActi.setBackground(new Color(255, 255, 255));
         jlbNew.setBackground(new Color(255, 255, 255));
-        jlbFeed.setBackground(new Color(255, 255, 255));
         jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_jbtMainActionPerformed
 
@@ -451,25 +367,16 @@ public class Information extends JFrame {
         new MainPage().setVisible(true);
     }//GEN-LAST:event_jButtonCustom2MouseClicked
 
-    private void jbtLogoutUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLogoutUserActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        new Information().setVisible(true);
-        
-    }//GEN-LAST:event_jbtLogoutUserActionPerformed
-
-    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        getDataFromTable_news();
-    }//GEN-LAST:event_jList1MouseClicked
-
     private void jbtActiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtActiMouseClicked
+        SetColor(jlbActi);
+        jTabbedPane1.setSelectedIndex(2);
         ShowListAction();
         setWidthTable();
     }//GEN-LAST:event_jbtActiMouseClicked
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
-    }//GEN-LAST:event_formWindowActivated
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        getDataFromTable_news();
+    }//GEN-LAST:event_jList1MouseClicked
     public void ShowListContentNotification() {
         InformationListener info = new InformationListener();
         Vector<String> listContent = info.getListContent();
@@ -478,40 +385,29 @@ public class Information extends JFrame {
             cbo.addElement(no);
         }
         jList1.setModel(cbo);
-//        ContentNotification ct = new ContentNotification();
-//        ct.setVisible(true);
-
     }
+
     public void ShowListAction() {
-//        ActivityListerner info = new ActivityListerner();
-//        Vector<String> listContent = info.getListContent();
-//        DefaultListModel cbo = new DefaultListModel();
-//        for (String no : listContent) {
-//            cbo.addElement(no);
-//        }
-//        jList2.setModel(cbo);
-//        ContentNotification ct = new ContentNotification();
-//        ct.setVisible(true);
         ActivityListerner ac = new ActivityListerner();
         ArrayList<Charity> vec = ac.getListCharity("SHOWALL");
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) jtbActivity.getModel();
         model.setRowCount(0);
         for (int i = 0; i < vec.size(); i++) {
             model.addRow(new Object[]{
                 vec.get(i).getNameOrganization(), vec.get(i).getNameCharity(), vec.get(i).getDateStart()
             });
         }
-        jTable1.setModel(model);
+        jtbActivity.setModel(model);
     }
-    public void setWidthTable() {
 
-        jTable1.getTableHeader().setBackground(new Color(0, 204, 255));
-        jTable1.setBackground(Color.WHITE);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(130);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(250);   
-        jTable1.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 17));
-        ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer())
+    public void setWidthTable() {
+        jtbActivity.getTableHeader().setBackground(new Color(0, 204, 255));
+        jtbActivity.setBackground(Color.WHITE);
+        jtbActivity.getColumnModel().getColumn(0).setPreferredWidth(250);
+        jtbActivity.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jtbActivity.getColumnModel().getColumn(2).setPreferredWidth(130);
+        jtbActivity.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 17));
+        ((DefaultTableCellRenderer) jtbActivity.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -526,6 +422,7 @@ public class Information extends JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -538,27 +435,21 @@ public class Information extends JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jbtActi;
-    private javax.swing.JToggleButton jbtFeed;
-    private view.JButtonCustom jbtLogoutUser;
     private javax.swing.JToggleButton jbtMain;
     private javax.swing.JToggleButton jbtNews;
     private javax.swing.JLabel jlbActi;
-    private javax.swing.JLabel jlbFeed;
     private javax.swing.JLabel jlbMain;
-    private javax.swing.JLabel jlbNameUser;
     private javax.swing.JLabel jlbNew;
     private javax.swing.JPanel jpnActi;
-    private javax.swing.JPanel jpnFeed;
     private javax.swing.JPanel jpnMain;
     private javax.swing.JPanel jpnNews;
+    private javax.swing.JTable jtbActivity;
     // End of variables declaration//GEN-END:variables
 
 }
