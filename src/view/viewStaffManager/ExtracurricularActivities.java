@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Children;
 import model.Extracurriclar;
+import model.LocalTime;
 import model.managementStaff;
 
 /**
@@ -50,11 +51,11 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         jtbExtracurricular.getColumnModel().getColumn(0).setPreferredWidth(130);
         jtbExtracurricular.getColumnModel().getColumn(1).setPreferredWidth(250);
         jtbExtracurricular.getColumnModel().getColumn(2).setPreferredWidth(130);
-        jtbExtracurricular.getColumnModel().getColumn(3).setPreferredWidth(110);
+//        jtbExtracurricular.getColumnModel().getColumn(3).setPreferredWidth(110);
+        jtbExtracurricular.getColumnModel().getColumn(3).setPreferredWidth(130);
         jtbExtracurricular.getColumnModel().getColumn(4).setPreferredWidth(130);
         jtbExtracurricular.getColumnModel().getColumn(5).setPreferredWidth(130);
         jtbExtracurricular.getColumnModel().getColumn(6).setPreferredWidth(130);
-        jtbExtracurricular.getColumnModel().getColumn(7).setPreferredWidth(130);
         jtbExtracurricular.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 17));
         ((DefaultTableCellRenderer) jtbExtracurricular.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
@@ -63,9 +64,9 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
     void Statictical() {
         Vector<Extracurriclar> vec = new Vector<>();
         vec = ac.getListExtracurricular(ac.sqlShowExtrac(2));
-        jlbCountCurrent.setText(String.valueOf(vec.size()));
+        jLabelCount.setText("Số hoạt động hiện nay: " + String.valueOf(vec.size()));
         vec = ac.getListExtracurricular(ac.sqlShowExtrac(3));
-        jlbCountDone.setText(String.valueOf(vec.size()));
+        jlbCountENd.setText("Số hoạt động đã kết thúc: " + String.valueOf(vec.size()));
     }
 
     public void ClearJtxt() {
@@ -90,8 +91,12 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         jtxtNumOfStaff.setText(ex.getNumberOfStaff());
         jtxtNumOfChild.setText(ex.getNumberOfChild());
         jtxtPlace.setText(ex.getPlace());
-        jtxtDateStart.setText(ex.getDateStart());
-        jtxtDateEnded.setText(ex.getDateEnd());
+        jtxtDateStart.setText(LocalTime.ChangeTypeDate_dMy(ex.getDateStart()));
+        if (ex.getDateEnd().compareTo("") == 0) {
+            jtxtDateEnded.setText("");
+        } else {
+            jtxtDateEnded.setText(LocalTime.ChangeTypeDate_dMy(ex.getDateEnd()));
+        }
 
     }
 
@@ -100,9 +105,9 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < vec.size(); i++) {
             model.addRow(new Object[]{
-                vec.get(i).getID(), vec.get(i).getName(), vec.get(i).getPlace(), vec.get(i).getIDNVQL(),
+                vec.get(i).getID(), vec.get(i).getName(), vec.get(i).getPlace(),
                 vec.get(i).getNumberOfStaff(), vec.get(i).getNumberOfChild(),
-                vec.get(i).getDateStart(), vec.get(i).getDateEnd()
+                LocalTime.ChangeTypeDate_dMy(vec.get(i).getDateStart()), LocalTime.ChangeTypeDate_dMy(vec.get(i).getDateEnd())
             });
         }
         jtbExtracurricular.setModel(model);
@@ -113,25 +118,23 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         vec = ac.getListExtracurricular(ac.sqlShowExtrac(i));
         showSupport(vec);
     }
-   
+
     public void Add() {
         Vector<Extracurriclar> vec = new Vector<>();
         vec = ac.getListExtracurricular(ac.sqlShowExtrac(1));
-        
+
         String tmp = vec.get(vec.size() - 1).getID();
         String[] arr = tmp.split("HDNK", 2);
         String ID = "HDNK";
-        if(arr[1].length() == 3 && String.valueOf(Integer.parseInt(arr[1]) + 1).length() == 1){
+        if (arr[1].length() == 3 && String.valueOf(Integer.parseInt(arr[1]) + 1).length() == 1) {
             ID += "00";
-        }else{
+        } else {
             ID += "0";
         }
         int tmp2 = Integer.parseInt(arr[1]) + 1;
         ID += String.valueOf(tmp2);
-        
-        long millis = System.currentTimeMillis();
-        Date date = new Date(millis);
-        String DateStart = date.toString();
+
+        String DateStart = LocalTime.getDateNow();
         if (ID.isEmpty() || jtxtName.getText().isEmpty() || jtxtPlace.getText().isEmpty() || IDNVQL.isEmpty()
                 || jtxtNumOfStaff.getText().isEmpty() || jtxtNumOfChild.getText().isEmpty() || DateStart.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Không được để trống thông tin hoạt động");
@@ -184,10 +187,12 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
                 String Place = jtxtPlace.getText();
                 int ID_NVQL = Integer.parseInt(IDNVQL);
                 int NumofStaff, NumofChild;
-                String DateStart = jtxtDateStart.getText();
+                String DateStart = LocalTime.ChangeTypeDate_yMd(jtxtDateStart.getText());
                 String DateEnd = jtxtDateEnded.getText();
-                if(DateEnd.compareTo("") == 0){
+                if (DateEnd.compareTo("") == 0) {
                     DateEnd = null;
+                } else {
+                    DateEnd = LocalTime.ChangeTypeDate_yMd(DateEnd);
                 }
                 try {
                     NumofStaff = Integer.parseInt(jtxtNumOfStaff.getText());
@@ -227,7 +232,6 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
-        jlbCountDone = new javax.swing.JLabel();
         jtxtPlace = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jtxtDateEnded = new javax.swing.JTextField();
@@ -238,10 +242,9 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         jtxtName = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jlbCountENd = new javax.swing.JLabel();
+        jLabelCount = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jlbCountCurrent = new javax.swing.JLabel();
         jbtExtracEnd = new view.JButtonCustom();
         jbtDelete = new view.JButtonCustom();
         jbtUpda = new view.JButtonCustom();
@@ -281,22 +284,17 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jlbCountDone.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jlbCountDone.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jlbCountDone.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(jlbCountDone, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 10, 40, 40));
-
         jtxtPlace.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtPlace.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 50, 240, 40));
+        jPanel2.add(jtxtPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 60, 240, 40));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel4.setText("Thời Gian Kết Thúc");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 160, 140, 40));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 170, 140, 40));
 
         jtxtDateEnded.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDateEnded.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtDateEnded, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 160, 240, 40));
+        jPanel2.add(jtxtDateEnded, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 170, 240, 40));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel5.setText("Thời Gian Bắt Đầu");
@@ -309,21 +307,21 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         jtbExtracurricular.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbExtracurricular.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Hoạt Động", "Tên Hoạt Động", "Địa Điểm", "ID_NVQL", "Số cán bộ tham gia", "Số trẻ tham gia", "Thời Gian Bắt Đầu", "Thời Gian Kết Thúc"
+                "Mã Hoạt Động", "Tên Hoạt Động", "Địa Điểm", "Số cán bộ tham gia", "Số trẻ tham gia", "Thời Gian Bắt Đầu", "Thời Gian Kết Thúc"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -359,29 +357,24 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
         jLabel10.setOpaque(true);
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 10, 130));
 
-        jLabel8.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sum_24px.png"))); // NOI18N
-        jLabel8.setText("Tổng hoạt động đã triển khai:");
-        jLabel8.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 240, 40));
+        jlbCountENd.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jlbCountENd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sum_24px.png"))); // NOI18N
+        jlbCountENd.setText("Tổng hoạt động đã triển khai:");
+        jlbCountENd.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel2.add(jlbCountENd, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, 240, 40));
 
-        jLabel12.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel12.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sum_24px.png"))); // NOI18N
-        jLabel12.setText("Tổng hoạt động hiện nay: ");
-        jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jLabel12.setOpaque(true);
-        jLabel12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 210, 40));
+        jLabelCount.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelCount.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabelCount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sum_24px.png"))); // NOI18N
+        jLabelCount.setText("Tổng hoạt động hiện nay: ");
+        jLabelCount.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jLabelCount.setOpaque(true);
+        jLabelCount.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jPanel2.add(jLabelCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 210, 40));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel6.setText("Địa Điểm");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 50, 90, 40));
-
-        jlbCountCurrent.setBackground(new java.awt.Color(255, 255, 255));
-        jlbCountCurrent.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jlbCountCurrent.setOpaque(true);
-        jPanel2.add(jlbCountCurrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 40, 40));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 60, 90, 40));
 
         jbtExtracEnd.setBorder(null);
         jbtExtracEnd.setText("Hoạt động đã kết thúc");
@@ -492,11 +485,11 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel13.setText("Số Trẻ Tham Gia");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, 140, 40));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 120, 140, 40));
 
         jtxtNumOfChild.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtNumOfChild.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(jtxtNumOfChild, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 110, 240, 40));
+        jPanel2.add(jtxtNumOfChild, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 120, 240, 40));
 
         jTabbedPane1.addTab("tab1", jPanel2);
 
@@ -672,14 +665,13 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelCount;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -693,8 +685,7 @@ public class ExtracurricularActivities extends javax.swing.JFrame {
     private view.JButtonCustom jbtRe;
     private view.JButtonCustom jbtShow;
     private view.JButtonCustom jbtUpda;
-    private javax.swing.JLabel jlbCountCurrent;
-    private javax.swing.JLabel jlbCountDone;
+    private javax.swing.JLabel jlbCountENd;
     private javax.swing.JTable jtbExtracurricular;
     private javax.swing.JTextField jtxtDateEnded;
     private javax.swing.JTextField jtxtDateStart;

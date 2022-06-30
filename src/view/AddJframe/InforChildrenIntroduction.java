@@ -229,7 +229,7 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
 
         jtxtNameImg.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtNameImg.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel3.add(jtxtNameImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 180, 30));
+        jPanel3.add(jtxtNameImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 180, 30));
 
         jtbChildIntro.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbChildIntro.setModel(new javax.swing.table.DefaultTableModel(
@@ -272,20 +272,20 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
             jtbChildIntro.getColumnModel().getColumn(0).setPreferredWidth(100);
         }
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1200, 340));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1270, 340));
 
         jtxtDOB.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtDOB.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel3.add(jtxtDOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 150, 260, 40));
+        jPanel3.add(jtxtDOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 170, 260, 40));
 
         jLabel14.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel14.setText("Địa chỉ");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 80, 100, 40));
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 70, 100, 40));
 
         jLabel15.setBackground(new java.awt.Color(153, 255, 255));
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel15.setOpaque(true);
-        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 10, 150));
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 10, 160));
 
         jtxtAddress.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtAddress.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -294,19 +294,19 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
                 jtxtAddressActionPerformed(evt);
             }
         });
-        jPanel3.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 80, 260, 40));
+        jPanel3.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 70, 260, 40));
 
         jLabel16.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel16.setText("Ngày sinh");
-        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 150, 120, 40));
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 170, 120, 40));
 
         jLabel17.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel17.setText("Tên trẻ");
-        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 90, 40));
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 90, 40));
 
         jtxtName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel3.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, 260, 40));
+        jPanel3.add(jtxtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 260, 40));
 
         jbtChooseImg.setBorder(null);
         jbtChooseImg.setText("Chọn ảnh");
@@ -320,27 +320,27 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
                 jbtChooseImgActionPerformed(evt);
             }
         });
-        jPanel3.add(jbtChooseImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 110, 30));
-        jPanel3.add(jlbImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 140, 130));
+        jPanel3.add(jbtChooseImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 110, 30));
+        jPanel3.add(jlbImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 140, 130));
 
         jLabel18.setBackground(new java.awt.Color(153, 255, 255));
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel18.setOpaque(true);
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 60, 10, 160));
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 60, 10, 160));
 
         jLabel9.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel9.setText("Giới Tính");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 90, 40));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 90, 40));
 
         buttonGroup2.add(jradioMale);
         jradioMale.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jradioMale.setText("Nam");
-        jPanel3.add(jradioMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, -1, -1));
+        jPanel3.add(jradioMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, -1, -1));
 
         buttonGroup2.add(jradioFemale);
         jradioFemale.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jradioFemale.setText("Nữ");
-        jPanel3.add(jradioFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, -1, -1));
+        jPanel3.add(jradioFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, -1, -1));
 
         jbtIntroduction.setBorder(null);
         jbtIntroduction.setText("Giới Thiệu");
@@ -370,19 +370,19 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
                 jbtResetMouseClicked(evt);
             }
         });
-        jPanel3.add(jbtReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, 120, 50));
+        jPanel3.add(jbtReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 120, 50));
 
         jLabel19.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel19.setText("Hoàn Cảnh");
-        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 90, 40));
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 180, 90, 40));
 
         jtxtSituation.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtSituation.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel3.add(jtxtSituation, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, 260, 40));
+        jPanel3.add(jtxtSituation, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, 260, 40));
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 650));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 650));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1190, 650));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1260, 650));
 
         jtbRest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/back_26px.png"))); // NOI18N
         jtbRest.setBoderColor(new java.awt.Color(242, 242, 242));
@@ -407,9 +407,10 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
         jlbName.setOpaque(true);
         jPanel1.add(jlbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 210, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 1190, 700));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 1260, 700));
 
-        setSize(new java.awt.Dimension(1191, 701));
+        setSize(new java.awt.Dimension(1259, 701));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtChooseImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtChooseImgActionPerformed

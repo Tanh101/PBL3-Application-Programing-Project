@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import model.Notification;
 import model.Staff;
@@ -75,7 +76,12 @@ public class StaffManagerListener extends ConnectDatabase {
                 lob.setID_CBNV(rs.getString(1));
                 lob.setID_NVQL(rs.getString(2));
                 lob.setDateStart(rs.getDate(3).toString());
-                lob.setDateEnd(rs.getDate(4).toString());
+                Date date = rs.getDate(4);
+                if (date == null) {
+                    lob.setDateEnd("");
+                } else {
+                    lob.setDateEnd(date.toString());
+                }
                 return lob;
             }
         } catch (Exception e) {
@@ -95,7 +101,7 @@ public class StaffManagerListener extends ConnectDatabase {
                         + "INNER JOIN TAIKHOANCB T\n"
                         + "ON C.ID_CBNV = T.ID_CBNV\n"
                         + "WHERE C.ID_CBNV = ?";
-            }else if(i == 2){
+            } else if (i == 2) {
                 sql = "FindName @Name = ?";
             }
 

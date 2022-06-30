@@ -88,6 +88,8 @@ public class AddStaffManager extends javax.swing.JFrame {
         String DateQuit = jtxtDateQuit.getText();
         if (DateQuit.compareTo("") == 0) {
             DateQuit = null;
+        }else{
+            DateQuit = LocalTime.ChangeTypeDate_yMd(jtxtDateQuit.getText());
         }
         String Img = jtxtUrlImage.getText();
         if (Img.compareTo("") == 0) {
@@ -97,7 +99,7 @@ public class AddStaffManager extends javax.swing.JFrame {
                 || DOB.isEmpty() || Gender.isEmpty() || Address.isEmpty() || Phone.isEmpty() || Email.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Không được bỏ trống thông tin nhân viên!");
         } else {
-            adminListener.Insert(String.valueOf(IDNVQL), Pass,2, CCCD, Name, DOB, Gender, Address, Phone, Email, DateEnter, DateQuit, Img);
+            adminListener.Insert(String.valueOf(IDNVQL), Pass,2, CCCD, Name, LocalTime.ChangeTypeDate_yMd(DOB), Gender, Address, Phone, Email, DateEnter, DateQuit, Img);
             Resest();
             this.setVisible(false);
         }
@@ -122,6 +124,8 @@ public class AddStaffManager extends javax.swing.JFrame {
         String DateQuit = jtxtDateQuit.getText();
         if (DateQuit.compareTo("") == 0) {
             DateQuit = null;
+        }else{
+            DateQuit = LocalTime.ChangeTypeDate_yMd(DateQuit);
         }
         String Img = jtxtUrlImage.getText();
         if (Img.compareTo("") == 0) {
@@ -133,7 +137,7 @@ public class AddStaffManager extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Không được bỏ trống thông tin nhân viên!");
         } else {
             adminListener.Update((ID_Choose), Pass, CCCD, Name, DOB, Gender,
-                                Address, Phone, Email, DateEnter, DateQuit,  Img);
+                                Address, Phone, Email, LocalTime.ChangeTypeDate_yMd(DateEnter), (DateQuit),  Img);
             Resest();
             this.setVisible(false);
         }

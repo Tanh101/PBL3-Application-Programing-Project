@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JTextField;
 import model.Equipment;
+import model.LocalTime;
 import view.JButtonCustom;
 import view.viewStaffManager.EquipmentManager;
 
@@ -35,8 +36,7 @@ public class AddEquipment extends javax.swing.JFrame {
     }
 
     public void Add() {
-        long millis = System.currentTimeMillis();
-        Date date = new Date(millis);
+        
         ArrayList<Equipment> list = new ArrayList<>();
         list = equipListener.getListEquipment(equipListener.getSQLShow(1));
         String ID = list.get(list.size() - 1).getID();
@@ -54,10 +54,12 @@ public class AddEquipment extends javax.swing.JFrame {
         String NumGood = jtxtNumGood.getText();
         String NumBad = jtxtNumBad.getText();
         String Provider = jtxtProvider.getText();
-        String DateEnter = date.toString();
+        String DateEnter = LocalTime.getDateNow();
         String DateQuit = jtxtDateQuit.getText();
         if (DateQuit.compareTo("") == 0) {
             DateQuit = null;
+        }else{
+            DateQuit = LocalTime.ChangeTypeDate_yMd(DateQuit);
         }
         if (Name.isEmpty() || Price.isEmpty() || NumGood.isEmpty()
                 || NumBad.isEmpty() || Provider.isEmpty()) {
@@ -75,10 +77,12 @@ public class AddEquipment extends javax.swing.JFrame {
         String NumGood = jtxtNumGood.getText();
         String NumBad = jtxtNumBad.getText();
         String Provider = jtxtProvider.getText();
-        String DateEnter = jtxtDateEnter.getText();
+        String DateEnter = LocalTime.ChangeTypeDate_yMd(jtxtDateEnter.getText());
         String DateQuit = jtxtDateQuit.getText();
         if (DateQuit.compareTo("") == 0) {
             DateQuit = null;
+        }else{
+             DateQuit = LocalTime.ChangeTypeDate_yMd(DateQuit);
         }
         if (ID.isEmpty() || Name.isEmpty() || Price.isEmpty() || NumGood.isEmpty()
                 || NumBad.isEmpty() || Provider.isEmpty()) {

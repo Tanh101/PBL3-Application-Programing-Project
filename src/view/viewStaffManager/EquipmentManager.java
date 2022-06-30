@@ -7,6 +7,7 @@ package view.viewStaffManager;
 import controller.EquipmentListener;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -17,6 +18,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Children;
 import model.Equipment;
+import model.LocalTime;
 import view.AddJframe.AddEquipment;
 
 /**
@@ -51,7 +53,7 @@ public class EquipmentManager extends javax.swing.JFrame {
         jtbEquipment.getColumnModel().getColumn(4).setPreferredWidth(110);
         jtbEquipment.getColumnModel().getColumn(5).setPreferredWidth(110);
         jtbEquipment.getColumnModel().getColumn(6).setPreferredWidth(110);
-        jtbEquipment.getColumnModel().getColumn(7).setPreferredWidth(110);
+//        jtbEquipment.getColumnModel().getColumn(7).setPreferredWidth(110);
         jtbEquipment.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 16));
         ((DefaultTableCellRenderer) jtbEquipment.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
@@ -63,7 +65,8 @@ public class EquipmentManager extends javax.swing.JFrame {
         for (int i = 0; i < vec.size(); i++) {
             model.addRow(new Object[]{
                 vec.get(i).getID(), vec.get(i).getName(), vec.get(i).getPrice(), vec.get(i).getProviders(),
-                vec.get(i).getNumOfGood(), vec.get(i).getNumOfBad(), vec.get(i).getDateEnter(), vec.get(i).getDateQuit()
+                vec.get(i).getNumOfGood(), vec.get(i).getNumOfBad(),
+                LocalTime.ChangeTypeDate_dMy(vec.get(i).getDateEnter())
             });
         }
         jtbEquipment.setModel(model);
@@ -99,10 +102,13 @@ public class EquipmentManager extends javax.swing.JFrame {
             addEquip.getJtxtProvider().setText(equip.getProviders());
             addEquip.getJtxtNumGood().setText(String.valueOf(equip.getNumOfGood()));
             addEquip.getJtxtNumBad().setText(String.valueOf(equip.getNumOfBad()));
-            addEquip.getJtxtDateEnter().setText(equip.getDateEnter());
-            addEquip.getJtxtDateQuit().setText(equip.getDateQuit());
-        }
-        else{
+            addEquip.getJtxtDateEnter().setText(LocalTime.ChangeTypeDate_dMy(equip.getDateEnter()));
+            if (equip.getDateQuit().compareTo("") == 0) {
+                addEquip.getJtxtDateQuit().setText("");
+            } else {
+                addEquip.getJtxtDateQuit().setText(LocalTime.ChangeTypeDate_dMy(equip.getDateQuit()));
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn thiết bị muốn cập nhật");
         }
     }
@@ -172,6 +178,11 @@ public class EquipmentManager extends javax.swing.JFrame {
 
         jtxtFind.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtFind.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jtxtFind.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtFindKeyPressed(evt);
+            }
+        });
         jPanel2.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 400, 40));
 
         jbtBadState.setBorder(null);
@@ -222,21 +233,21 @@ public class EquipmentManager extends javax.swing.JFrame {
         jtbEquipment.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbEquipment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Thiết Bị", "Tên Thiết Bị", "Giá", "Đơn Vị Cung Cấp", "Số TB Tốt", "Số TB Hỏng", "Ngày Nhập", "Ngày Xuất"
+                "Mã Thiết Bị", "Tên Thiết Bị", "Giá", "Đơn Vị Cung Cấp", "Số TB Tốt", "Số TB Hỏng", "Ngày Nhập"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -383,11 +394,34 @@ public class EquipmentManager extends javax.swing.JFrame {
 
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
 
-        addEquip.setVisible(true);
-        getDataFromTableToForm();
-        addEquip.getJbtUpdate().setVisible(true);
-        addEquip.getJtxtDateQuit().setEnabled(true);
-        addEquip.getJbtAdd().setVisible(false);
+        addEquip.getJtxtDateEnter().setEnabled(true);
+        int k = jtbEquipment.getSelectedRow();
+        if (k >= 0) {
+            String ID_Choose = (String) jtbEquipment.getModel().getValueAt(k, 0);
+            addEquip.setIDChosse(ID_Choose);
+            ArrayList<Equipment> list = new ArrayList<>();
+            Equipment equip = new Equipment();
+            list = equipmentListener.FindID(ID_Choose);
+            equip = list.get(0);
+            addEquip.getJtxtID().setText(equip.getID());
+            addEquip.getJtxtName().setText(equip.getName());
+            addEquip.getJtxtPrice().setText(equip.getPrice());
+            addEquip.getJtxtProvider().setText(equip.getProviders());
+            addEquip.getJtxtNumGood().setText(String.valueOf(equip.getNumOfGood()));
+            addEquip.getJtxtNumBad().setText(String.valueOf(equip.getNumOfBad()));
+            addEquip.getJtxtDateEnter().setText(LocalTime.ChangeTypeDate_dMy(equip.getDateEnter()));
+            if (equip.getDateQuit().compareTo("") == 0) {
+                addEquip.getJtxtDateQuit().setText("");
+            } else {
+                addEquip.getJtxtDateQuit().setText(LocalTime.ChangeTypeDate_dMy(equip.getDateQuit()));
+            }
+            addEquip.setVisible(true);
+            addEquip.getJbtUpdate().setVisible(true);
+            addEquip.getJtxtDateQuit().setEnabled(true);
+            addEquip.getJbtAdd().setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn thiết bị muốn cập nhật");
+        }
     }//GEN-LAST:event_jbtUpdateMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -400,6 +434,14 @@ public class EquipmentManager extends javax.swing.JFrame {
         ShowEquip(1);
     }//GEN-LAST:event_formWindowActivated
 
+    private void jtxtFindKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtFindKeyPressed
+        if (evt.getKeyCode() ==  KeyEvent.VK_ENTER) {
+            ArrayList<Equipment> equip = new ArrayList<Equipment>();
+            equip = equipmentListener.FindName("%" + jtxtFind.getText() + "%");
+            showSupport(equip);
+        }
+    }//GEN-LAST:event_jtxtFindKeyPressed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -411,16 +453,24 @@ public class EquipmentManager extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EquipmentManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentManager.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EquipmentManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentManager.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EquipmentManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentManager.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EquipmentManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EquipmentManager.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

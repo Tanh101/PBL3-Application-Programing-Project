@@ -585,7 +585,7 @@ public class staff extends javax.swing.JFrame {
 
     private void jbtStaffManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtStaffManagerMouseClicked
         setShowMenu(staffManager);
-        staffManager.showListStaff();
+        staffManager.showListStaff(1);
         staffManager.setID_NVQL(ID_NVQL);
         setMenuColor(jlb1);
 

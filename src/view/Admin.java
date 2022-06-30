@@ -26,6 +26,7 @@ import view.AddJframe.AddStaffManager;
  * @author ADMIN
  */
 public class Admin extends javax.swing.JFrame {
+
     private LocalTime localTime = new LocalTime();
     private String url = "D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\StaffManagement\\";
     AddStaffManager add = new AddStaffManager();
@@ -63,8 +64,8 @@ public class Admin extends javax.swing.JFrame {
         for (int i = 0; i < vec.size(); i++) {
             model.addRow(new Object[]{
                 vec.get(i).getID_NVQL(), vec.get(i).getPassword(), vec.get(i).getCCCD(), vec.get(i).getName(),
-                vec.get(i).getDateOfBirth(), vec.get(i).getGender(), vec.get(i).getPhoneNumber(),
-                vec.get(i).getDateEnter(), vec.get(i).getDateQuit()
+                (vec.get(i).getDateOfBirth()), vec.get(i).getGender(), vec.get(i).getPhoneNumber(),
+                (vec.get(i).getDateEnter()), (vec.get(i).getDateQuit())
             });
         }
         jtbStaffManager.setModel(model);
@@ -118,16 +119,19 @@ public class Admin extends javax.swing.JFrame {
         add.getJtxtName().setText((mstaff.getName()));
         if (mstaff.getGender().compareTo("Nam") == 0) {
             add.getJradioMale().setSelected(true);
-        }
-        else{
+        } else {
             add.getJradioFemale().setSelected(true);
         }
         add.setJtxtEmail((mstaff.getEmail()));
         add.getJtxtAddress().setText(mstaff.getAddress());
-        add.getJtxtDOB().setText(mstaff.getDateOfBirth());
+        add.getJtxtDOB().setText(localTime.ChangeTypeDate_dMy(mstaff.getDateOfBirth()));
         add.getJtxtPhone().setText(mstaff.getPhoneNumber());
-        add.getJtxtDateEnter().setText(mstaff.getDateEnter());
-        add.getJtxtDateQuit().setText(mstaff.getDateQuit());
+        add.getJtxtDateEnter().setText(localTime.ChangeTypeDate_dMy(mstaff.getDateEnter()));
+        if (mstaff.getDateQuit().compareTo("") == 0) {
+            add.getJtxtDateQuit().setText("");
+        } else {
+            add.getJtxtDateQuit().setText(localTime.ChangeTypeDate_dMy(mstaff.getDateQuit()));
+        }
         add.getJtxtUrlImage().setText(mstaff.getImage());
         add.getJlbImage().setIcon(ResizeImage(url + add.getJtxtUrlImage().getText()));
         add.setID_Choose(ID_Choose);
@@ -580,11 +584,11 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtLogoutIconMouseClicked
 
     private void jbtShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtShowMouseClicked
-        ShowListManagerStaff();   
+        ShowListManagerStaff();
     }//GEN-LAST:event_jbtShowMouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        ShowListManagerStaff();   
+        ShowListManagerStaff();
     }//GEN-LAST:event_formWindowActivated
 
     /**

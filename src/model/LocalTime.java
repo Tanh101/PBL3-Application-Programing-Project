@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,6 +29,9 @@ public class LocalTime {
         SimpleDateFormat outSDF = new SimpleDateFormat("dd-MM-yyyy");
         Date date;
         String outDate = "";
+        if(Date.compareTo("") == 0){
+            return "";
+        }
         try {
             date = inSDF.parse(Date);
             outDate = outSDF.format(date);
@@ -43,12 +47,16 @@ public class LocalTime {
         SimpleDateFormat outSDF = new SimpleDateFormat("yyyy-MM-dd");
         Date date;
         String outDate = "";
+        if(Date.compareTo("") == 0){
+            return "";
+        }
         try {
             date = inSDF.parse(Date);
             outDate = outSDF.format(date);
 
         } catch (ParseException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+//              JOptionPane.showMe
         }
         return outDate;
     }

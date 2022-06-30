@@ -54,8 +54,7 @@ public class StaffManager extends javax.swing.JFrame {
     public StaffManager() {
         initComponents();
         setWidthTable();
-        showListStaff();
-
+        showListStaff(1);
         jTabbedPane1.setSelectedIndex(0);
 
     }
@@ -81,49 +80,28 @@ public class StaffManager extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < vec.size(); i++) {
             model.addRow(new Object[]{
-                vec.get(i).getID_CBNV(), vec.get(i).getPassword(), vec.get(i).getName(), vec.get(i).getDateOfBirth(),
+                vec.get(i).getID_CBNV(), vec.get(i).getPassword(), vec.get(i).getName(), LocalTime.ChangeTypeDate_dMy(vec.get(i).getDateOfBirth()),
                 vec.get(i).getPhoneNumber(), vec.get(i).getGender(), vec.get(i).getAddress()
             });
         }
         jtbStaff.setModel(model);
     }
 
-    public void showListStaff() {
+    public void showListStaff(int i) {
 
-        ArrayList<Staff> vec = staffListener.getListStaff(1);
+        ArrayList<Staff> vec = staffListener.getListStaff(i);
         showSupport(vec);
-    }
-
-    public void showListCurrentStaff() {
-        ArrayList<Staff> vec = staffListener.getListStaff(2);
-        DefaultTableModel model = (DefaultTableModel) jtbStaff.getModel();
-        model.setRowCount(0);
-        for (int i = 0; i < vec.size(); i++) {
-            model.addRow(new Object[]{
-                vec.get(i).getID_CBNV(), vec.get(i).getPassword(), vec.get(i).getName(), vec.get(i).getDateOfBirth(),
-                vec.get(i).getPhoneNumber(), vec.get(i).getGender(), vec.get(i).getAddress()
-            });
-        }
-        jtbStaff.setModel(model);
-    }
-
-    public void showListQuitStaff() {
-        ArrayList<Staff> vec = staffListener.getListStaff(3);
-        DefaultTableModel model = (DefaultTableModel) jtbStaff.getModel();
-        model.setRowCount(0);
-        for (int i = 0; i < vec.size(); i++) {
-            model.addRow(new Object[]{
-                vec.get(i).getID_CBNV(), vec.get(i).getPassword(), vec.get(i).getName(), vec.get(i).getDateOfBirth(),
-                vec.get(i).getPhoneNumber(), vec.get(i).getGender(), vec.get(i).getAddress()
-            });
-        }
-        jtbStaff.setModel(model);
     }
 
     public void showDateContract(String ID) {
         LaborContract lob = staffListener.getLaborContract(ID);
-        jtxtDateStart.setText(lob.getDateStart());
-        jtxtDateEnd.setText(lob.getDateEnd());
+        jtxtDateStart.setText(LocalTime.ChangeTypeDate_dMy(lob.getDateStart()));
+//        System.out.println(lob.getDateEnd());
+        if (lob.getDateEnd().compareTo("") == 0) {
+            jtxtDateEnd.setText("");
+        } else {
+            jtxtDateEnd.setText(LocalTime.ChangeTypeDate_dMy(lob.getDateEnd()));
+        }
     }
 
     public void getDataFromTable() {
@@ -135,7 +113,7 @@ public class StaffManager extends javax.swing.JFrame {
         jtxtID.setText(s.getID_CBNV());
         jtxtPass.setText(s.getPassword());
         jtxtName.setText(s.getName());
-        jtxtDateOfBirth.setText(s.getDateOfBirth());
+        jtxtDateOfBirth.setText(LocalTime.ChangeTypeDate_dMy(s.getDateOfBirth()));
         jtxtPhoneNumber.setText(s.getPhoneNumber());
         if (s.getGender().compareTo("Nam") == 0) {
             jrdioMale.setSelected(true);
@@ -145,13 +123,14 @@ public class StaffManager extends javax.swing.JFrame {
         jtxtAddress.setText(s.getAddress());
         jtxtPhoto.setText(s.getNamePhoto());
         jlbImage.setIcon(ResizeImage(url + s.getNamePhoto()));
+        showDateContract(ID_Choose);
     }
 
     public void Insert() {
         String ID = autoCreateID();
         String Pass = jtxtPass.getText();
         String Name = jtxtName.getText();
-        String DOB = jtxtDateOfBirth.getText();
+        String DOB = LocalTime.ChangeTypeDate_yMd(jtxtDateOfBirth.getText());
         String PhoneNumber = jtxtPhoneNumber.getText();
         String Address = jtxtAddress.getText();
         String Gender = "";
@@ -188,7 +167,7 @@ public class StaffManager extends javax.swing.JFrame {
             String ID = jtxtID.getText();
             String Pass = jtxtPass.getText();
             String Name = jtxtName.getText();
-            String DOB = jtxtDateOfBirth.getText();
+            String DOB = LocalTime.ChangeTypeDate_yMd(jtxtDateOfBirth.getText());
             String PhoneNumber = jtxtPhoneNumber.getText();
             String Address = jtxtAddress.getText();
 
@@ -202,10 +181,12 @@ public class StaffManager extends javax.swing.JFrame {
             if (NamePhoto.compareTo("") == 0) {
                 NamePhoto = url + "default.png";
             }
-            String DateStart = jtxtDateStart.getText();
+            String DateStart = LocalTime.ChangeTypeDate_yMd(jtxtDateStart.getText());
             String DateEnd = jtxtDateEnd.getText();
             if (DateEnd.compareTo("") == 0) {
                 DateEnd = null;
+            } else {
+                DateEnd = LocalTime.ChangeTypeDate_yMd(DateEnd);
             }
             if (ID.isEmpty() || Pass.isEmpty() || Name.isEmpty() || DOB.isEmpty() || PhoneNumber.isEmpty()
                     || Address.isEmpty() || Gender.isEmpty() || DateStart.isEmpty()) {
@@ -529,13 +510,13 @@ public class StaffManager extends javax.swing.JFrame {
         });
         jPanel2.add(jbtStaffCurrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 350, 140, 50));
 
-        jLabel11.setText("yyyy-mm-dd");
+        jLabel11.setText("dd-MM-yyyy");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 310, -1, -1));
 
-        jLabel12.setText("yyyy-mm-dd");
+        jLabel12.setText("dd-MM-yyyy");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 220, -1, -1));
 
-        jLabel13.setText("yyyy-mm-dd");
+        jLabel13.setText("dd-MM-yyyy");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, -1, -1));
 
         jbtDelel1.setBorder(null);
@@ -648,43 +629,41 @@ public class StaffManager extends javax.swing.JFrame {
 
     private void jbtResestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResestMouseClicked
         Resest();
-        showListStaff();
+        showListStaff(1);
     }//GEN-LAST:event_jbtResestMouseClicked
 
     private void jbtStaffQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtStaffQuitActionPerformed
-        showListQuitStaff();
+        showListStaff(3);
 
     }//GEN-LAST:event_jbtStaffQuitActionPerformed
 
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
         Update();
-        showListStaff();
+        showListStaff(1);
     }//GEN-LAST:event_jbtUpdateMouseClicked
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
         Insert();
-        showListStaff();
+        showListStaff(1);
 
     }//GEN-LAST:event_jbtAddMouseClicked
 
     private void jbtStaffCurrentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtStaffCurrentActionPerformed
-        showListCurrentStaff();
+        showListStaff(2);
     }//GEN-LAST:event_jbtStaffCurrentActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        showListStaff();
+        showListStaff(1);
         Resest();
     }//GEN-LAST:event_formWindowOpened
 
     private void jtbStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbStaffMouseClicked
         getDataFromTable();
-        String ID = jtxtID.getText();
-        showDateContract(ID);
     }//GEN-LAST:event_jtbStaffMouseClicked
 
     private void jbtDelel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDelel1MouseClicked
         Delete();
-        showListStaff();
+        showListStaff(1);
     }//GEN-LAST:event_jbtDelel1MouseClicked
 
     private void jButtonCustom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustom2ActionPerformed
