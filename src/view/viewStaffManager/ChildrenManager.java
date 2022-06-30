@@ -222,6 +222,7 @@ public class ChildrenManager extends javax.swing.JFrame {
         jtxtSituation.setText("");
         jlbImage.setIcon(ResizeImage(url + "default.png"));
         jbtAdopt.setText("Nhận Nuôi");
+        adopt.getJbtAdd().setVisible(true);
     }
 
     public void Delete() {
@@ -286,32 +287,9 @@ public class ChildrenManager extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Trẻ đã rời trung tâm");
                 }
             } else {
-//                check.setVisible(true);
-//                if (isCheck > 0) {
-//                    JOptionPane.showMessageDialog(null, "Đã tồn tại người nhận nuôi.");
-//                    Adopter a = check.isExits().get(0);
-//                    adopt.getJtxtName().setText(a.getName());
-//                    adopt.getJtxtAddress().setText(a.getAddress());
-//                    adopt.getJtxtCCCD().setText(a.getCCCD());
-//                    adopt.getJtxtDOB().setText(LocalTime.ChangeTypeDate_dMy(a.getDOB()));
-//                    adopt.getJtxtPhone().setText(a.getPhoneNumber());
-//                    adopt.getJtxtDateAdopt().setText(LocalTime.ChangeTypeDate_dMy(a.DateAdopt));
-//                    if (a.getGender().compareTo("Nam") == 0) {
-//                        adopt.getJradioMale().setSelected(true);
-//                    } else {
-//                        adopt.getJradioFemale().setSelected(true);
-//                    }
-////                    adopt.setVisible(true);
-//                }else{
-//                    JOptionPane.showMessageDialog(null, "Thêm mới người nhận nuôi");
-//                    adopt.getJtxtCCCD().setText(check.getJtxtCC().getText());
-////                    adopt.setVisible(true);
-//                }
-                //getdata nhuw tren nma tim theo cccd
-//                SHOW_ADOPTER_WITH_CCCD
-//                @CCCD = ? nhuw cai with id
                 adopt.obj = tmp;
                 ChangeTypeDisplay(false);
+                adopt.getJbtAdd().setVisible(true);
                 adopt.setVisible(true);
             }
         }

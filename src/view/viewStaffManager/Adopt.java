@@ -36,6 +36,7 @@ public class Adopt extends javax.swing.JFrame {
         jtxtPhone.setText("");
         jradioFemale.setSelected(false);
         jradioMale.setSelected(false);
+        jtxtFind.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -253,6 +254,7 @@ public class Adopt extends javax.swing.JFrame {
         adop.setPhoneNumber(jtxtPhone.getText());
         adop.setDOB(LocalTime.ChangeTypeDate_yMd(jtxtDOB.getText()));
         String DateAdopt = LocalTime.getDateNow();
+
         if (adop.checkInformation() == false) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin người nhận nuôi");
 
@@ -261,9 +263,13 @@ public class Adopt extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Sai định dạng ngày sinh (dd-mm-yyyy), vui lòng kiểm tra lại");
                 jtxtDOB.setBackground(Color.red);
             } else {
-                System.out.println(DateAdopt);
-                adopterListener.AddAdopter(adop, ID_TRE, ID_NVQL, DateAdopt);
-                jtxtDOB.setBackground(Color.white);
+                ArrayList<Adopter> list = adopterListener.FindAdop(1, jtxtCCCD.getText());
+                if (list.size() > 0) {
+                    adopterListener.AdoptChild(adop, ID_TRE, ID_NVQL, DateAdopt);
+                } else {
+                    adopterListener.AddAdopter(adop, ID_TRE, ID_NVQL, DateAdopt);
+                    jtxtDOB.setBackground(Color.white);
+                }
                 this.setVisible(false);
             }
         }
@@ -278,8 +284,8 @@ public class Adopt extends javax.swing.JFrame {
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked
         String CCCD = jtxtFind.getText();
         ArrayList<Adopter> list = adopterListener.FindAdop(1, CCCD);
-        Adopter a = list.get(0);
         if (list.size() > 0) {
+            Adopter a = list.get(0);
             JOptionPane.showMessageDialog(null, "Tìm kiếm thành công! Người nhận nuôi đã có trong trung tâm");
             jtxtName.setText(a.getName());
             JtxtAddress.setText(a.getAddress());
@@ -294,6 +300,8 @@ public class Adopt extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Người này chưa nhận nuôi trẻ nào trong trung tâm");
+            Reset();
+            jtxtCCCD.setText(CCCD);
             jtxtName.setEditable(true);
             JtxtAddress.setEditable(true);
             jtxtCCCD.setEditable(true);

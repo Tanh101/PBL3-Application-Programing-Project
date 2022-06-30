@@ -159,7 +159,22 @@ public class AdopterListener extends ConnectDatabase {
             pre.setString(9, DateAdopt);
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Thêm người nhận nuôi " + adop.getName() + " thành công");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void AdoptChild(Adopter adop, String ID_TRE, String ID_NVQL, String DateAdopt) {
+        String sql = " ADD_ChildAdopt\n"
+                + "@DateQuit = ?, @ID_TRE = ?, @ID_NVQL = ?, @CCCD = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, DateAdopt);
+            pre.setString(2, ID_TRE);
+            pre.setString(3, ID_NVQL);
+            pre.setString(4, adop.getCCCD());
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Nhận nuôi trẻ có ID:  " + ID_TRE + " thành công");
         } catch (Exception e) {
             e.printStackTrace();
         }
