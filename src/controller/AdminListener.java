@@ -6,11 +6,14 @@ package controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import static javax.swing.JOptionPane.showMessageDialog;
 import model.Children;
+import model.LocalTime;
 import model.managementStaff;
 
 /**
@@ -18,6 +21,8 @@ import model.managementStaff;
  * @author ADMIN
  */
 public class AdminListener extends ConnectDatabase {
+
+    private LocalTime localTime = new LocalTime();
 
     public String getStoreProcShowAll() {
         return "ShowListStaff";
@@ -29,10 +34,6 @@ public class AdminListener extends ConnectDatabase {
 
     public String getStoreProShowQuit() {
         return "ShowListQuit";
-    }
-
-    private String getStoreProInsert() {
-        return "INSERTSTAFF @ID_NVQL = ?";
     }
 
     public ArrayList<managementStaff> getListManagerStaff(String sql) {
@@ -68,7 +69,7 @@ public class AdminListener extends ConnectDatabase {
     }
 
     private String StoreProDelete() {
-        return "DeleteNVQL @ID_Choose = ?";
+        return "DeleteNVQL @ID_Choose = ?, @NgayNghiViec = ?";
     }
 
     public void Delete(String ID_NVQL) {
@@ -76,6 +77,7 @@ public class AdminListener extends ConnectDatabase {
         try {
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, ID_NVQL);
+            stat.setString(2, localTime.getDateNow());
             stat.executeUpdate();
             showMessageDialog(null, "Xoá Nhân Viên Quản lí có ID: " + ID_NVQL + " thành công !");
         } catch (Exception e) {
@@ -89,7 +91,7 @@ public class AdminListener extends ConnectDatabase {
                 + "@ADDRESS = ?,@PHONE = ?,@EMAIL = ?, @DATEENTER = ?, @DATEQUIT= ?, @IMGAE = ?";
     }
 
-    public void Insert(String IDNVQL, String Pass,int Role, String CCCD, String Name, String DOB, String Gender, String Address,
+    public void Insert(String IDNVQL, String Pass, int Role, String CCCD, String Name, String DOB, String Gender, String Address,
             String Phone, String Email, String DateEnter, String DateQuit, String Image) {
         String sql = StroreProcudureAdd();
         try {
@@ -115,9 +117,9 @@ public class AdminListener extends ConnectDatabase {
         }
     }
 
-    public Vector<managementStaff> FindID(String ID) {
+    public ArrayList<managementStaff> FindID(String ID) {
 //        return "FindID @ID=? ";
-        Vector<managementStaff> list = new Vector<managementStaff>();
+        ArrayList<managementStaff> list = new ArrayList<managementStaff>();
         try {
             PreparedStatement pre = conn.prepareStatement("FindID @ID=?");
             pre.setString(1, ID);
@@ -154,7 +156,7 @@ public class AdminListener extends ConnectDatabase {
                 + "@ADDRESS = ?,@PHONE = ?,@EMAIL = ?,@DATEENTER = ?,@DATEQUIT = ?,@IMGAE = ?";
     }
 
-    public void Update(String ID_Choose,String Pass, String CCCD, String Name, String DOB, String Gender, String Address,
+    public void Update(String ID_Choose, String Pass, String CCCD, String Name, String DOB, String Gender, String Address,
             String Phone, String Email, String DateEnter, String DateQuit, String Image) {
         String sql = StoreProcedureUpdate();
         try {
@@ -179,33 +181,6 @@ public class AdminListener extends ConnectDatabase {
 
     }
 
-//    public 
-//    private void Insert(int IDNVQL, String Pass , String CCCD, String Name, String Gender, String Address,
-//            String Phone, String Email, String DateEnter,String DateQuit, String Image){
-//        String sql = getStoreProInsert();
-//        try {
-////            if (FindID(ID_TRE).size() == 0) {
-//
-//                PreparedStatement pre = conn.prepareStatement(sql);
-//                pre.setInt(1, IDNVQL);
-//                pre.setString(2, CCCD);
-//                pre.setString(3, Name);
-//                pre.setString(4, Gender);
-//                pre.setString(5, Address);
-//                pre.setString(6, Phone);
-//                pre.setString(7, Email);
-//                pre.setString(8, DateEnter);
-//                pre.setString(9, DateQuit);
-//                pre.setString(10, Image);
-//
-//                pre.executeQuery();
-////            } else {
-////                showMessageDialog(null, "Trẻ đã tồn tại trong trung tâm");
-////            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
     public static void main(String[] args) {
 //        AdminListener adminListener = new AdminListener();
 //        Vector<managementStaff> vec = new Vector<>();

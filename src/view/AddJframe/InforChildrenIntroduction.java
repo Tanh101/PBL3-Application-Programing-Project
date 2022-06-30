@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Adopted;
 import model.Children;
 import model.IntroduceChildren;
+import view.LoginUser;
 import view.viewStaffManager.*;
 
 /**
@@ -212,8 +213,8 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -393,7 +394,7 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
                 jtbRestMouseClicked(evt);
             }
         });
-        jPanel1.add(jtbRest, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 40));
+        jPanel1.add(jtbRest, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setText("GIỚI THIỆU TRẺ");
@@ -422,6 +423,7 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
 
     private void jtbRestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbRestMouseClicked
         this.setVisible(false);
+        new LoginUser().setVisible(true);
     }//GEN-LAST:event_jtbRestMouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -431,10 +433,6 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
     private void jtbChildIntroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbChildIntroMouseClicked
         getDataFromTable();
     }//GEN-LAST:event_jtbChildIntroMouseClicked
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-//        ClearJtxt();
-    }//GEN-LAST:event_formWindowClosed
 
     private void jtxtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtAddressActionPerformed
         // TODO add your handling code here:
@@ -452,6 +450,10 @@ public class InforChildrenIntroduction extends javax.swing.JFrame {
         ClearJtxt();
         jlbName.setText(introListener.getNameIntroductor(ID));
     }//GEN-LAST:event_jbtResetMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        jlbName.setText(ID);
+    }//GEN-LAST:event_formWindowOpened
 
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */

@@ -66,5 +66,13 @@ public class Adopter {
     public void setDOB(String DOB) {
         this.DOB = DOB;
     }
+    public boolean checkInformation(){
+        if(this.Name.isEmpty() || this.CCCD.isEmpty() || this.Gender.isEmpty() ||
+                this.Address.isEmpty() || this.PhoneNumber.isEmpty() || this.DOB.isEmpty()){
+            return false;
+        }
+        return true;
+    }
     String CCCD, Name, Gender, Address, PhoneNumber, DOB;
+    public String DateAdopt;
 }

@@ -10,6 +10,18 @@ import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -287,7 +299,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnExitMouseEntered
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
+        LoadRememberPass();
     }//GEN-LAST:event_formWindowOpened
 
     private void jpassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpassKeyPressed
@@ -333,26 +345,112 @@ public class Login extends javax.swing.JFrame {
         String value = this.jboxChoose.getSelectedItem().toString();
         if (value.equals("Quản Trị Viên")) {
             if (log.checkAccount(acc, pass, 1) == true) {
+                Writer wt1;
+                try {
+
+                    wt1 = new OutputStreamWriter(new FileOutputStream("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\test\\rememberAdmin.txt"), "UTF-8");
+                    BufferedWriter wt = new BufferedWriter(wt1);
+                    if (jcbRemember.isSelected()) {
+                        wt.write(acc + " " + pass);
+                        Writer wt2 = new OutputStreamWriter(new FileOutputStream("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\test\\rememberStaffManager.txt"), "UTF-8");
+                        BufferedWriter wtt = new BufferedWriter(wt2);
+                        wtt.write("");
+                        wtt.close();
+                    } else {
+                        wt.write("");
+                    }
+                    wt.close();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(LoginUser.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedEncodingException ex) {
+                    Logger.getLogger(LoginUser.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 new Admin().setVisible(true);
                 this.setVisible(false);
             } else {
                 showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
             }
-        } else {
+        } else if (value.equals("Nhân Viên Quản Lý")) {
             if (log.checkAccount(acc, pass, 2) == true) {
+                try {
+                    Writer wt1 = new OutputStreamWriter(new FileOutputStream("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\test\\rememberStaffManager.txt"), "UTF-8");
+                    BufferedWriter wt = new BufferedWriter(wt1);
+                    if (jcbRemember.isSelected()) {
+                        wt.write(acc + " " + pass);
+                        Writer wt2 = new OutputStreamWriter(new FileOutputStream("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\test\\rememberAdmin.txt"), "UTF-8");
+                        BufferedWriter wtt = new BufferedWriter(wt2);
+                        wtt.write("");
+                        wtt.close();
+
+                    } else {
+                        wt.write("");
+                    }
+                    wt.close();
+
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(LoginUser.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedEncodingException ex) {
+                    Logger.getLogger(LoginUser.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 this.setVisible(false);
                 staff st = new staff();
                 st.getjlbNameStaff().setText(log.getNameStaff(acc));
-                System.out.println(log.getNameStaff(acc));
                 st.setVisible(true);
                 st.setID_NVQL(acc);
                 st.setVisible(true);
             } else {
                 showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
             }
+        } else {
+
         }
 
     }
+
+    private void LoadRememberPass() {
+        try {
+            String fileAdmin = "D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\test\\rememberAdmin.txt";
+            String fileStaff = "D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\test\\rememberStaffManager.txt";
+            Reader rd1 = new InputStreamReader(new FileInputStream(fileStaff), "UTF-8");
+            BufferedReader rd = new BufferedReader(rd1);
+            String c = "";
+
+            if ((c = rd.readLine()) != null) {
+                if (c.compareTo("") == 0) {
+                    jcbRemember.setSelected(false);
+                } else {
+                    jboxChoose.setSelectedIndex(1);
+                    jcbRemember.setSelected(true);
+                    String[] line = c.split(" ");
+                    jtxtAccount.setText(line[0]);
+                    jpass.setText(line[1]);
+                }
+
+            } else {
+                Reader rd2 = new InputStreamReader(new FileInputStream(fileAdmin), "UTF-8");
+                c = "";
+                rd = new BufferedReader(rd2);
+                if ((c = rd.readLine()) != null) {
+                    if (c.compareTo("") == 0) {
+                        jcbRemember.setSelected(false);
+
+                    } else {
+                        jcbRemember.setSelected(true);
+                        String[] line = c.split(" ");
+                        jtxtAccount.setText(line[0]);
+                        jpass.setText(line[1]);
+                    }
+                }
+            }
+            rd.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
-
-

@@ -87,7 +87,6 @@ public class EquipmentManager extends javax.swing.JFrame {
         addEquip.getJtxtDateEnter().setEnabled(true);
         int k = jtbEquipment.getSelectedRow();
         if (k >= 0) {
-
             String ID_Choose = (String) jtbEquipment.getModel().getValueAt(k, 0);
             addEquip.setIDChosse(ID_Choose);
             ArrayList<Equipment> list = new ArrayList<>();

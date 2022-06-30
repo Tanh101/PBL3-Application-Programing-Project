@@ -5,6 +5,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
+import model.managementStaff;
+import view.AddJframe.AddStaffManager;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -13,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Children;
+import model.LocalTime;
 import model.managementStaff;
 import view.AddJframe.AddStaffManager;
 
@@ -21,7 +26,7 @@ import view.AddJframe.AddStaffManager;
  * @author ADMIN
  */
 public class Admin extends javax.swing.JFrame {
-
+    private LocalTime localTime = new LocalTime();
     private String url = "D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\StaffManagement\\";
     AddStaffManager add = new AddStaffManager();
     AdminListener adminListener = new AdminListener();
@@ -39,14 +44,14 @@ public class Admin extends javax.swing.JFrame {
         jtbStaffManager.getTableHeader().setBackground(new Color(0, 204, 255));
         jtbStaffManager.setBackground(Color.WHITE);
         jtbStaffManager.getColumnModel().getColumn(0).setPreferredWidth(110);
-        jtbStaffManager.getColumnModel().getColumn(1).setPreferredWidth(110);
+        jtbStaffManager.getColumnModel().getColumn(1).setPreferredWidth(130);
         jtbStaffManager.getColumnModel().getColumn(2).setPreferredWidth(130);
-        jtbStaffManager.getColumnModel().getColumn(3).setPreferredWidth(300);
+        jtbStaffManager.getColumnModel().getColumn(3).setPreferredWidth(240);
         jtbStaffManager.getColumnModel().getColumn(4).setPreferredWidth(120);
         jtbStaffManager.getColumnModel().getColumn(5).setPreferredWidth(110);
         jtbStaffManager.getColumnModel().getColumn(6).setPreferredWidth(110);
-        jtbStaffManager.getColumnModel().getColumn(7).setPreferredWidth(110);
-        jtbStaffManager.getColumnModel().getColumn(8).setPreferredWidth(110);
+        jtbStaffManager.getColumnModel().getColumn(7).setPreferredWidth(120);
+        jtbStaffManager.getColumnModel().getColumn(8).setPreferredWidth(120);
         jtbStaffManager.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 17));
         ((DefaultTableCellRenderer) jtbStaffManager.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
@@ -88,7 +93,6 @@ public class Admin extends javax.swing.JFrame {
         try {
             int k = jtbStaffManager.getSelectedRow();
             String ID_Choose = (String) jtbStaffManager.getModel().getValueAt(k, 0);
-            Vector<managementStaff> list = new Vector<managementStaff>();
             adminListener.Delete(ID_Choose);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên muốn xoá");
@@ -106,8 +110,8 @@ public class Admin extends javax.swing.JFrame {
     public void getDataFromTable() {
         int k = jtbStaffManager.getSelectedRow();
         String ID_Choose = (String) jtbStaffManager.getModel().getValueAt(k, 0);
-        Vector<managementStaff> list = new Vector<managementStaff>();
-        list = adminListener.FindID(Integer.parseInt(ID_Choose));
+        ArrayList<managementStaff> list = new ArrayList<managementStaff>();
+        list = adminListener.FindID(ID_Choose);
         managementStaff mstaff = list.get(0);
         add.getJtxtPassword().setText(mstaff.getPassword());
         add.getJtxtCCCD().setText(mstaff.getCCCD());
@@ -499,6 +503,7 @@ public class Admin extends javax.swing.JFrame {
         add.getJbttAdd().setVisible(true);
         add.getJtxtDateEnter().setEnabled(false);
         add.getJtxtDateQuit().setEnabled(false);
+        add.getJtxtDateEnter().setText(localTime.getDateNow());
 //        add.Resest();
 
     }//GEN-LAST:event_jbtAddMouseClicked

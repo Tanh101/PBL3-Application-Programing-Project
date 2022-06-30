@@ -21,6 +21,31 @@ public class AdopterListener extends ConnectDatabase {
         return "SHOW_ADOPTER";
     }
 
+    public ArrayList<Adopter> getAdopterWithID_TRE(String ID_TRE) {
+        String sql = "SHOW_ADOPTER_WITH_ID_TRE\n"
+                + "@ID_TRE = ?";
+        ArrayList<Adopter> list = new ArrayList<>();
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, ID_TRE);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                Adopter adop = new Adopter();
+                adop.setCCCD(rs.getString(1));
+                adop.setName(rs.getString(2));
+                adop.setDOB(rs.getString(3));
+                adop.setGender(rs.getString(4));
+                adop.setAddress(rs.getString(5));
+                adop.setPhoneNumber(rs.getString(6));
+                adop.DateAdopt = rs.getString(7);
+                list.add(adop);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return list;
+    }
+
     public ArrayList<Adopter> getListAdop() {
         String sql = storeShow();
         ArrayList<Adopter> list = new ArrayList<>();
@@ -111,9 +136,32 @@ public class AdopterListener extends ConnectDatabase {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, CCCD_Choose);
             pre.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Xoá người nhận nuôi "+ CCCD_Choose + " thành công!");
+            JOptionPane.showMessageDialog(null, "Xoá người nhận nuôi " + CCCD_Choose + " thành công!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    public void AddAdopter(Adopter adop, String ID_TRE, String ID_NVQL, String DateAdopt) {
+        String sql = "ADD_ADOPTER\n"
+                + "@CCCD = ?, @HoTen  = ?, @GioiTinh  = ?, @DiaChi  = ?, \n"
+                + " @SDT = ?, @DOB  = ?, @ID_TRE  = ?, @ID_NVQL  = ?, @NgayNhanNuoi  = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, adop.getCCCD());
+            pre.setString(2, adop.getName());
+            pre.setString(3, adop.getGender());
+            pre.setString(4, adop.getAddress());
+            pre.setString(5, adop.getPhoneNumber());
+            pre.setString(6, adop.getDOB());
+            pre.setString(7, ID_TRE);
+            pre.setString(8, ID_NVQL);
+            pre.setString(9, DateAdopt);
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Thêm người nhận nuôi " + adop.getName() + " thành công");
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

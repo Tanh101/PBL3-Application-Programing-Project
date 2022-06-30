@@ -4,27 +4,38 @@
  */
 package view.viewStaffManager;
 
+import controller.AdopterListener;
 import controller.ChildrenListener;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import model.Adopter;
 import model.Children;
+import model.IntroduceChildren;
+import model.LocalTime;
 import model.Staff;
+import view.AddJframe.checkCCCD;
 
 /**
  *
  * @author ADMIN
  */
 public class ChildrenManager extends javax.swing.JFrame {
+
+    private AdopterListener adopterListener = new AdopterListener();
+    private Adopt adopt = new Adopt();
 
     private String url = "D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\ChildrenImage\\";
     private String ID_NVQL;
@@ -63,6 +74,11 @@ public class ChildrenManager extends javax.swing.JFrame {
     public void getDataFromTable() {
         int k = jtbChildren.getSelectedRow();
         String ID_Choose = (String) jtbChildren.getModel().getValueAt(k, 0);
+        if (childrenListener.checkAdopt(ID_Choose)) {
+            this.jbtAdopt.setText("Xem người nhận nuôi");
+        } else {
+            jbtAdopt.setText("Nhận Nuôi");
+        }
         ArrayList<Children> list = new ArrayList<Children>();
         list = childrenListener.FindChild(1, ID_Choose);
         Children s = list.get(0);
@@ -98,6 +114,7 @@ public class ChildrenManager extends javax.swing.JFrame {
         list = childrenListener.getListChildren(childrenListener.proShowChild(i));
         showSupport(list);
     }
+
     public void Find(int i, String Text) {
         ArrayList<Children> list = new ArrayList<>();
         list = childrenListener.FindChild(i, Text);
@@ -109,7 +126,6 @@ public class ChildrenManager extends javax.swing.JFrame {
 //        list = childrenListener.FindName(Name);
 //        showSupport(list);
 //    }
-
     public void Add() {
         ArrayList<Children> list = new ArrayList<>();
         list = childrenListener.getListChildren(childrenListener.proShowChild(1));
@@ -150,10 +166,10 @@ public class ChildrenManager extends javax.swing.JFrame {
                 || Gender.isEmpty() || DateEnter.isEmpty()) {
             showMessageDialog(null, "Không được để trống thông tin nhân viên!");
         } else {
-            childrenListener.Insert(ID, Name, DOB, Address, Gender, NamePhoto,"1" ,Situation,  ID_NVQL, DateEnter, DateQuit);
+            childrenListener.Insert(ID, Name, DOB, Address, Gender, NamePhoto, "1", Situation, ID_NVQL, DateEnter, DateQuit);
             showMessageDialog(null, "Thêm trẻ " + ID + " thành công");
         }
-        
+
     }
 
     public void Update() {
@@ -186,7 +202,7 @@ public class ChildrenManager extends javax.swing.JFrame {
                 showMessageDialog(null, "Không được để trống thông tin nhân viên!");
 
             } else {
-                childrenListener.Update(ID_Choose, Name, DOB, Address, Gender, NamePhoto,Situation, ID_NVQL, DateEnter, DateQuit);
+                childrenListener.Update(ID_Choose, Name, DOB, Address, Gender, NamePhoto, Situation, ID_NVQL, DateEnter, DateQuit);
                 showMessageDialog(null, "Cập nhật trẻ " + ID_Choose + " thành công");
             }
         }
@@ -205,6 +221,7 @@ public class ChildrenManager extends javax.swing.JFrame {
         jtxtPath.setText("");
         jtxtSituation.setText("");
         jlbImage.setIcon(ResizeImage(url + "default.png"));
+        jbtAdopt.setText("Nhận Nuôi");
     }
 
     public void Delete() {
@@ -234,6 +251,81 @@ public class ChildrenManager extends javax.swing.JFrame {
         jlbNumofCurrentChild.setText(String.valueOf(list.size()));
     }
 
+    public void getChildren() {
+        int k = jtbChildren.getSelectedRow();
+        String[] tmp = new String[2];
+        if (k < 0) {
+            showMessageDialog(null, "Vui lòng chọn trẻ trước khi thao tác");
+        } else {
+            String ID_Choose = (String) jtbChildren.getModel().getValueAt(k, 0);
+            tmp[0] = ID_Choose;
+            tmp[1] = ID_NVQL;
+            adopt.getJtxtDateAdopt().setText(LocalTime.ChangeTypeDate_dMy(LocalTime.getDateNow()));
+            adopt.getJtxtID_TRE().setText(ID_Choose);
+            if (jtxtDateQuit.getText().compareTo("") != 0) {
+                if (childrenListener.checkAdopt(ID_Choose)) {
+                    adopt.getJbtAdd().setVisible(false);
+                    this.jbtAdopt.setText("Xem người nhận nuôi");
+                    ArrayList<Adopter> list = adopterListener.getAdopterWithID_TRE(ID_Choose);
+                    Adopter a = list.get(0);
+                    adopt.getJtxtName().setText(a.getName());
+                    adopt.getJtxtAddress().setText(a.getAddress());
+                    adopt.getJtxtCCCD().setText(a.getCCCD());
+                    adopt.getJtxtDOB().setText(LocalTime.ChangeTypeDate_dMy(a.getDOB()));
+                    adopt.getJtxtPhone().setText(a.getPhoneNumber());
+                    adopt.getJtxtDateAdopt().setText(LocalTime.ChangeTypeDate_dMy(a.DateAdopt));
+                    if (a.getGender().compareTo("Nam") == 0) {
+                        adopt.getJradioMale().setSelected(true);
+                    } else {
+                        adopt.getJradioFemale().setSelected(true);
+                    }
+                    adopt.setVisible(true);
+
+                } else {
+                    adopt.getJbtAdd().setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Trẻ đã rời trung tâm");
+                }
+            } else {
+//                check.setVisible(true);
+//                if (isCheck > 0) {
+//                    JOptionPane.showMessageDialog(null, "Đã tồn tại người nhận nuôi.");
+//                    Adopter a = check.isExits().get(0);
+//                    adopt.getJtxtName().setText(a.getName());
+//                    adopt.getJtxtAddress().setText(a.getAddress());
+//                    adopt.getJtxtCCCD().setText(a.getCCCD());
+//                    adopt.getJtxtDOB().setText(LocalTime.ChangeTypeDate_dMy(a.getDOB()));
+//                    adopt.getJtxtPhone().setText(a.getPhoneNumber());
+//                    adopt.getJtxtDateAdopt().setText(LocalTime.ChangeTypeDate_dMy(a.DateAdopt));
+//                    if (a.getGender().compareTo("Nam") == 0) {
+//                        adopt.getJradioMale().setSelected(true);
+//                    } else {
+//                        adopt.getJradioFemale().setSelected(true);
+//                    }
+////                    adopt.setVisible(true);
+//                }else{
+//                    JOptionPane.showMessageDialog(null, "Thêm mới người nhận nuôi");
+//                    adopt.getJtxtCCCD().setText(check.getJtxtCC().getText());
+////                    adopt.setVisible(true);
+//                }
+                //getdata nhuw tren nma tim theo cccd
+//                SHOW_ADOPTER_WITH_CCCD
+//                @CCCD = ? nhuw cai with id
+                adopt.obj = tmp;
+                ChangeTypeDisplay(false);
+                adopt.setVisible(true);
+            }
+        }
+    }
+
+    public void ChangeTypeDisplay(boolean i) {
+        adopt.getJtxtName().setEditable(i);
+        adopt.getJtxtAddress().setEditable(i);
+        adopt.getJtxtCCCD().setEditable(i);
+        adopt.getJtxtDOB().setEditable(i);
+        adopt.getJtxtPhone().setEditable(i);
+        adopt.getJtxtDateAdopt().setEditable(i);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -258,13 +350,12 @@ public class ChildrenManager extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jtxtDateEnter = new javax.swing.JTextField();
         jbtChildQuit = new view.JButtonCustom();
-        jbtResest = new view.JButtonCustom();
         jLabel6 = new javax.swing.JLabel();
         jtxtDOB = new javax.swing.JTextField();
         jtxtName = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jbtAdd = new view.JButtonCustom();
-        jbtChildCurrent = new view.JButtonCustom();
+        jbtAdopt = new view.JButtonCustom();
         jLabel10 = new javax.swing.JLabel();
         jbtDelel = new view.JButtonCustom();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -280,15 +371,20 @@ public class ChildrenManager extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jtxtSituation = new javax.swing.JTextField();
+        jbtChildCurrent = new view.JButtonCustom();
         jLabel7 = new javax.swing.JLabel();
         jtxtFind = new javax.swing.JTextField();
         jbtFind = new view.JButtonCustom();
+        jbtResest1 = new view.JButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(330, 70, 70, 70));
         setUndecorated(true);
         setSize(new java.awt.Dimension(840, 650));
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -345,16 +441,11 @@ public class ChildrenManager extends javax.swing.JFrame {
                 jbtUpdateActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 120, 50));
+        jPanel2.add(jbtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 160, 50));
 
         jtxtPath.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtPath.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jtxtPath.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtPathActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jtxtPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 170, 30));
+        jPanel2.add(jtxtPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 170, 30));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel4.setText("Ngày rời TT");
@@ -365,7 +456,7 @@ public class ChildrenManager extends javax.swing.JFrame {
         jPanel2.add(jtxtDateQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 130, 240, 40));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel5.setText("Ngày nhận nuôi");
+        jLabel5.setText("Ngày Vào TT");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 110, 40));
 
         jtxtDateEnter.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -391,27 +482,7 @@ public class ChildrenManager extends javax.swing.JFrame {
                 jbtChildQuitActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtChildQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 250, 130, 50));
-
-        jbtResest.setBorder(null);
-        jbtResest.setText("Làm mới");
-        jbtResest.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtResest.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtResest.setColor(new java.awt.Color(51, 255, 153));
-        jbtResest.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtResest.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtResest.setRadius(40);
-        jbtResest.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtResestMouseClicked(evt);
-            }
-        });
-        jbtResest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtResestActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jbtResest, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 250, 120, 50));
+        jPanel2.add(jbtChildQuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 250, 160, 50));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel6.setText("Ngày Sinh");
@@ -447,27 +518,27 @@ public class ChildrenManager extends javax.swing.JFrame {
                 jbtAddActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 120, 50));
+        jPanel2.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 130, 50));
 
-        jbtChildCurrent.setBorder(null);
-        jbtChildCurrent.setText("Trẻ Hiện Tại");
-        jbtChildCurrent.setBoderColor(new java.awt.Color(255, 255, 255));
-        jbtChildCurrent.setColoOver(new java.awt.Color(255, 102, 51));
-        jbtChildCurrent.setColor(new java.awt.Color(51, 255, 153));
-        jbtChildCurrent.setColorClick(new java.awt.Color(0, 204, 255));
-        jbtChildCurrent.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jbtChildCurrent.setRadius(40);
-        jbtChildCurrent.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbtAdopt.setBorder(null);
+        jbtAdopt.setText("Nhận Nuôi Trẻ");
+        jbtAdopt.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtAdopt.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtAdopt.setColor(new java.awt.Color(51, 255, 153));
+        jbtAdopt.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtAdopt.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtAdopt.setRadius(40);
+        jbtAdopt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtChildCurrentMouseClicked(evt);
+                jbtAdoptMouseClicked(evt);
             }
         });
-        jbtChildCurrent.addActionListener(new java.awt.event.ActionListener() {
+        jbtAdopt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtChildCurrentActionPerformed(evt);
+                jbtAdoptActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtChildCurrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 130, 50));
+        jPanel2.add(jbtAdopt, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, 220, 50));
 
         jLabel10.setBackground(new java.awt.Color(153, 255, 255));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
@@ -492,7 +563,7 @@ public class ChildrenManager extends javax.swing.JFrame {
                 jbtDelelActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtDelel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 250, 120, 50));
+        jPanel2.add(jbtDelel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 250, 120, 50));
 
         jtbChildren.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbChildren.setModel(new javax.swing.table.DefaultTableModel(
@@ -545,7 +616,7 @@ public class ChildrenManager extends javax.swing.JFrame {
         jPanel2.add(jradioMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 90, -1, -1));
 
         jlbImage.setOpaque(true);
-        jPanel2.add(jlbImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 160, 150));
+        jPanel2.add(jlbImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 160, 150));
 
         ChooseFile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ChooseFile.setText("Chọn Ảnh");
@@ -559,12 +630,7 @@ public class ChildrenManager extends javax.swing.JFrame {
                 ChooseFileMouseClicked(evt);
             }
         });
-        ChooseFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChooseFileActionPerformed(evt);
-            }
-        });
-        jPanel2.add(ChooseFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 90, 30));
+        jPanel2.add(ChooseFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 90, 30));
 
         jLabel12.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel12.setText("Họ Tên");
@@ -589,6 +655,21 @@ public class ChildrenManager extends javax.swing.JFrame {
         jtxtSituation.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel2.add(jtxtSituation, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 180, 240, 40));
 
+        jbtChildCurrent.setBorder(null);
+        jbtChildCurrent.setText("Trẻ Hiện Tại");
+        jbtChildCurrent.setBoderColor(new java.awt.Color(255, 255, 255));
+        jbtChildCurrent.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtChildCurrent.setColor(new java.awt.Color(51, 255, 153));
+        jbtChildCurrent.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtChildCurrent.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtChildCurrent.setRadius(40);
+        jbtChildCurrent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtChildCurrentMouseClicked(evt);
+            }
+        });
+        jPanel2.add(jbtChildCurrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 160, 50));
+
         jTabbedPane1.addTab("tab1", jPanel2);
 
         jPanel3.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1240, -1));
@@ -601,6 +682,11 @@ public class ChildrenManager extends javax.swing.JFrame {
 
         jtxtFind.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtFind.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jtxtFind.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtFindKeyPressed(evt);
+            }
+        });
         jPanel1.add(jtxtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 240, 40));
 
         jbtFind.setBorder(null);
@@ -617,6 +703,20 @@ public class ChildrenManager extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbtFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 90, 40));
+
+        jbtResest1.setBorder(null);
+        jbtResest1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/reset_24px.png"))); // NOI18N
+        jbtResest1.setBoderColor(new java.awt.Color(153, 255, 204));
+        jbtResest1.setColoOver(new java.awt.Color(255, 102, 51));
+        jbtResest1.setColor(new java.awt.Color(153, 255, 204));
+        jbtResest1.setColorClick(new java.awt.Color(0, 204, 255));
+        jbtResest1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jbtResest1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtResest1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jbtResest1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 700));
 
@@ -638,13 +738,12 @@ public class ChildrenManager extends javax.swing.JFrame {
         Statistic();
     }//GEN-LAST:event_jbtDelelMouseClicked
 
-    private void jbtChildCurrentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtChildCurrentActionPerformed
+    private void jbtAdoptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAdoptMouseClicked
 
-    }//GEN-LAST:event_jbtChildCurrentActionPerformed
+        getChildren();
 
-    private void jbtChildCurrentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtChildCurrentMouseClicked
-        ShowChild(2);
-    }//GEN-LAST:event_jbtChildCurrentMouseClicked
+
+    }//GEN-LAST:event_jbtAdoptMouseClicked
 
     private void jbtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddActionPerformed
         // TODO add your handling code here:
@@ -657,21 +756,12 @@ public class ChildrenManager extends javax.swing.JFrame {
         Statistic();
     }//GEN-LAST:event_jbtAddMouseClicked
 
-    private void jbtResestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtResestActionPerformed
-
-    }//GEN-LAST:event_jbtResestActionPerformed
-
-    private void jbtResestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResestMouseClicked
-        ShowChild(1);
-        Reset();
-    }//GEN-LAST:event_jbtResestMouseClicked
-
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked
         String Name = jtxtFind.getText();
         if (Name.compareTo("") == 0) {
             showMessageDialog(null, "Vui lòng nhập thông tin cần tìm kiếm");
-        }else{
-            Find( 2, Name);
+        } else {
+            Find(2, Name);
         }
 
     }//GEN-LAST:event_jbtFindMouseClicked
@@ -700,15 +790,6 @@ public class ChildrenManager extends javax.swing.JFrame {
 //        showDateContract(ID);
     }//GEN-LAST:event_jtbChildrenMouseClicked
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ShowChild(1);
-        Statistic();
-    }//GEN-LAST:event_formWindowOpened
-
-    private void ChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseFileActionPerformed
-
-    }//GEN-LAST:event_ChooseFileActionPerformed
-
     private void ChooseFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChooseFileMouseClicked
 
         JFileChooser f = new JFileChooser("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\ChildrenImage");
@@ -719,9 +800,40 @@ public class ChildrenManager extends javax.swing.JFrame {
         jlbImage.setIcon(ResizeImage(String.valueOf(url + FileName.getName())));
     }//GEN-LAST:event_ChooseFileMouseClicked
 
-    private void jtxtPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtPathActionPerformed
+    private void jbtChildCurrentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtChildCurrentMouseClicked
+        ShowChild(2);
+
+    }//GEN-LAST:event_jbtChildCurrentMouseClicked
+
+    private void jtxtFindKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtFindKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String Name = jtxtFind.getText();
+            if (Name.compareTo("") == 0) {
+                showMessageDialog(null, "Vui lòng nhập thông tin cần tìm kiếm");
+            } else {
+                Find(2, Name);
+            }
+        }
+    }//GEN-LAST:event_jtxtFindKeyPressed
+
+    private void jbtResest1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResest1MouseClicked
+        ShowChild(1);
+        Reset();
+    }//GEN-LAST:event_jbtResest1MouseClicked
+
+    private void jbtAdoptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAdoptActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtPathActionPerformed
+    }//GEN-LAST:event_jbtAdoptActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+
+    }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ShowChild(1);
+        Statistic();
+        Reset();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -780,11 +892,12 @@ public class ChildrenManager extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel jblDemo1;
     private view.JButtonCustom jbtAdd;
+    private view.JButtonCustom jbtAdopt;
     private view.JButtonCustom jbtChildCurrent;
     private view.JButtonCustom jbtChildQuit;
     private view.JButtonCustom jbtDelel;
     private view.JButtonCustom jbtFind;
-    private view.JButtonCustom jbtResest;
+    private view.JButtonCustom jbtResest1;
     private view.JButtonCustom jbtUpdate;
     private javax.swing.JLabel jlbImage;
     private javax.swing.JLabel jlbNumofChildOut;

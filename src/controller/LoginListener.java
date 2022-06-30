@@ -30,9 +30,9 @@ public class LoginListener extends ConnectDatabase {
                 sql = "LOGIN_ADMIN @ACCOUNT = ?, @PASSWORD = ?";
             } else if (i == 2) {
                 sql = "LOGIN_NVQL @ACCOUNT = ?, @PASSWORD = ?";
-            }
-            else{
-                sql = "";
+            } else {
+                sql = "LOGIN_USER\n"
+                        + "@USERNAME= ?, @PASS =?";
             }
             try {
                 PreparedStatement pre = conn.prepareStatement(sql);
@@ -50,24 +50,6 @@ public class LoginListener extends ConnectDatabase {
         return false;
     }
 
-    public boolean checkAccountUser(String acc, String pass) throws SQLException {
-        Account ac = null;
-        String sql = "LOGIN_USER\n"
-                + "@USERNAME= ?, @PASS =?";
-        PreparedStatement pre = conn.prepareStatement(sql);
-        try {
-            pre.setString(1, acc);
-            pre.setString(2, pass);
-            ResultSet rs = pre.executeQuery();
-            if (rs.next()) {
-                showMessageDialog(null, "Đăng Nhập Thành Công!");
-                return true;
-            }
-        } catch (Exception e) {
-            e.getMessage();
-        }
-        return false;
-    }
 
     public String getName(String UserName) throws SQLException {
         String sql = "SELECT HoTen From CANHAN\n"

@@ -10,88 +10,39 @@ import javax.swing.JOptionPane;
 import model.Notification;
 import model.Staff;
 import model.LaborContract;
+import model.LocalTime;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-/**
- *
- * @author ADMIN
- */
 public class StaffManagerListener extends ConnectDatabase {
 
-    public ArrayList<Staff> getListStaff() {
-        ArrayList<Staff> list = new ArrayList();
-        try {
-            String sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
+    private LocalTime localTime = new LocalTime();
+
+    public ArrayList<Staff> getListStaff(int i) {
+        String sql = "";
+        if (i == 1) {
+            sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
                     + "FROM CANBONHANVIEN C\n"
                     + "INNER JOIN TAIKHOANCB T\n"
                     + "ON C.ID_CBNV = T.ID_CBNV";
-            PreparedStatement pre = conn.prepareStatement(sql);
-            ResultSet rs = pre.executeQuery();
-            while (rs.next()) {
-                Staff staff = new Staff();
-                staff.setID_CBNV(rs.getString(1));
-                staff.setPassword(rs.getString(2));
-                staff.setName(rs.getString(3));
-                staff.setDateOfBirth(rs.getDate(4).toString());
-                staff.setPhoneNumber(rs.getString(5));
-                staff.setGender(rs.getString(6));
-                staff.setAddress(rs.getString(7));
-                staff.setNamePhoto(rs.getString(8));
-                list.add(staff);
-            }
-//            for (Staff i : list) {
-////                System.err.println(i.getDateOfBirth());
-//            }
-        } catch (Exception e) {
-        }
-        return list;
-    }
-
-    public ArrayList<Staff> getListStaffCurent() {
-        ArrayList<Staff> list = new ArrayList();
-        try {
-            String sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
+        } else if (i == 2) {
+            sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
                     + "FROM CANBONHANVIEN C\n"
                     + "INNER JOIN TAIKHOANCB T\n"
                     + "ON C.ID_CBNV = T.ID_CBNV\n"
                     + "INNER JOIN HOPDONGLAODONG H\n"
                     + "ON H.ID_CBNV = C.ID_CBNV\n"
                     + "WHERE H.NgayKetThucLam IS NULL;";
-            PreparedStatement pre = conn.prepareStatement(sql);
-            ResultSet rs = pre.executeQuery();
-            while (rs.next()) {
-                Staff staff = new Staff();
-                staff.setID_CBNV(rs.getString(1));
-                staff.setPassword(rs.getString(2));
-                staff.setName(rs.getString(3));
-                staff.setDateOfBirth(rs.getDate(4).toString());
-                staff.setPhoneNumber(rs.getString(5));
-                staff.setGender(rs.getString(6));
-                staff.setAddress(rs.getString(7));
-                staff.setNamePhoto(rs.getString(8));
-                list.add(staff);
-            }
-//            for (Staff i : list) {
-////                System.err.println(i.getDateOfBirth());
-//            }
-        } catch (Exception e) {
-        }
-        return list;
-    }
-
-    public ArrayList<Staff> getListStaffQuit() {
-        ArrayList<Staff> list = new ArrayList();
-        try {
-            String sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
+        } else {
+            sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
                     + "FROM CANBONHANVIEN C\n"
                     + "INNER JOIN TAIKHOANCB T\n"
                     + "ON C.ID_CBNV = T.ID_CBNV\n"
                     + "INNER JOIN HOPDONGLAODONG H\n"
                     + "ON H.ID_CBNV = C.ID_CBNV\n"
                     + "WHERE H.NgayKetThucLam IS NOT NULL;";
+        }
+        ArrayList<Staff> list = new ArrayList();
+        try {
+
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
@@ -106,10 +57,9 @@ public class StaffManagerListener extends ConnectDatabase {
                 staff.setNamePhoto(rs.getString(8));
                 list.add(staff);
             }
-//            for (Staff i : list) {
-////                System.err.println(i.getDateOfBirth());
-//            }
+
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return list;
     }
@@ -135,14 +85,20 @@ public class StaffManagerListener extends ConnectDatabase {
     }
 
     //FIND ID
-    public ArrayList<Staff> Find(String ID) {
+    public ArrayList<Staff> Find(String ID, int i) {
         ArrayList<Staff> list = new ArrayList<Staff>();
         try {
-            String sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
-                    + "FROM CANBONHANVIEN C\n"
-                    + "INNER JOIN TAIKHOANCB T\n"
-                    + "ON C.ID_CBNV = T.ID_CBNV\n"
-                    + "WHERE C.ID_CBNV = ?";
+            String sql = "";
+            if (i == 1) {
+                sql = "SELECT C.ID_CBNV, t.PASSWORD, C.HoTen, C.NgaySinh, C.SDT, C.GioiTinh, C.QueQuan, C.TenAnh\n"
+                        + "FROM CANBONHANVIEN C\n"
+                        + "INNER JOIN TAIKHOANCB T\n"
+                        + "ON C.ID_CBNV = T.ID_CBNV\n"
+                        + "WHERE C.ID_CBNV = ?";
+            }else if(i == 2){
+                sql = "FindName @Name = ?";
+            }
+
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, ID);
             ResultSet rs = pre.executeQuery();
@@ -167,33 +123,32 @@ public class StaffManagerListener extends ConnectDatabase {
 
     public void InsertStaff(String ID, String Pass, String Name,
             String DOB, String Phone, String Gender, String Address, String NamePhoto, String IDNVQL,
-            String DateStart, String DateEnd) {
+            String DateStart) {
         try {
-            String sql = "INSERT INTO TAIKHOANCB\n"
-                    + "VALUES (?, ?)\n"
-                    + "INSERT INTO CANBONHANVIEN\n"
+            String sql = "INSERT INTO CANBONHANVIEN\n"
                     + "VALUES (?, ?, ?, ?, ?, ?, ?)\n"
-                    + "INSERT INTO HOPDONGLAODONG\n"
-                    + "VALUES (?, ?, ?, ?)";
+                    + "INSERT INTO TAIKHOANCB\n"
+                    + "VALUES (?, ?)\n"
+                    + "INSERT INTO HOPDONGLAODONG(ID_CBNV, ID_NVQL, NgayBatDauLam)\n"
+                    + "VALUES (?, ?, ?)";
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, ID);
-            pre.setString(2, Pass);
 
             //INSERT TO CANBONHANVIEN
-            pre.setString(3, ID);
-            pre.setString(4, Name);
-            pre.setString(5, DOB);
-            pre.setString(6, Phone);
-            pre.setString(7, Gender);
-            pre.setString(8, Address);
-            pre.setString(9, NamePhoto);
+            pre.setString(1, ID);
+            pre.setString(2, Name);
+            pre.setString(3, DOB);
+            pre.setString(4, Phone);
+            pre.setString(5, Gender);
+            pre.setString(6, Address);
+            pre.setString(7, NamePhoto);
+
+            pre.setString(8, ID);
+            pre.setString(9, Pass);
 
             //INSERT TO HOPDONGLAODONG
             pre.setString(10, ID);
             pre.setString(11, IDNVQL);
             pre.setString(12, DateStart);
-            pre.setString(13, DateEnd);
-
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Thêm thành công cán bộ nhân viên " + ID + " thành công!");
         } catch (Exception e) {
@@ -202,12 +157,15 @@ public class StaffManagerListener extends ConnectDatabase {
 
     }
 
-    public void Delete(String ID) {
+    public void Delete(String ID, String ID_NVQL) {
         try {
-            String sql = "DELETE FROM TAIKHOANCB\n"
+            String sql = "UPDATE HOPDONGLAODONG\n"
+                    + "SET ID_NVQL = ?, NgayKetThucLam = ?\n"
                     + "WHERE ID_CBNV = ?";
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, ID);
+            pre.setString(1, ID_NVQL);
+            pre.setString(2, localTime.getDateNow());
+            pre.setString(3, ID);
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Xoá cán bộ nhân viên " + ID + " thành công!");
         } catch (Exception e) {
@@ -226,7 +184,7 @@ public class StaffManagerListener extends ConnectDatabase {
                     + "SET HoTen = ?, NgaySinh = ?, SDT = ?, GioiTinh = ?, QueQuan = ?, TenAnh = ?\n"
                     + "WHERE ID_CBNV = ?\n"
                     + "UPDATE TAIKHOANCB\n"
-                    + "SET ID_CBNV = ?, PASSWORD = ?\n"
+                    + "SET PASSWORD = ?\n"
                     + "WHERE ID_CBNV = ?;";
             PreparedStatement pre = conn.prepareStatement(sql);
 
@@ -243,12 +201,12 @@ public class StaffManagerListener extends ConnectDatabase {
             pre.setString(10, NamePhoto);
             pre.setString(11, ID_Choose);
 
-            pre.setString(12, ID);
-            pre.setString(13, Pass);
-            pre.setString(14, ID_Choose);
+//            pre.setString(12, ID);
+            pre.setString(12, Pass);
+            pre.setString(13, ID_Choose);
             pre.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Cập nhật " + ID +" Thành công!");
-            
+            JOptionPane.showMessageDialog(null, "Cập nhật " + ID + " Thành công!");
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -271,12 +229,4 @@ public class StaffManagerListener extends ConnectDatabase {
         return Name;
     }
 
-//    public static void main(String[] args) {
-//        StaffManagerListener st = new StaffManagerListener();
-////        st.Update("CBNV01", "102200318", "CBNV13", "2020-12-12", "2020-12-12", "2020-12-12", "2020-12-12",
-////                "2020-12-12", "2020-12-12", "2020-12-12", "2020-12-12", "2020-12-12");
-////        ArrayList<Staff> kk = st.Find("CBNV01");
-//
-////        System.out.println(st.getNameNVQL("102200318"));
-//    }
 }

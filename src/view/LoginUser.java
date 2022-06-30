@@ -8,7 +8,21 @@ import controller.LoginListener;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.KeyEvent;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -32,6 +46,7 @@ public class LoginUser extends javax.swing.JFrame {
     }
     private String UserName = null;
     InforChildrenIntroduction inforChild = new InforChildrenIntroduction();
+
     /**
      * Creates new form Register
      */
@@ -72,6 +87,11 @@ public class LoginUser extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -362,21 +382,35 @@ public class LoginUser extends javax.swing.JFrame {
         LoginListener log = new LoginListener();
         String inputAccoutn = this.jtxtAccount.getText();
         String pass = new String(this.jpass.getPassword());
-        try {
-            if (log.checkAccountUser(inputAccoutn, pass) == true) {
-                this.checkLogin = 1;
-                this.UserName = inputAccoutn;
-                String ID = log.getID(UserName);
-//                System.out.println(ID);
-                inforChild.setID(ID);
-                this.setVisible(false);
-                inforChild.setVisible(true);
-            } else {
-                this.checkLogin = 0;
-                showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
+        if (log.checkAccount(inputAccoutn, pass, 3) == true) {
+
+            try {
+                Writer wt1 = new OutputStreamWriter(new FileOutputStream("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\test\\rememberUser.txt"), "UTF-8");
+                BufferedWriter wt = new BufferedWriter(wt1);
+
+                if (jcbRemember.isSelected()) {
+                    wt.write(inputAccoutn + " " + pass);
+                } else {
+                    wt.write(" ");
+                }
+                wt.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(LoginUser.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(LoginUser.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+            this.checkLogin = 1;
+            this.UserName = inputAccoutn;
+            String ID = log.getID(UserName);
+//                System.out.println(ID);
+            inforChild.setID(ID);
+            this.setVisible(false);
+            inforChild.setVisible(true);
+        } else {
+            this.checkLogin = 0;
+            showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
         }
     }//GEN-LAST:event_jbtLoginActionPerformed
 
@@ -407,69 +441,67 @@ public class LoginUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jlbRegisterMouseClicked
 
     private void jbtLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtLoginKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             LoginListener log = new LoginListener();
             String inputAccoutn = this.jtxtAccount.getText();
             String pass = new String(this.jpass.getPassword());
-            try {
-                if (log.checkAccountUser(inputAccoutn, pass) == true) {
-                    this.checkLogin = 1;
-                    this.UserName = inputAccoutn;
-                    this.setVisible(false);
-                    new InforChildrenIntroduction().setVisible(true);
-                } else {
-                    this.checkLogin = 0;
-                    showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
+            if (log.checkAccount(inputAccoutn, pass, 3) == true) {
+
+                try {
+                    Writer wt1 = new OutputStreamWriter(new FileOutputStream("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\test\\rememberUser.txt"), "UTF-8");
+                    BufferedWriter wt = new BufferedWriter(wt1);
+
+                    if (jcbRemember.isSelected()) {
+                        wt.write(inputAccoutn + " " + pass);
+                    } else {
+                        wt.write(" ");
+                    }
+                    wt.close();
+
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(LoginUser.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedEncodingException ex) {
+                    Logger.getLogger(LoginUser.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+                this.checkLogin = 1;
+                this.UserName = inputAccoutn;
+                this.setVisible(false);
+                new InforChildrenIntroduction().setVisible(true);
+            } else {
+                this.checkLogin = 0;
+                showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
             }
         }
     }//GEN-LAST:event_jbtLoginKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        LoadRememberPass();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void LoadRememberPass() {
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-
+            String fileUser = "D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\test\\rememberUser.txt";
+            Reader rd1 = new InputStreamReader(new FileInputStream(fileUser), "UTF-8");
+            BufferedReader rd = new BufferedReader(rd1);
+            String c = "";
+            if ((c = rd.readLine()) != null) {
+                if (c.compareTo("") == 0) {
+                    jtxtAccount.setText("");
+                    jpass.setText("");
+                } else {
+                    String[] line = c.split(" ");
+                    jtxtAccount.setText(line[0]);
+                    jpass.setText(line[1]);
                 }
+
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginUser.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginUser().setVisible(true);
-            }
-        });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

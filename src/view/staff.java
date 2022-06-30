@@ -5,6 +5,7 @@ import controller.StaffManagerListener;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -600,8 +601,8 @@ public class staff extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         setShowMenu(staffManager);
         staffManager.setID_NVQL(ID_NVQL);
-        Vector<managementStaff> list = new Vector<>();
-        list = admin.FindID(Integer.parseInt(ID_NVQL));
+        ArrayList<managementStaff> list = new ArrayList<>();
+        list = admin.FindID((ID_NVQL));
         jlbIcon.setIcon(ResizeImage("D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\StaffManagement\\" + list.get(0).getImage()));
         jlbNameStaff.setText(staffManager.getNameNVQL());
     }//GEN-LAST:event_formWindowOpened

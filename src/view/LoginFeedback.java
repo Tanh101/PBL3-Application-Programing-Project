@@ -361,18 +361,14 @@ public class LoginFeedback extends javax.swing.JFrame {
         LoginListener log = new LoginListener();
         String inputAccoutn = this.jtxtAccount.getText();
         String pass = new String(this.jpass.getPassword());
-            try {
-                if (log.checkAccountUser(inputAccoutn, pass) == true) {
-                    this.checkLogin = 1;
-                    this.UserName = inputAccoutn;
-                    this.setVisible(false);
-                } else {
-                    this.checkLogin = 0;
-                    showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+        if (log.checkAccount(inputAccoutn, pass, 3) == true) {
+            this.checkLogin = 1;
+            this.UserName = inputAccoutn;
+            this.setVisible(false);
+        } else {
+            this.checkLogin = 0;
+            showMessageDialog(null, "Vui lòng kiểm tra lại tài khoản hoặc mật khẩu!");
+        }
         
 
     }//GEN-LAST:event_jbtLoginActionPerformed

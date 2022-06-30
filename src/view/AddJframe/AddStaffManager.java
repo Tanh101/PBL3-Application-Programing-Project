@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import model.LocalTime;
 import model.managementStaff;
 import view.JButtonCustom;
 
@@ -23,7 +24,7 @@ import view.JButtonCustom;
  * @author ADMIN
  */
 public class AddStaffManager extends javax.swing.JFrame {
-
+    private LocalTime localTime = new LocalTime();
     private String url = "D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\StaffManagement\\";
 
     public String getID_Choose() {
@@ -63,13 +64,11 @@ public class AddStaffManager extends javax.swing.JFrame {
         jtxtDateQuit.setText("");
         jtxtUrlImage.setText("");
         jlbImage.setIcon(ResizeImage(url + "default.jfif"));
-
     }
 
     public void Add() {
-        long millis = System.currentTimeMillis();
-        Date date = new Date(millis);
-        ArrayList<managementStaff> list = adminListener.getListManagerStaff(adminListener.getStoreProShowCurrent());
+        
+        ArrayList<managementStaff> list = adminListener.getListManagerStaff(adminListener.getStoreProcShowAll());
         int IDNVQL = Integer.parseInt(list.get(list.size()-1).getID_NVQL()) + 1;
         String Pass = jtxtPassword.getText();
         String CCCD = jtxtCCCD.getText();
@@ -85,7 +84,7 @@ public class AddStaffManager extends javax.swing.JFrame {
         String Phone = jtxtPhone.getText();
         String Email = jtxtEmail.getText();
 
-        String DateEnter = date.toString();
+        String DateEnter = localTime.getDateNow();
         String DateQuit = jtxtDateQuit.getText();
         if (DateQuit.compareTo("") == 0) {
             DateQuit = null;
@@ -95,10 +94,10 @@ public class AddStaffManager extends javax.swing.JFrame {
             Img = url + "default.jfif";
         }
         if (Pass.isEmpty() || CCCD.isEmpty() || Name.isEmpty()
-                || DOB.isEmpty() || Gender.isEmpty() || Address.isEmpty() || Phone.isEmpty() || Email.isEmpty() || DateEnter.isEmpty()) {
+                || DOB.isEmpty() || Gender.isEmpty() || Address.isEmpty() || Phone.isEmpty() || Email.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Không được bỏ trống thông tin nhân viên!");
         } else {
-            adminListener.Insert(IDNVQL, Pass,1, CCCD, Name, DOB, Gender, Address, Phone, Email, DateEnter, DateQuit, Img);
+            adminListener.Insert(String.valueOf(IDNVQL), Pass,2, CCCD, Name, DOB, Gender, Address, Phone, Email, DateEnter, DateQuit, Img);
             Resest();
             this.setVisible(false);
         }
@@ -133,7 +132,7 @@ public class AddStaffManager extends javax.swing.JFrame {
                 Email.isEmpty() || DateEnter.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Không được bỏ trống thông tin nhân viên!");
         } else {
-            adminListener.Update(Integer.parseInt(ID_Choose), Pass, CCCD, Name, DOB, Gender,
+            adminListener.Update((ID_Choose), Pass, CCCD, Name, DOB, Gender,
                                 Address, Phone, Email, DateEnter, DateQuit,  Img);
             Resest();
             this.setVisible(false);

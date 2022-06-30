@@ -44,7 +44,7 @@ public class ChildrenListener extends ConnectDatabase {
         if (i == 1) {
             return "FIND_CHILD @ID_TRE = ?";
         } else if (i == 2) {
-            return "FIND_CHILD_NAME @NAME = ";
+            return "FIND_CHILD_NAME @NAME = ?";
         } else if (i == 3) {
 
         }
@@ -379,6 +379,26 @@ public class ChildrenListener extends ConnectDatabase {
 
     //------------------------------------------------------Adopter MANAGEMENT ----------------------------------------------
     //----------------------------------------------Children change to Adopted -----------------------------------------
+    public boolean checkAdopt(String ID_TRE) {
+        String sql = "select count(ID_TRE) from CHITIETNHANNUOITRE\n"
+                + "where ID_Tre = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, ID_TRE);
+            ResultSet rs = pre.executeQuery();
+            int n = 0;
+            if (rs.next()) {
+                n = rs.getInt(1);
+                
+            }
+            if(n == 0)
+                return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    
     private String proShowChildAdop(int i) {
         if (i == 1) {
             return "SHOW_ADOPTED @CCCD_CHOOSE = ?";
