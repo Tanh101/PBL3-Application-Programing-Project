@@ -79,19 +79,21 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jbtEquipment" max="32767" attributes="0"/>
                   <Component id="jbtStaffManager" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jbtFeedback" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jbtCacular" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jbtChildManager" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jbtSendNotification" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jbtAdopters" alignment="1" pref="279" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jbtActivity" alignment="0" max="32767" attributes="0"/>
                       <Component id="jbtIntroductor" alignment="0" pref="285" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jbtCacular" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jbtChildManager" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jbtAdopters" alignment="1" pref="279" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtSendNotification" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -118,12 +120,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jbtAdopters" min="-2" pref="56" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jbtFeedback" min="-2" pref="54" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jbtCacular" min="-2" pref="56" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jbtSendNotification" min="-2" pref="56" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="57" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -321,35 +321,6 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbtAdoptersMouseClicked"/>
               </Events>
             </Component>
-            <Component class="jbuttonCustom.JButtonCustom" name="jbtFeedback">
-              <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                    <CompoundBorder/>
-                  </Border>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Img/feedback_48px.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="     Qu&#x1ea3;n l&#xfd; ph&#x1ea3;n h&#x1ed3;i      "/>
-                <Property name="autoscrolls" type="boolean" value="true"/>
-                <Property name="boderColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="coloOver" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="33" green="ff" red="66" type="rgb"/>
-                </Property>
-                <Property name="debugGraphicsOptions" type="int" value="4"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="16" style="1"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="horizontalTextPosition" type="int" value="4"/>
-              </Properties>
-            </Component>
             <Component class="jbuttonCustom.JButtonCustom" name="jbtCacular">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -486,7 +457,6 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jlb7" max="32767" attributes="0"/>
                           <Component id="jlb3" max="32767" attributes="0"/>
                           <Component id="jlb8" alignment="0" pref="10" max="32767" attributes="0"/>
                           <Component id="jlb9" alignment="0" pref="10" max="32767" attributes="0"/>
@@ -515,11 +485,9 @@
                       <Component id="jlb5" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jlb6" min="-2" pref="44" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="jlb7" min="-2" pref="56" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jlb8" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jlb9" min="-2" pref="48" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -536,14 +504,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jlb9">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="cc" red="66" type="rgb"/>
-                </Property>
-                <Property name="opaque" type="boolean" value="true"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jlb7">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="cc" red="66" type="rgb"/>

@@ -1,4 +1,5 @@
 package main;
+
 import view.MainPage;
 
 /**
@@ -6,6 +7,7 @@ import view.MainPage;
  * @author ADMIN
  */
 public class test {
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
