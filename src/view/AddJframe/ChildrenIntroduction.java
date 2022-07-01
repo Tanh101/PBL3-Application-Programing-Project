@@ -16,11 +16,13 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Children;
 import model.IntroduceChildren;
+import model.LocalTime;
 import view.viewStaffManager.*;
 
 /**
@@ -66,6 +68,8 @@ public class ChildrenIntroduction extends javax.swing.JFrame {
         jradioMale.setSelected(false);
         jtxtNameImg.setText("");
         jlbImage.setIcon(ResizeImage(url + "default.png"));
+        jtxtDateIntroduce.setBackground(Color.white);
+        jtxtDOB.setBackground(Color.white);
 
     }
 
@@ -92,7 +96,7 @@ public class ChildrenIntroduction extends javax.swing.JFrame {
         list = childrenListener.FindChildIntro(1, ID, ID_Choose);
         IntroduceChildren ic = list.get(0);
         jtxtName.setText(ic.getName());
-        jtxtDOB.setText(ic.getDOB());
+        jtxtDOB.setText(LocalTime.ChangeTypeDate_dMy(ic.getDOB()));
         jtxtAddress.setText(ic.getAddress());
         if (ic.getGender().compareTo("Nam") == 0) {
             jradioMale.setSelected(true);
@@ -102,7 +106,7 @@ public class ChildrenIntroduction extends javax.swing.JFrame {
         jtxtNameImg.setText(ic.getUrlImg());
         jlbImage.setIcon(ResizeImage(url + ic.getUrlImg()));
         jtxtSituation.setText(ic.getSituation());
-        jtxtDateIntroduce.setText(ic.getDateIntroduce());
+        jtxtDateIntroduce.setText(LocalTime.ChangeTypeDate_dMy(ic.getDateIntroduce()));
     }
 
     public void showSupport(ArrayList<IntroduceChildren> list) {
@@ -110,8 +114,8 @@ public class ChildrenIntroduction extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < list.size(); i++) {
             model.addRow(new Object[]{
-                list.get(i).getID_TRE(), list.get(i).getName(), list.get(i).getDOB(), list.get(i).getAddress(),
-                list.get(i).getGender(), list.get(i).getSituation(), list.get(i).getState(), list.get(i).getDateIntroduce()
+                list.get(i).getID_TRE(), list.get(i).getName(), LocalTime.ChangeTypeDate_dMy(list.get(i).getDOB()), list.get(i).getAddress(),
+                list.get(i).getGender(), list.get(i).getSituation(), list.get(i).getState(), LocalTime.ChangeTypeDate_dMy(list.get(i).getDateIntroduce())
             });
         }
         jtbChildrenIntro.setModel(model);
@@ -153,10 +157,7 @@ public class ChildrenIntroduction extends javax.swing.JFrame {
             int tmp2 = Integer.parseInt(arr[1]) + 1;
             ID += String.valueOf(tmp2);
 
-            long millis = System.currentTimeMillis();
-            Date date = new Date(millis);
-            DateFormat df = new SimpleDateFormat("yyyy-MM-d");
-            String DateEnter = df.format(date);
+            String DateEnter = LocalTime.getDateNow();
             childrenListener.UpdateState(ID_Choose, ID, "1", Integer.parseInt(IDNVQL), DateEnter, null, "1");
         }
     }
@@ -170,6 +171,7 @@ public class ChildrenIntroduction extends javax.swing.JFrame {
             String ID_Choose = (String) jtbChildrenIntro.getModel().getValueAt(k, 0);
             String Name = jtxtName.getText();
             String DOB = jtxtDOB.getText();
+            DOB = LocalTime.ChangeTypeDate_yMd(DOB);
             String Address = jtxtAddress.getText();
             String Gender = "";
             if (jradioFemale.isSelected()) {
@@ -178,11 +180,23 @@ public class ChildrenIntroduction extends javax.swing.JFrame {
                 Gender = "Nam";
             }
             String Situation = jtxtSituation.getText();
-            String DateIntro = jtxtDateIntroduce.getText();
+            String DateIntro = LocalTime.ChangeTypeDate_yMd(jtxtDateIntroduce.getText());
             if (Name.isEmpty() || DOB.isEmpty() || Gender.isEmpty() || Situation.isEmpty() || DateIntro.isEmpty()) {
                 showMessageDialog(null, "Vui lòng điền đầy đủ thông tin trẻ");
             } else {
-                childrenListener.UpdateChildrenIntro(ID_Choose, Name, DOB, Address, Gender, Situation, DateIntro, Img);
+                if (LocalTime.checkDate_yyyyMMdd(DOB)) {
+                    if (LocalTime.checkDate_yyyyMMdd(DateIntro)) {
+                        childrenListener.UpdateChildrenIntro(ID_Choose, Name, DOB, Address, Gender, Situation, DateIntro, Img);
+                        ShowChild(1, ID);
+                        ClearJtxt();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ngày giới thiệu không hợp lệ! Vui lòng kiểm tra lại");
+                        jtxtDateIntroduce.setBackground(new Color(255, 190, 185));
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ! Vui lòng kiểm tra lại");
+                    jtxtDOB.setBackground(new Color(255, 190, 185));
+                }
             }
         }
 
@@ -475,7 +489,7 @@ public class ChildrenIntroduction extends javax.swing.JFrame {
         File FileName = f.getSelectedFile();
         jtxtNameImg.setText(FileName.getName());
         jlbImage.setIcon(ResizeImage(String.valueOf(url + FileName.getName())));
-        
+
     }//GEN-LAST:event_jbtChooseImgActionPerformed
 
     private void jtbRestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbRestMouseClicked
@@ -509,17 +523,16 @@ public class ChildrenIntroduction extends javax.swing.JFrame {
 
     private void jbtUpdate2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdate2MouseClicked
         Update();
-        ShowChild(1, ID);
-        ClearJtxt();
+
     }//GEN-LAST:event_jbtUpdate2MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         ShowChild(1, this.ID);
-        
+
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if(evt != null){
+        if (evt != null) {
             ShowChild(1, this.ID);
             ClearJtxt();
         }

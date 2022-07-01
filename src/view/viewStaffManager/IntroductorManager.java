@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Charity;
 import model.Introductor;
+import model.LocalTime;
 import view.AddJframe.ChildrenIntroduction;
 
 /**
@@ -67,6 +68,8 @@ public class IntroductorManager extends javax.swing.JFrame {
         jradioMale.setSelected(false);
         jtxtUsername.setText("");
         jtxtPass.setText("");
+        jtxtDOB.setBackground(Color.white);
+        jtxtPhoneNumber.setBackground(Color.white);
 
     }
 
@@ -85,7 +88,7 @@ public class IntroductorManager extends javax.swing.JFrame {
         Introductor introductor = list.get(0);
         jtxtNameIntro.setText(introductor.getName());
         jtxtAddress.setText(introductor.getAddress());
-        jtxtDOB.setText(introductor.getDayOfBirth());
+        jtxtDOB.setText(LocalTime.ChangeTypeDate_dMy(introductor.getDayOfBirth()));
         jtxtPhoneNumber.setText(introductor.getPhoneNumber());
         if (introductor.getGender().toUpperCase().compareTo("NAM") == 0) {
             jradioMale.setSelected(true);
@@ -102,7 +105,7 @@ public class IntroductorManager extends javax.swing.JFrame {
         for (int i = 0; i < list.size(); i++) {
             model.addRow(new Object[]{
                 list.get(i).getID(), list.get(i).getName(), list.get(i).getUsername(),
-                list.get(i).getPassword(), list.get(i).getDayOfBirth(),
+                list.get(i).getPassword(), LocalTime.ChangeTypeDate_dMy(list.get(i).getDayOfBirth()),
                 list.get(i).getGender(), list.get(i).getAddress(),
                 list.get(i).getPhoneNumber()
             });
@@ -129,7 +132,7 @@ public class IntroductorManager extends javax.swing.JFrame {
 
         String Name = jtxtNameIntro.getText();
         String DOB = jtxtDOB.getText();
-
+//        DOB = LocalTime.ChangeTypeDate_yMd
         String Gender;
         if (jradioMale.isSelected() == true) {
             Gender = "Nam";
@@ -143,8 +146,20 @@ public class IntroductorManager extends javax.swing.JFrame {
         if (Name.isEmpty() || DOB.isEmpty() || Address.isEmpty() || Phone.isEmpty() || Username.isEmpty() || Password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin người giới thiệu");
         } else {
-            intro.AddIntro(ID, Name, DOB, Gender, Address, Phone, Integer.parseInt(ID_NVQL), Username, Password, "1");
-
+            if (LocalTime.checkDate_ddMMyyyy(DOB)) {
+                if (LocalTime.checkPhone(Phone)) {
+                    DOB = LocalTime.ChangeTypeDate_yMd(DOB);
+                    intro.AddIntro(ID, Name, DOB, Gender, Address, Phone, Integer.parseInt(ID_NVQL), Username, Password, "1");
+                    Show();
+                    Statistic();
+                    ClearText();
+                } else {
+                    jtxtPhoneNumber.setBackground(new Color(255, 190, 185));
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ! Vui lòng kiểm tra lại");
+                jtxtDOB.setBackground(new Color(255, 190, 185));
+            }
         }
 
     }
@@ -171,21 +186,35 @@ public class IntroductorManager extends javax.swing.JFrame {
             String username = jtxtUsername.getText();
             String Name = jtxtNameIntro.getText();
             String DOB = jtxtDOB.getText();
-            String Gender;
-            if (jradioMale.isSelected() == true) {
-                Gender = "Nam";
-            } else {
-                Gender = "Nữ";
-            }
             String Address = jtxtAddress.getText();
             String Phone = jtxtPhoneNumber.getText();
             String Username = jtxtUsername.getText();
             String Password = jtxtPass.getText();
-            if (Name.isEmpty() || DOB.isEmpty() || Address.isEmpty() || Phone.isEmpty() || Username.isEmpty() || Password.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin người giới thiệu");
+            if (LocalTime.checkDate_ddMMyyyy(DOB)) {
+                if (LocalTime.checkPhone(Phone)) {
+                    DOB = LocalTime.ChangeTypeDate_yMd(DOB);
+                    String Gender;
+                    if (jradioMale.isSelected() == true) {
+                        Gender = "Nam";
+                    } else {
+                        Gender = "Nữ";
+                    }
+                    if (Name.isEmpty() || DOB.isEmpty() || Address.isEmpty() || Phone.isEmpty() || Username.isEmpty() || Password.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin người giới thiệu");
+                    } else {
+                        intro.Update(ID_Choose, Name, DOB, Gender, Address, Phone, Integer.parseInt(ID_NVQL), UserName_choose, username, pass, "1");
+                    }
+                    Show();
+                    ClearText();
+
+                } else {
+                    jtxtPhoneNumber.setBackground(new Color(255, 190, 185));
+                }
             } else {
-                intro.Update(ID_Choose, Name, DOB, Gender, Address, Phone, Integer.parseInt(ID_NVQL), UserName_choose, username, pass, "1");
+                JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ! Vui lòng kiểm tra lại");
+                jtxtDOB.setBackground(new Color(255, 190, 185));
             }
+
         }
     }
 
@@ -504,9 +533,7 @@ public class IntroductorManager extends javax.swing.JFrame {
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
         Add();
-        Show();
-        Statistic();
-        ClearText();
+
     }//GEN-LAST:event_jbtAddMouseClicked
 
     private void jbtDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteMouseClicked
@@ -517,8 +544,7 @@ public class IntroductorManager extends javax.swing.JFrame {
 
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
         Update();
-        Show();
-        ClearText();
+
     }//GEN-LAST:event_jbtUpdateMouseClicked
 
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked

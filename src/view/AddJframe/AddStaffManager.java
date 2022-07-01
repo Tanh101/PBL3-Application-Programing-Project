@@ -5,6 +5,7 @@
 package view.AddJframe;
 
 import controller.AdminListener;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Date;
@@ -24,6 +25,7 @@ import view.JButtonCustom;
  * @author ADMIN
  */
 public class AddStaffManager extends javax.swing.JFrame {
+
     private LocalTime localTime = new LocalTime();
     private String url = "D:\\project\\TrungTamBaoTroTreEm\\DemoPBL\\src\\Img\\StaffManagement\\";
 
@@ -64,12 +66,14 @@ public class AddStaffManager extends javax.swing.JFrame {
         jtxtDateQuit.setText("");
         jtxtUrlImage.setText("");
         jlbImage.setIcon(ResizeImage(url + "default.jfif"));
+        jtxtDOB.setBackground(Color.white);
+        jtxtDateEnter.setBackground(Color.white);
     }
 
     public void Add() {
-        
+
         ArrayList<managementStaff> list = adminListener.getListManagerStaff(adminListener.getStoreProcShowAll());
-        int IDNVQL = Integer.parseInt(list.get(list.size()-1).getID_NVQL()) + 1;
+        int IDNVQL = Integer.parseInt(list.get(list.size() - 1).getID_NVQL()) + 1;
         String Pass = jtxtPassword.getText();
         String CCCD = jtxtCCCD.getText();
         String Name = jtxtName.getText();
@@ -88,7 +92,7 @@ public class AddStaffManager extends javax.swing.JFrame {
         String DateQuit = jtxtDateQuit.getText();
         if (DateQuit.compareTo("") == 0) {
             DateQuit = null;
-        }else{
+        } else {
             DateQuit = LocalTime.ChangeTypeDate_yMd(jtxtDateQuit.getText());
         }
         String Img = jtxtUrlImage.getText();
@@ -99,13 +103,24 @@ public class AddStaffManager extends javax.swing.JFrame {
                 || DOB.isEmpty() || Gender.isEmpty() || Address.isEmpty() || Phone.isEmpty() || Email.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Không được bỏ trống thông tin nhân viên!");
         } else {
-            adminListener.Insert(String.valueOf(IDNVQL), Pass,2, CCCD, Name, LocalTime.ChangeTypeDate_yMd(DOB), Gender, Address, Phone, Email, DateEnter, DateQuit, Img);
-            Resest();
-            this.setVisible(false);
+            if (LocalTime.checkDate_yyyyMMdd(DateEnter) && LocalTime.checkPhone(Phone)) {
+                if (LocalTime.checkDate_ddMMyyyy(DOB)) {
+                    adminListener.Insert(String.valueOf(IDNVQL), Pass, 2, CCCD, Name, LocalTime.ChangeTypeDate_yMd(DOB), Gender, Address, Phone, Email, DateEnter, DateQuit, Img);
+                    Resest();
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ngày sinh không đúng! ");
+                    jtxtDOB.setBackground(new Color(255, 172, 164));
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ngày vào làm sai! vui lòng kiểm tra lại! ");
+                jtxtDateEnter.setBackground(new Color(255, 172, 164));
+            }
+
         }
     }
-    
-    public void Update(){
+
+    public void Update() {
         String Pass = jtxtPassword.getText();
         String CCCD = jtxtCCCD.getText();
         String Name = jtxtName.getText();
@@ -124,7 +139,7 @@ public class AddStaffManager extends javax.swing.JFrame {
         String DateQuit = jtxtDateQuit.getText();
         if (DateQuit.compareTo("") == 0) {
             DateQuit = null;
-        }else{
+        } else {
             DateQuit = LocalTime.ChangeTypeDate_yMd(DateQuit);
         }
         String Img = jtxtUrlImage.getText();
@@ -132,14 +147,25 @@ public class AddStaffManager extends javax.swing.JFrame {
             Img = url + "default.jfif";
         }
         if (Pass.isEmpty() || CCCD.isEmpty() || Name.isEmpty()
-                || DOB.isEmpty() || Gender.isEmpty() || Address.isEmpty() || Phone.isEmpty() || 
-                Email.isEmpty() || DateEnter.isEmpty()) {
+                || DOB.isEmpty() || Gender.isEmpty() || Address.isEmpty() || Phone.isEmpty()
+                || Email.isEmpty() || DateEnter.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Không được bỏ trống thông tin nhân viên!");
         } else {
-            adminListener.Update((ID_Choose), Pass, CCCD, Name, DOB, Gender,
-                                Address, Phone, Email, LocalTime.ChangeTypeDate_yMd(DateEnter), (DateQuit),  Img);
-            Resest();
-            this.setVisible(false);
+            if (LocalTime.checkDate_ddMMyyyy(DateEnter) && LocalTime.checkPhone(Phone)) {
+                if (LocalTime.checkDate_ddMMyyyy(DOB)) {
+                    adminListener.Update((ID_Choose), Pass, CCCD, Name, DOB, Gender,
+                            Address, Phone, Email, LocalTime.ChangeTypeDate_yMd(DateEnter), (DateQuit), Img);
+                    Resest();
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ngày sinh không đúng! ");
+                    jtxtDOB.setBackground(new Color(255, 172, 164));
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ngày vào làm sai! vui lòng kiểm tra lại! ");
+                jtxtDateEnter.setBackground(new Color(255, 172, 164));
+            }
+
         }
     }
 
@@ -515,7 +541,7 @@ public class AddStaffManager extends javax.swing.JFrame {
     public void setJtxtDateQuit(JTextField jtxtDateQuit) {
         this.jtxtDateQuit = jtxtDateQuit;
     }
-    
+
     public JTextField getJtxtName() {
         return jtxtName;
     }
@@ -547,10 +573,12 @@ public class AddStaffManager extends javax.swing.JFrame {
     public void setJtxtUrlImage(JTextField jtxtUrlImage) {
         this.jtxtUrlImage = jtxtUrlImage;
     }
-    public void setJtxtEmail(String Email){
+
+    public void setJtxtEmail(String Email) {
         this.jtxtEmail.setText(Email);
     }
-    public String getJtxtEmail(){
-       return this.jtxtEmail.getText();
+
+    public String getJtxtEmail() {
+        return this.jtxtEmail.getText();
     }
 }

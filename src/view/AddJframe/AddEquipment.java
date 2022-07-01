@@ -1,8 +1,10 @@
 package view.AddJframe;
 
 import controller.EquipmentListener;
+import java.awt.Color;
 import java.sql.Date;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JTextField;
 import model.Equipment;
@@ -36,7 +38,7 @@ public class AddEquipment extends javax.swing.JFrame {
     }
 
     public void Add() {
-        
+
         ArrayList<Equipment> list = new ArrayList<>();
         list = equipListener.getListEquipment(equipListener.getSQLShow(1));
         String ID = list.get(list.size() - 1).getID();
@@ -58,37 +60,55 @@ public class AddEquipment extends javax.swing.JFrame {
         String DateQuit = jtxtDateQuit.getText();
         if (DateQuit.compareTo("") == 0) {
             DateQuit = null;
-        }else{
+        } else {
             DateQuit = LocalTime.ChangeTypeDate_yMd(DateQuit);
         }
         if (Name.isEmpty() || Price.isEmpty() || NumGood.isEmpty()
                 || NumBad.isEmpty() || Provider.isEmpty()) {
             showMessageDialog(null, "Không được để trống thông tin Thiết Bị!");
         } else {
-            equipListener.Insert(ID, Name, Price, NumGood, NumBad, Provider, getIDNVQL(), DateEnter, DateQuit);
+            if (LocalTime.checkNumber(jtxtPrice)) {
+                if (LocalTime.checkNumber(jtxtNumGood) && LocalTime.checkNumber(jtxtNumBad)) {
+                    equipListener.Insert(ID, Name, Price, NumGood, NumBad, Provider, getIDNVQL(), DateEnter, DateQuit);
+                    resetForm();
+                    this.setVisible(false);
+                }
+            }
+
         }
     }
 
     public void Update() {
-        
+
         String ID = jtxtID.getText();
         String Name = jtxtName.getText();
         String Price = jtxtPrice.getText();
         String NumGood = jtxtNumGood.getText();
         String NumBad = jtxtNumBad.getText();
         String Provider = jtxtProvider.getText();
-        String DateEnter = LocalTime.ChangeTypeDate_yMd(jtxtDateEnter.getText());
+        String DateEnter = jtxtDateEnter.getText();
         String DateQuit = jtxtDateQuit.getText();
         if (DateQuit.compareTo("") == 0) {
             DateQuit = null;
-        }else{
-             DateQuit = LocalTime.ChangeTypeDate_yMd(DateQuit);
+        } else {
+            DateQuit = LocalTime.ChangeTypeDate_yMd(DateQuit);
         }
         if (ID.isEmpty() || Name.isEmpty() || Price.isEmpty() || NumGood.isEmpty()
                 || NumBad.isEmpty() || Provider.isEmpty()) {
             showMessageDialog(null, "Không được để trống thông tin Thiết Bị!");
         } else {
-            equipListener.Update(IDChosse, ID, Name, Price, NumGood, NumBad, Provider, getIDNVQL(), DateEnter, DateQuit);
+            if (LocalTime.checkNumber(jtxtPrice)) {
+                if (LocalTime.checkNumber(jtxtNumGood) && LocalTime.checkNumber(jtxtNumBad)) {
+                    if (LocalTime.checkDate_ddMMyyyy(DateEnter)) {
+                        equipListener.Update(IDChosse, ID, Name, Price, NumGood, NumBad, Provider, getIDNVQL(), LocalTime.ChangeTypeDate_yMd(DateEnter), DateQuit);
+                        this.setVisible(false);
+                        resetForm();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ngày nhập vào không hợp lệ!");
+                        jtxtDateEnter.setBackground(new Color(255, 190, 185));
+                    }
+                }
+            }
         }
     }
 
@@ -101,6 +121,7 @@ public class AddEquipment extends javax.swing.JFrame {
         jtxtNumBad.setText("");
         jtxtDateEnter.setText("");
         jtxtDateQuit.setText("");
+        jtxtDateEnter.setBackground(Color.white);
     }
 
     @SuppressWarnings("unchecked")
@@ -279,15 +300,13 @@ public class AddEquipment extends javax.swing.JFrame {
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
         Add();
-        resetForm();
-        this.setVisible(false);
+
 //        equipManager.ShowListEquip();
     }//GEN-LAST:event_jbtAddMouseClicked
 
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
         Update();
-        this.setVisible(false);
-        resetForm();
+
     }//GEN-LAST:event_jbtUpdateMouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

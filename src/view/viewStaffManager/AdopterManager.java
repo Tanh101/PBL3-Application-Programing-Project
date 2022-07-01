@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Adopter;
 import model.Introductor;
+import model.LocalTime;
 import view.AddJframe.ChildrenAdopted;
 
 /**
@@ -22,8 +23,10 @@ import view.AddJframe.ChildrenAdopted;
  * @author ADMIN
  */
 public class AdopterManager extends javax.swing.JFrame {
+
     AdopterListener adop = new AdopterListener();
     ChildrenAdopted chilAdop = new ChildrenAdopted();
+
     public String getID_NVQL() {
         return ID_NVQL;
     }
@@ -32,9 +35,7 @@ public class AdopterManager extends javax.swing.JFrame {
         this.ID_NVQL = ID_NVQL;
     }
     private String ID_NVQL;
-    
-    
-    
+
     /**
      * Creates new form ư
      */
@@ -42,7 +43,7 @@ public class AdopterManager extends javax.swing.JFrame {
         initComponents();
         setWidthTable();
     }
-    
+
     public void setWidthTable() {
 
         jtbAdopter.getTableHeader().setBackground(new Color(0, 204, 255));
@@ -67,6 +68,10 @@ public class AdopterManager extends javax.swing.JFrame {
         jradioFemale.setSelected(false);
         jradioMale.setSelected(false);
         jtxtCCCD.setText("");
+        jtxtDOB.setBackground(Color.white);
+        jtxtCCCD.setBackground(Color.white);
+        jtxtPhoneNumber.setBackground(Color.white);
+
     }
 
     public void Statistic() {
@@ -84,7 +89,7 @@ public class AdopterManager extends javax.swing.JFrame {
         jtxtCCCD.setText(adopter.getCCCD());
         jtxtNameIntro.setText(adopter.getName());
         jtxtAddress.setText(adopter.getAddress());
-        jtxtDOB.setText(adopter.getDOB());
+        jtxtDOB.setText(LocalTime.ChangeTypeDate_dMy(adopter.getDOB()));
         jtxtPhoneNumber.setText(adopter.getPhoneNumber());
         if (adopter.getGender().toUpperCase().compareTo("NAM") == 0) {
             jradioMale.setSelected(true);
@@ -98,8 +103,8 @@ public class AdopterManager extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < list.size(); i++) {
             model.addRow(new Object[]{
-                list.get(i).getCCCD(), list.get(i).getName(),list.get(i).getDOB(), 
-                list.get(i).getGender(),list.get(i).getAddress(),list.get(i).getPhoneNumber()
+                list.get(i).getCCCD(), list.get(i).getName(), LocalTime.ChangeTypeDate_dMy(list.get(i).getDOB()),
+                list.get(i).getGender(), list.get(i).getAddress(), list.get(i).getPhoneNumber()
             });
         }
         jtbAdopter.setModel(model);
@@ -110,7 +115,7 @@ public class AdopterManager extends javax.swing.JFrame {
         list = adop.getListAdop();
         showSupport(list);
     }
-    
+
     public void Update() {
         int k = jtbAdopter.getSelectedRow();
         if (k < 0) {
@@ -120,6 +125,7 @@ public class AdopterManager extends javax.swing.JFrame {
             String CCCD = jtxtCCCD.getText();
             String Name = jtxtNameIntro.getText();
             String DOB = jtxtDOB.getText();
+            DOB = LocalTime.ChangeTypeDate_yMd(DOB);
             String Gender;
             if (jradioMale.isSelected() == true) {
                 Gender = "Nam";
@@ -128,10 +134,27 @@ public class AdopterManager extends javax.swing.JFrame {
             }
             String Address = jtxtAddress.getText();
             String Phone = jtxtPhoneNumber.getText();
-            if (Name.isEmpty() || DOB.isEmpty() || Address.isEmpty() || Phone.isEmpty() ) {
+            if (Name.isEmpty() || DOB.isEmpty() || Address.isEmpty() || Phone.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin người nhận nuôi");
             } else {
-                adop.UpdateAdopter(CCCD_Choose, CCCD, Name, DOB, Gender, Address, Phone, Integer.parseInt(ID_NVQL));
+                if (LocalTime.checkDate_yyyyMMdd(DOB)) {
+                    if (LocalTime.checkPhone(Phone)) {
+                        if (CCCD.length() == 12) {
+                            adop.UpdateAdopter(CCCD_Choose, CCCD, Name, DOB, Gender, Address, Phone, Integer.parseInt(ID_NVQL));
+                            Show();
+                            ClearText();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Căn cước công dân không hợp lệ!");
+                            jtxtCCCD.setBackground(new Color(255, 172, 164));
+                        }
+                    } else {
+                        jtxtPhoneNumber.setBackground(new Color(255, 172, 164));
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ!");
+                    jtxtDOB.setBackground(new Color(255, 172, 164));
+                }
+
             }
         }
     }
@@ -141,8 +164,8 @@ public class AdopterManager extends javax.swing.JFrame {
         ArrayList<Adopter> list = adop.FindAdop(i, Text);
         showSupport(list);
     }
-    
-    public void Delete(){
+
+    public void Delete() {
         int k = jtbAdopter.getSelectedRow();
         if (k < 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn đối tượng muốn cập nhật");
@@ -151,6 +174,7 @@ public class AdopterManager extends javax.swing.JFrame {
             adop.DeleteAdopter(CCCD_Choose);
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -164,7 +188,6 @@ public class AdopterManager extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtbAdopter = new javax.swing.JTable();
         jtxtAddress = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jtxtDOB = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -180,6 +203,8 @@ public class AdopterManager extends javax.swing.JFrame {
         jtxtCCCD = new javax.swing.JTextField();
         jlbAmount = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
         jbtResest1 = new view.JButtonCustom();
         jLabel12 = new javax.swing.JLabel();
         jtxtFind = new javax.swing.JTextField();
@@ -258,10 +283,6 @@ public class AdopterManager extends javax.swing.JFrame {
         jtxtAddress.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtxtAddress.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel3.add(jtxtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 30, 260, 40));
-
-        jLabel14.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        jLabel14.setText("Ngày sinh");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 100, 40));
 
         jLabel15.setBackground(new java.awt.Color(153, 255, 255));
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
@@ -370,6 +391,14 @@ public class AdopterManager extends javax.swing.JFrame {
         jLabel19.setText("Số CCCD");
         jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 100, 40));
 
+        jLabel18.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        jLabel18.setText("Ngày sinh");
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 100, 40));
+
+        jLabel20.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jLabel20.setText("dd-MM-yyyy");
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 80, 30));
+
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 660));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1190, 660));
@@ -409,7 +438,7 @@ public class AdopterManager extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         Show();
-        ClearText();
+//        ClearText();
         Statistic();
     }//GEN-LAST:event_formWindowActivated
 
@@ -425,12 +454,12 @@ public class AdopterManager extends javax.swing.JFrame {
 
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
         Update();
-        Show();
+
     }//GEN-LAST:event_jbtUpdateMouseClicked
 
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked
         Find(2);
-        
+
     }//GEN-LAST:event_jbtFindMouseClicked
 
     private void jbtWatchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtWatchMouseClicked
@@ -440,18 +469,19 @@ public class AdopterManager extends javax.swing.JFrame {
         } else {
             String CCCD_Choose = (String) jtbAdopter.getModel().getValueAt(k, 0);
             chilAdop.setID(CCCD_Choose);
+            chilAdop.setVisible(true);
         }
-        chilAdop.setVisible(true);
+//        this.setVisible(false);
     }//GEN-LAST:event_jbtWatchMouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         chilAdop.setVisible(false);
-        this.setVisible(false);
+//        this.setVisible(false);
     }//GEN-LAST:event_formWindowClosed
 
     private void jbtDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteMouseClicked
-       Delete();
-       Statistic();
+        Delete();
+        Statistic();
         Show();
     }//GEN-LAST:event_jbtDeleteMouseClicked
 
@@ -500,11 +530,12 @@ public class AdopterManager extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

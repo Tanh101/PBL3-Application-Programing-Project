@@ -127,10 +127,11 @@ public class StaffManager extends javax.swing.JFrame {
     }
 
     public void Insert() {
-        String ID = autoCreateID();
+        jtxtDateStart.setText(LocalTime.ChangeTypeDate_dMy(LocalTime.getDateNow()));
+       String ID = autoCreateID();
         String Pass = jtxtPass.getText();
         String Name = jtxtName.getText();
-        String DOB = LocalTime.ChangeTypeDate_yMd(jtxtDateOfBirth.getText());
+        String DOB = jtxtDateOfBirth.getText();
         String PhoneNumber = jtxtPhoneNumber.getText();
         String Address = jtxtAddress.getText();
         String Gender = "";
@@ -148,7 +149,25 @@ public class StaffManager extends javax.swing.JFrame {
                 || Address.isEmpty() || Gender.isEmpty()) {
             showMessageDialog(null, "Không được để trống thông tin nhân viên!");
         } else {
-            staffListener.InsertStaff(ID, Pass, Name, DOB, PhoneNumber, Gender, Address, NamePhoto, ID_NVQL_Extends, DateStart);
+            if (LocalTime.checkDate_yyyyMMdd(DateStart)) {
+                if (LocalTime.checkDate_ddMMyyyy(DOB)) {
+                    if (LocalTime.checkPhone(PhoneNumber)) {
+                        staffListener.InsertStaff(ID, Pass, Name,LocalTime.ChangeTypeDate_yMd(DOB), PhoneNumber, 
+                                Gender, Address, NamePhoto, ID_NVQL_Extends, DateStart);
+                        showListStaff(1);
+                        Resest();
+                    } else {
+//                            JOptionPane.showMessageDialog(null, "Số điện thoại không đúng, vui lòng nhập lại");
+                        jtxtPhoneNumber.setBackground(new Color(255, 190, 185));
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ngày sinh không đúng, vui lòng nhập lại");
+                    jtxtDateOfBirth.setBackground(new Color(255, 190, 185));
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ngày vào làm không đúng, vui lòng nhập lại");
+                jtxtDateStart.setBackground(new Color(255, 190, 185));
+            }
         }
     }
 
@@ -167,7 +186,7 @@ public class StaffManager extends javax.swing.JFrame {
             String ID = jtxtID.getText();
             String Pass = jtxtPass.getText();
             String Name = jtxtName.getText();
-            String DOB = LocalTime.ChangeTypeDate_yMd(jtxtDateOfBirth.getText());
+            String DOB = jtxtDateOfBirth.getText();
             String PhoneNumber = jtxtPhoneNumber.getText();
             String Address = jtxtAddress.getText();
 
@@ -181,7 +200,7 @@ public class StaffManager extends javax.swing.JFrame {
             if (NamePhoto.compareTo("") == 0) {
                 NamePhoto = url + "default.png";
             }
-            String DateStart = LocalTime.ChangeTypeDate_yMd(jtxtDateStart.getText());
+            String DateStart = jtxtDateStart.getText();
             String DateEnd = jtxtDateEnd.getText();
             if (DateEnd.compareTo("") == 0) {
                 DateEnd = null;
@@ -192,7 +211,25 @@ public class StaffManager extends javax.swing.JFrame {
                     || Address.isEmpty() || Gender.isEmpty() || DateStart.isEmpty()) {
                 showMessageDialog(null, "Không được để trống thông tin nhân viên!");
             } else {
-                staffListener.Update(ID_Choose, this.ID_NVQL_Extends, ID, Pass, Name, DOB, PhoneNumber, Gender, Address, NamePhoto, DateStart, DateEnd);
+                if (LocalTime.checkDate_ddMMyyyy(DateStart)) {
+                    if (LocalTime.checkDate_ddMMyyyy(DOB)) {
+                        if (LocalTime.checkPhone(PhoneNumber)) {
+                            staffListener.Update(ID_Choose, this.ID_NVQL_Extends, ID, Pass, Name, LocalTime.ChangeTypeDate_yMd(DOB), PhoneNumber,
+                                    Gender, Address, NamePhoto, LocalTime.ChangeTypeDate_yMd(DateStart), DateEnd);
+                            showListStaff(1);
+                            Resest();
+                        } else {
+//                            JOptionPane.showMessageDialog(null, "Số điện thoại không đúng, vui lòng nhập lại");
+                            jtxtPhoneNumber.setBackground(new Color(255, 190, 185));
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ngày sinh không đúng, vui lòng nhập lại");
+                        jtxtDateOfBirth.setBackground(new Color(255, 190, 185));
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ngày vào làm không đúng, vui lòng nhập lại");
+                    jtxtDateStart.setBackground(new Color(255, 190, 185));
+                }
             }
         }
 
@@ -211,6 +248,10 @@ public class StaffManager extends javax.swing.JFrame {
         jtxtDateEnd.setText("");
         jtxtPhoto.setText("");
         jlbImage.setIcon(ResizeImage(url + "default.png"));
+        jtxtDateStart.setBackground(Color.white);
+        jtxtPhoneNumber.setBackground(Color.white);
+        jtxtDateOfBirth.setBackground(Color.white);
+
     }
 
     public ImageIcon ResizeImage(String ImagePath) {
@@ -291,15 +332,7 @@ public class StaffManager extends javax.swing.JFrame {
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(840, 650));
         setSize(new java.awt.Dimension(840, 650));
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                formComponentShown(evt);
-            }
-        });
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -619,14 +652,6 @@ public class StaffManager extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-
-    }//GEN-LAST:event_formWindowActivated
-
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-
-    }//GEN-LAST:event_formComponentShown
-
     private void jbtResestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtResestMouseClicked
         Resest();
         showListStaff(1);
@@ -639,7 +664,7 @@ public class StaffManager extends javax.swing.JFrame {
 
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
         Update();
-        showListStaff(1);
+
     }//GEN-LAST:event_jbtUpdateMouseClicked
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked

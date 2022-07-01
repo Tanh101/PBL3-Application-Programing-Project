@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Charity;
 import model.Extracurriclar;
+import model.LocalTime;
 
 /**
  *
@@ -47,9 +48,9 @@ public class CharityActivityManager extends javax.swing.JFrame {
         jtbCharityActi.getColumnModel().getColumn(1).setPreferredWidth(250);
         jtbCharityActi.getColumnModel().getColumn(2).setPreferredWidth(250);
         jtbCharityActi.getColumnModel().getColumn(3).setPreferredWidth(130);
+//        jtbCharityActi.getColumnModel().getColumn(4).setPreferredWidth(130);
         jtbCharityActi.getColumnModel().getColumn(4).setPreferredWidth(130);
         jtbCharityActi.getColumnModel().getColumn(5).setPreferredWidth(130);
-        jtbCharityActi.getColumnModel().getColumn(6).setPreferredWidth(130);
         jtbCharityActi.getTableHeader().setFont(new Font("Times New Roman", Font.BOLD, 17));
         ((DefaultTableCellRenderer) jtbCharityActi.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
@@ -82,8 +83,12 @@ public class CharityActivityManager extends javax.swing.JFrame {
         jtxtNameOrgani.setText(ch.getNameOrganization());
         jtxtNameActi.setText(ch.getNameCharity());
         jtxtSuport.setText(ch.getArtifacts());
-        jtxtDateEnter.setText(ch.getDateStart());
-        jtxtDateQuit.setText(ch.getDateEnd());
+        jtxtDateEnter.setText(LocalTime.ChangeTypeDate_dMy(ch.getDateStart()));
+        if (ch.getDateEnd().compareTo("") == 0) {
+            jtxtDateQuit.setText("");
+        } else {
+            jtxtDateQuit.setText(LocalTime.ChangeTypeDate_dMy(ch.getDateEnd()));
+        }
 
     }
 
@@ -94,8 +99,8 @@ public class CharityActivityManager extends javax.swing.JFrame {
         for (int i = 0; i < list.size(); i++) {
             model.addRow(new Object[]{
                 list.get(i).getID(), list.get(i).getNameOrganization(), list.get(i).getNameCharity(),
-                list.get(i).getArtifacts(), list.get(i).getIDNVQL(),
-                list.get(i).getDateStart(), list.get(i).getDateEnd()
+                list.get(i).getArtifacts(), 
+                LocalTime.ChangeTypeDate_dMy(list.get(i).getDateStart()), LocalTime.ChangeTypeDate_dMy(list.get(i).getDateEnd())
             });
         }
         jtbCharityActi.setModel(model);
@@ -114,17 +119,16 @@ public class CharityActivityManager extends javax.swing.JFrame {
         String tmp = list.get(list.size() - 1).getID();
         String[] arr = tmp.split("HDTT", 2);
         String ID = "HDTT";
-        if(arr[1].length() == 3 && String.valueOf(Integer.parseInt(arr[1]) + 1).length() == 1){
+        if (arr[1].length() == 3 && String.valueOf(Integer.parseInt(arr[1]) + 1).length() == 1) {
             ID += "00";
-        }else{
+        } else {
             ID += "0";
         }
         int tmp2 = Integer.parseInt(arr[1]) + 1;
         ID += String.valueOf(tmp2);
 
-        long millis = System.currentTimeMillis();
-        Date date = new Date(millis);
-        String DateStart = date.toString();
+
+        String DateStart = LocalTime.getDateNow();
 
         if (ID.isEmpty() || jtxtNameOrgani.getText().isEmpty() || jtxtNameActi.getText().isEmpty() || IDNVQL.isEmpty()
                 || jtxtSuport.getText().isEmpty() || DateStart.isEmpty()) {
@@ -158,10 +162,12 @@ public class CharityActivityManager extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn hoạt động muốn cập nhật!");
         } else {
             String ID_Choose = (String) jtbCharityActi.getModel().getValueAt(k, 0);
-            String DateStart = jtxtDateEnter.getText();
+            String DateStart = LocalTime.ChangeTypeDate_yMd(jtxtDateEnter.getText());
             String DateEnd = jtxtDateQuit.getText();
             if (DateEnd.compareTo("") == 0) {
                 DateEnd = null;
+            }else{
+                DateEnd = LocalTime.ChangeTypeDate_yMd(DateEnd);
             }
             if (jtxtNameOrgani.getText().isEmpty() || jtxtNameActi.getText().isEmpty() || IDNVQL.isEmpty()
                     || jtxtSuport.getText().isEmpty() || DateStart.isEmpty()) {
@@ -274,21 +280,21 @@ public class CharityActivityManager extends javax.swing.JFrame {
         jtbCharityActi.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jtbCharityActi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Hoạt Động", "Tên Tổ Chức", "Tên Hoạt Động", "Tiền/Hiện Vật Ủng Hộ", "ID_NVQL", "Thời Gian Bắt Đầu", "Thời Gian Kết Thúc"
+                "Mã Hoạt Động", "Tên Tổ Chức", "Tên Hoạt Động", "Tiền/Hiện Vật Ủng Hộ", "Thời Gian Bắt Đầu", "Thời Gian Kết Thúc"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

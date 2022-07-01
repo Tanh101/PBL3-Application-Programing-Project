@@ -361,9 +361,8 @@ public class EquipmentManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtGoodStateMouseClicked
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
-        long millis = System.currentTimeMillis();
-        Date date = new Date(millis);
-        addEquip.getJtxtDateEnter().setText(date.toString());
+
+        addEquip.getJtxtDateEnter().setText(LocalTime.ChangeTypeDate_dMy(LocalTime.getDateNow()));
         addEquip.getJtxtNumBad().setText("0");
         addEquip.getJtxtDateEnter().setEnabled(false);
         addEquip.getJtxtDateQuit().setEnabled(false);

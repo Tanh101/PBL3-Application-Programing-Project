@@ -16,12 +16,14 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Adopted;
 import model.Children;
 import model.IntroduceChildren;
+import model.LocalTime;
 import view.viewStaffManager.*;
 
 /**
@@ -63,6 +65,8 @@ public class ChildrenAdopted extends javax.swing.JFrame {
         jtxtDateAdopt.setText("");
         jradioFemale.setSelected(false);
         jradioFemale.setSelected(false);
+        jtxtDOB.setBackground(Color.white);
+        jtxtDateAdopt.setBackground(Color.white);
 
     }
 
@@ -87,7 +91,7 @@ public class ChildrenAdopted extends javax.swing.JFrame {
         list = childrenListener.showAdopted(2, ID_Choose);
         Adopted ic = list.get(0);
         jtxtName.setText(ic.getName());
-        jtxtDOB.setText(ic.getDOB());
+        jtxtDOB.setText(LocalTime.ChangeTypeDate_dMy(ic.getDOB()));
         jtxtAddress.setText(ic.getAddress());
         if (ic.getGender().compareTo("Nam") == 0) {
             jradioMale.setSelected(true);
@@ -96,7 +100,7 @@ public class ChildrenAdopted extends javax.swing.JFrame {
         }
         jtxtNameImg.setText(ic.getImg());
         jlbImage.setIcon(ResizeImage(url + ic.getImg()));
-        jtxtDateAdopt.setText(ic.getDateAdopt());
+        jtxtDateAdopt.setText(LocalTime.ChangeTypeDate_dMy(ic.getDateAdopt()));
     }
 
     public void showSupport(ArrayList<Adopted> list) {
@@ -104,15 +108,15 @@ public class ChildrenAdopted extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < list.size(); i++) {
             model.addRow(new Object[]{
-                list.get(i).getID_TRE(), list.get(i).getName(), list.get(i).getDOB(), list.get(i).getAddress(),
-                list.get(i).getGender(), list.get(i).getState(), list.get(i).getDateAdopt()
+                list.get(i).getID_TRE(), list.get(i).getName(), LocalTime.ChangeTypeDate_dMy(list.get(i).getDOB()), list.get(i).getAddress(),
+                list.get(i).getGender(), list.get(i).getState(), LocalTime.ChangeTypeDate_dMy(list.get(i).getDateAdopt())
             });
         }
         jtbChildrenAdopter.setModel(model);
     }
 
     public void ShowChild(int i, String ID) {
-        ArrayList<Adopted> list = new ArrayList<>();
+        ArrayList<Adopted> list = new ArrayList<Adopted>();
         list = childrenListener.showAdopted(i, ID);
         showSupport(list);
     }
@@ -140,6 +144,7 @@ public class ChildrenAdopted extends javax.swing.JFrame {
             String ID_Choose = (String) jtbChildrenAdopter.getModel().getValueAt(k, 0);
             String Name = jtxtName.getText();
             String DOB = jtxtDOB.getText();
+            DOB = LocalTime.ChangeTypeDate_yMd(DOB);
             String Address = jtxtAddress.getText();
             String Gender;
             if (jradioMale.isSelected()) {
@@ -149,11 +154,23 @@ public class ChildrenAdopted extends javax.swing.JFrame {
             }
             String Img = jtxtNameImg.getText();
             String DateAdopt = jtxtDateAdopt.getText();
+            DateAdopt = LocalTime.ChangeTypeDate_yMd(DateAdopt);
             String img = jtxtNameImg.getText();
             if (Name.isEmpty() || DOB.isEmpty() || Gender.isEmpty() || Img.isEmpty() || DateAdopt.isEmpty()) {
                 showMessageDialog(null, "Vui lòng điền đầy đủ thông tin của trẻ");
             } else {
-                childrenListener.UpdateAdopted(ID_Choose, Name, DOB, Address, Gender, DateAdopt, img);
+                if (LocalTime.checkDate_yyyyMMdd(DOB)) {
+                    if (LocalTime.checkDate_yyyyMMdd(DateAdopt)) {
+                        childrenListener.UpdateAdopted(ID_Choose, Name, DOB, Address, Gender, DateAdopt, img);
+                        ShowChild(3, ID);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ngày nhận nuôi không hợp lệ");
+                        jtxtDateAdopt.setBackground(new Color(255, 172, 164));
+                    }
+                } else {
+                    jtxtDOB.setBackground(new Color(255, 172, 164));
+                    JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ");
+                }
             }
         }
 
@@ -403,6 +420,7 @@ public class ChildrenAdopted extends javax.swing.JFrame {
 
     private void jtbRestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbRestMouseClicked
         this.setVisible(false);
+//        new AdopterManager().setVisible(true);
     }//GEN-LAST:event_jtbRestMouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -423,12 +441,11 @@ public class ChildrenAdopted extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbtDel1MouseClicked
 
     private void jtbShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbShowMouseClicked
-        ShowChild(3, ID);
+        ShowChild(1, ID);
     }//GEN-LAST:event_jtbShowMouseClicked
 
     private void jbtUpdate1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdate1MouseClicked
         Update();
-        ShowChild(3, ID);
 
     }//GEN-LAST:event_jbtUpdate1MouseClicked
 

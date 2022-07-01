@@ -261,8 +261,15 @@ public class Adopt extends javax.swing.JFrame {
         } else {
             if (!LocalTime.checkDate_yyyyMMdd(adop.getDOB())) {
                 JOptionPane.showMessageDialog(null, "Sai định dạng ngày sinh (dd-mm-yyyy), vui lòng kiểm tra lại");
-                jtxtDOB.setBackground(Color.red);
+                jtxtDOB.setBackground(new Color(255, 190, 185));
+            } else if (!LocalTime.checkPhone(adop.getPhoneNumber())) {
+                jtxtPhone.setBackground(new Color(255, 190, 185));
+            } else if (adop.getCCCD().length() != 12) {
+                JOptionPane.showMessageDialog(null, "Số CCCD không hợp lệ");
+                jtxtCCCD.setBackground(new Color(255, 190, 185));
             } else {
+                jtxtCCCD.setBackground(Color.white);
+                jtxtPhone.setBackground(Color.white);
                 ArrayList<Adopter> list = adopterListener.FindAdop(1, jtxtCCCD.getText());
                 if (list.size() > 0) {
                     adopterListener.AdoptChild(adop, ID_TRE, ID_NVQL, DateAdopt);
@@ -271,6 +278,7 @@ public class Adopt extends javax.swing.JFrame {
                     jtxtDOB.setBackground(Color.white);
                 }
                 this.setVisible(false);
+
             }
         }
     }//GEN-LAST:event_jbtAddActionPerformed

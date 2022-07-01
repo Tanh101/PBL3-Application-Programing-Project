@@ -83,7 +83,7 @@ public class ChildrenManager extends javax.swing.JFrame {
         list = childrenListener.FindChild(1, ID_Choose);
         Children s = list.get(0);
         jtxtName.setText(s.getName());
-        jtxtDOB.setText(s.getDateOfBirth());
+        jtxtDOB.setText(LocalTime.ChangeTypeDate_dMy(s.getDateOfBirth()));
         jtxtAddress.setText(s.getAddress());
         if (s.getGender().compareTo("Nam") == 0) {
             jradioMale.setSelected(true);
@@ -93,8 +93,8 @@ public class ChildrenManager extends javax.swing.JFrame {
         jtxtPath.setText(s.getUrlPath());
         jlbImage.setIcon(ResizeImage(url + s.getUrlPath()));
         jtxtSituation.setText(s.getSituation());
-        jtxtDateEnter.setText(s.getDateEnter());
-        jtxtDateQuit.setText(s.getDateQuit());
+        jtxtDateEnter.setText(LocalTime.ChangeTypeDate_dMy(s.getDateEnter()));
+        jtxtDateQuit.setText(LocalTime.ChangeTypeDate_dMy(s.getDateQuit()));
     }
 
     public void showSupport(ArrayList<Children> list) {
@@ -102,8 +102,9 @@ public class ChildrenManager extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < list.size(); i++) {
             model.addRow(new Object[]{
-                list.get(i).getID_TRE(), list.get(i).getName(), list.get(i).getDateOfBirth(), list.get(i).getAddress(),
-                list.get(i).getGender(), list.get(i).getSituation(), list.get(i).getDateEnter(), list.get(i).getDateQuit()
+                list.get(i).getID_TRE(), list.get(i).getName(), LocalTime.ChangeTypeDate_dMy(list.get(i).getDateOfBirth()),
+                list.get(i).getAddress(), list.get(i).getGender(), list.get(i).getSituation(),
+                LocalTime.ChangeTypeDate_dMy(list.get(i).getDateEnter()), LocalTime.ChangeTypeDate_dMy(list.get(i).getDateQuit())
             });
         }
         jtbChildren.setModel(model);
@@ -121,11 +122,6 @@ public class ChildrenManager extends javax.swing.JFrame {
         showSupport(list);
     }
 
-//    public void FindName(String Name) {
-//        ArrayList<Children> list = new ArrayList<>();
-//        list = childrenListener.FindName(Name);
-//        showSupport(list);
-//    }
     public void Add() {
         ArrayList<Children> list = new ArrayList<>();
         list = childrenListener.getListChildren(childrenListener.proShowChild(1));
@@ -141,8 +137,6 @@ public class ChildrenManager extends javax.swing.JFrame {
         int tmp2 = Integer.parseInt(arr[1]) + 1;
         ID += String.valueOf(tmp2);
 
-        long millis = System.currentTimeMillis();
-        Date date = new Date(millis);
         String Name = jtxtName.getText();
         String DOB = jtxtDOB.getText();
         String Address = jtxtAddress.getText();
@@ -153,7 +147,7 @@ public class ChildrenManager extends javax.swing.JFrame {
             Gender = "Nữ";
         }
         String Situation = jtxtSituation.getText();
-        String DateEnter = date.toString();
+        String DateEnter = LocalTime.getDateNow();
         String DateQuit = jtxtDateQuit.getText();
         if (DateQuit.compareTo("") == 0) {
             DateQuit = null;
@@ -166,8 +160,24 @@ public class ChildrenManager extends javax.swing.JFrame {
                 || Gender.isEmpty() || DateEnter.isEmpty()) {
             showMessageDialog(null, "Không được để trống thông tin nhân viên!");
         } else {
-            childrenListener.Insert(ID, Name, DOB, Address, Gender, NamePhoto, "1", Situation, ID_NVQL, DateEnter, DateQuit);
-            showMessageDialog(null, "Thêm trẻ " + ID + " thành công");
+            if (LocalTime.checkDate_ddMMyyyy(DateEnter)) {
+                DateEnter = LocalTime.ChangeTypeDate_yMd(DateEnter);
+                if (LocalTime.checkDate_ddMMyyyy(DOB)) {
+                    DOB = LocalTime.ChangeTypeDate_yMd(DOB);
+                    childrenListener.Insert(ID, Name, DOB, Address, Gender, NamePhoto, "1", Situation, ID_NVQL, DateEnter, DateQuit);
+                    showMessageDialog(null, "Thêm trẻ " + ID + " thành công");
+                    ShowChild(1);
+                    Reset();
+                    Statistic();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ngày sinh không đúng, vui lòng nhập lại");
+                    jtxtDOB.setBackground(new Color(255, 190, 185));
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ngày vào trung tâm không đúng, vui lòng nhập lại");
+                jtxtDateEnter.setBackground(new Color(255, 190, 185));
+            }
+
         }
 
     }
@@ -202,8 +212,22 @@ public class ChildrenManager extends javax.swing.JFrame {
                 showMessageDialog(null, "Không được để trống thông tin nhân viên!");
 
             } else {
-                childrenListener.Update(ID_Choose, Name, DOB, Address, Gender, NamePhoto, Situation, ID_NVQL, DateEnter, DateQuit);
-                showMessageDialog(null, "Cập nhật trẻ " + ID_Choose + " thành công");
+                if (LocalTime.checkDate_ddMMyyyy(DateEnter)) {
+                    DateEnter = LocalTime.ChangeTypeDate_yMd(DateEnter);
+                    if (LocalTime.checkDate_ddMMyyyy(DOB)) {
+                        DOB = LocalTime.ChangeTypeDate_yMd(DOB);
+                        childrenListener.Update(ID_Choose, Name, DOB, Address, Gender, NamePhoto, Situation, ID_NVQL, DateEnter, DateQuit);
+                        showMessageDialog(null, "Cập nhật trẻ " + ID_Choose + " thành công");
+                        ShowChild(1);
+                        Reset();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ngày sinh không đúng, vui lòng nhập lại");
+                        jtxtDOB.setBackground(new Color(255, 190, 185));
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ngày vào trung tâm không đúng, vui lòng nhập lại");
+                    jtxtDateEnter.setBackground(new Color(255, 190, 185));
+                }
             }
         }
 
@@ -223,6 +247,8 @@ public class ChildrenManager extends javax.swing.JFrame {
         jlbImage.setIcon(ResizeImage(url + "default.png"));
         jbtAdopt.setText("Nhận Nuôi");
         adopt.getJbtAdd().setVisible(true);
+        jtxtDateEnter.setBackground(Color.white);
+        jtxtDOB.setBackground(Color.white);
     }
 
     public void Delete() {
@@ -729,9 +755,7 @@ public class ChildrenManager extends javax.swing.JFrame {
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
         Add();
-        ShowChild(1);
-        Reset();
-        Statistic();
+
     }//GEN-LAST:event_jbtAddMouseClicked
 
     private void jbtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtFindMouseClicked
@@ -758,8 +782,7 @@ public class ChildrenManager extends javax.swing.JFrame {
 
     private void jbtUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtUpdateMouseClicked
         Update();
-        ShowChild(1);
-        Reset();
+
     }//GEN-LAST:event_jbtUpdateMouseClicked
 
     private void jtbChildrenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbChildrenMouseClicked
