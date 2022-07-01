@@ -276,6 +276,7 @@ public class Up_DownNotificationToMainPage extends javax.swing.JFrame {
         insert();
         this.dispose();
         JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+        new NotificationToMainPage().setVisible(true);
     }//GEN-LAST:event_jbtSendActionPerformed
 
     private void jbtSendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtSendMouseClicked
@@ -290,6 +291,7 @@ public class Up_DownNotificationToMainPage extends javax.swing.JFrame {
         update();
         this.dispose();
         JOptionPane.showMessageDialog(rootPane, "Thông tin đã được thay đổi");
+        new NotificationToMainPage().setVisible(true);
     }//GEN-LAST:event_jbtEditActionPerformed
 
     private void jtxtHeaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtHeaderActionPerformed

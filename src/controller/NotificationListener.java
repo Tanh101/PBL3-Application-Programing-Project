@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import model.Model_message;
-import model.Model_message;
+
 
 /**
  *
@@ -22,7 +22,7 @@ public class NotificationListener extends ConnectDatabase {
         String ID = null;
 
         try {
-            String a = "SELECT * from THONGBAO";
+            String a = "SELECT * from THONGBAO  ";
             PreparedStatement b = conn.prepareStatement(a);
             ResultSet c = b.executeQuery();
             while ((c.next())) {
@@ -51,7 +51,7 @@ public class NotificationListener extends ConnectDatabase {
             ResultSet rs = pre.executeQuery();
             JOptionPane.showMessageDialog(null, "Thêm thông báo thành công");
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
     }
         public void Add_2_ID(String ID_NVQL,String ID_MESSAGE) {
@@ -89,7 +89,7 @@ public class NotificationListener extends ConnectDatabase {
 
         try {
             String sql = "INSERT INTO dbo.THONGBAO  VALUES (? ,?, ?, ?)";
-
+            
             PreparedStatement pre = conn.prepareStatement(sql);
             //pre.setString(1, "TB002");
             pre.setString(1, ID_FINAL);
@@ -106,7 +106,7 @@ public class NotificationListener extends ConnectDatabase {
         Vector<Model_message> list = new Vector();
 
         try {
-            String sql = "SELECT * from THONGBAO ";
+            String sql = "SELECT * from THONGBAO as TB, CHITIETTHONGBAO as CT where TB.MaThongBao = CT.MaThongBao ";
             PreparedStatement pre = conn.prepareStatement(sql);
 
             ResultSet rs = pre.executeQuery();
@@ -116,6 +116,8 @@ public class NotificationListener extends ConnectDatabase {
                 m.setHeader(rs.getString(2));
                 m.setContent(rs.getString(3));
                 m.setVi_tri(rs.getString(4));
+                String[] a =rs.getString(7).split(" ");
+                m.setDate(a[0] );
                 list.add(m);
 
             }
@@ -129,7 +131,7 @@ public class NotificationListener extends ConnectDatabase {
         Vector<Model_message> list = new Vector();
 
         try {
-            String sql = "SELECT * from THONGBAO where [vitri] ='1' or vitri = '2' ";
+            String sql = "SELECT * from THONGBAO as TB, CHITIETTHONGBAO as CT where TB.MaThongBao = CT.MaThongBao and ([vitri] ='1' or vitri = '2')";
             PreparedStatement pre = conn.prepareStatement(sql);
 
             ResultSet rs = pre.executeQuery();
@@ -139,6 +141,8 @@ public class NotificationListener extends ConnectDatabase {
                 m.setHeader(rs.getString(2));
                 m.setContent(rs.getString(3));
                 m.setVi_tri(rs.getString(4));
+                String[] a =rs.getString(7).split(" ");
+                m.setDate(a[0] );
                 list.add(m);
 
             }
@@ -152,7 +156,7 @@ public class NotificationListener extends ConnectDatabase {
         Vector<Model_message> list = new Vector();
 
         try {
-            String sql = "SELECT * from THONGBAO where [vitri] =?";
+            String sql = "SELECT * from THONGBAO as TB, CHITIETTHONGBAO as CT where TB.MaThongBao = CT.MaThongBao and [vitri] =?";
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, vi_tri);
             ResultSet rs = pre.executeQuery();
@@ -162,10 +166,13 @@ public class NotificationListener extends ConnectDatabase {
                 m.setHeader(rs.getString(2));
                 m.setContent(rs.getString(3));
                 m.setVi_tri(rs.getString(4));
+                String[] a =rs.getString(7).split(" ");
+                m.setDate(a[0] );                
                 list.add(m);
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return list;
     }
@@ -173,7 +180,7 @@ public class NotificationListener extends ConnectDatabase {
     public Vector<Model_message> FindID(String ID) {
         Vector<Model_message> list = new Vector<>();
         try {
-            String sql = "SELECT * from THONGBAO WHERE MaThongBao =? ";
+            String sql = "SELECT * from THONGBAO as TB, CHITIETTHONGBAO as CT where TB.MaThongBao = CT.MaThongBao and  TB.MaThongBao =? ";
 
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, ID);
@@ -199,7 +206,7 @@ public class NotificationListener extends ConnectDatabase {
     public Vector<Model_message> Find(String name, String vi_tri) {
         Vector<Model_message> list = new Vector<>();
         try {
-            String sql = "SELECT * from THONGBAO WHERE TenThongBao =? and [vitri] = ?";
+            String sql = "SELECT * from THONGBAO as TB, CHITIETTHONGBAO as CT where TB.MaThongBao = CT.MaThongBao and  TenThongBao =? and [vitri] = ?";
 
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, name);
@@ -226,7 +233,7 @@ public class NotificationListener extends ConnectDatabase {
     public Vector<Model_message> Finda(String name, String vi_tri) {
         Vector<Model_message> list = new Vector<>();
         try {
-            String sql = "SELECT * from THONGBAO WHERE TenThongBao like ? and [vitri] = ?";
+            String sql = "SELECT * from THONGBAO as TB, CHITIETTHONGBAO as CT where TB.MaThongBao = CT.MaThongBao and  TenThongBao like ? and [vitri] = ?";
 
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, name);
@@ -254,7 +261,7 @@ public class NotificationListener extends ConnectDatabase {
         
         Model_message m = new Model_message();
         try {
-            String sql = "SELECT * from THONGBAO WHERE [vitri] = '1'  ";
+            String sql = "SELECT * from THONGBAO as TB, CHITIETTHONGBAO as CT where TB.MaThongBao = CT.MaThongBao and  [vitri] = '1'  ";
             PreparedStatement pre = conn.prepareStatement(sql);        
             ResultSet rs = pre.executeQuery();
             for(int i = 0 ;i <= a ; i++) {
@@ -273,7 +280,7 @@ public class NotificationListener extends ConnectDatabase {
     public Vector<Model_message> Finda(String name) {
         Vector<Model_message> list = new Vector<>();
         try {
-            String sql = "SELECT * from THONGBAO WHERE TenThongBao like ? and [vitri] = '1' or vitri = '2' ";
+            String sql = "SELECT * from THONGBAO as TB, CHITIETTHONGBAO as CT where TB.MaThongBao = CT.MaThongBao and  TenThongBao like ? and [vitri] = '1' or vitri = '2' ";
 
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, name);
@@ -320,6 +327,7 @@ public class NotificationListener extends ConnectDatabase {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, ID_choose);
             pre.executeUpdate();
+            System.out.println("controller.NotificationListener.Delete()");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -13,6 +13,18 @@ public class Model_message {
     String header;
     String content;
     String vi_tri;
+    String Date;
+     
+     
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String Date) {
+        this.Date = Date;
+    }
+   
+    
 
     public void setID_model(String ID_model) {
         this.ID_model = ID_model;

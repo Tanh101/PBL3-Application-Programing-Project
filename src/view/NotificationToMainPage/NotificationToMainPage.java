@@ -62,7 +62,7 @@ public class NotificationToMainPage extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < vec.size(); i++) {
             model.addRow(new Object[]{
-                vec.get(i).getID_model(), vec.get(i).getHeader(), vec.get(i).getContent()
+                vec.get(i).getID_model(), vec.get(i).getHeader(), vec.get(i).getContent(),  vec.get(i).getDate()
             });
         }
         jtbStaff.setModel(model);
@@ -74,9 +74,11 @@ public class NotificationToMainPage extends javax.swing.JFrame {
         model.setRowCount(0);
         for (int i = 0; i < vec.size(); i++) {
             model.addRow(new Object[]{
-                vec.get(i).getID_model(), vec.get(i).getHeader(), vec.get(i).getContent()
+                vec.get(i).getID_model(), vec.get(i).getHeader(), vec.get(i).getContent(), vec.get(i).getDate()
             });
+//              System.out.println(vec.get(i).getDate());
         }
+      
         jtbStaff.setModel(model);
     }
 
@@ -161,20 +163,20 @@ public class NotificationToMainPage extends javax.swing.JFrame {
         jtbStaff.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtbStaff.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mã Thông Báo ", "Tiêu Đề", "Nội dung"
+                "Mã Thông Báo ", "Tiêu Đề", "Nội dung", "Ngày Thông Báo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -339,7 +341,7 @@ public class NotificationToMainPage extends javax.swing.JFrame {
             model.setRowCount(0);
             for (int i = 0; i < vec.size(); i++) {
                 model.addRow(new Object[]{
-                    vec.get(i).getID_model(), vec.get(i).getHeader(), vec.get(i).getContent()
+                    vec.get(i).getID_model(), vec.get(i).getHeader(), vec.get(i).getContent(), vec.get(i).getDate()
                 });
             }
             jtbStaff.setModel(model);
